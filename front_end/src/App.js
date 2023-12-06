@@ -28,7 +28,12 @@ const App = () => {
   };
 
   const handleDeleteHike = (id) => {
-    setHikes(hikes.filter((hike) => hike.id !== id));
+    // Display a confirmation dialog
+    const isConfirmed = window.confirm("Are you sure you want to delete this hike?");
+    
+    if (isConfirmed) {
+      setHikes(hikes.filter((hike) => hike.id !== id));
+    }
   };
 
   const handleEditClick = (hike) => {
