@@ -1,20 +1,35 @@
 // HikeForm.js
 import React, { useState, useEffect } from 'react';
+import Papa from 'papaparse';
 
 const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   const [name, setName] = useState('');
   const [location, setLocation] = useState('');
   const [date, setDate] = useState('');
   const [notes, setNotes] = useState('');
+  const [locations, setLocations] = useState([]);
 
   useEffect(() => {
-    if (selectedHike) {
-      setName(selectedHike.name);
-      setLocation(selectedHike.location);
-      setDate(selectedHike.date);
-      setNotes(selectedHike.notes);
-    }
-  }, [selectedHike]);
+    // Fetch and parse the CSV file
+    const fetchData = async () => {
+      try {
+        const response = await fetch('databases/park_locations/MO_State_Park_and_Historic_Sites_Trails.csv'); // Path to csv in fatuazc branch
+        const csvData = await response.text();
+
+        Papa.parse(csvData, {
+          header: true,
+          dynamicTyping: true,
+          complete: (result) => {
+            setLocations(result.data);
+          },
+        });
+      } catch (error) {
+        console.error('Error fetching or parsing CSV:', error);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array to fetch locations only once on component mount
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,7 +56,15 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
       </label>
       <label>
         Location:
-        <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} required />
+        {/* Use a dropdown select element */}
+        <select value={location} onChange={(e) => setLocation(e.target.value)} required>
+          <option value="" disabled>Select a location</option>
+          {locations.map((loc) => (
+            <option key={loc.ID} value={loc.LOC_NAME}>
+              {loc.LOC_NAME}
+            </option>
+          ))}
+        </select>
       </label>
       <label>
         Date:
