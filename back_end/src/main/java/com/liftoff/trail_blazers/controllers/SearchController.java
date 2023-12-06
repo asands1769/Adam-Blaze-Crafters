@@ -1,4 +1,4 @@
 package com.liftoff.trail_blazers.controllers;
 
-public class ParkFinderController {
+public class SearchController {
 }
