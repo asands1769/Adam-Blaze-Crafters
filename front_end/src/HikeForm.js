@@ -1,6 +1,5 @@
 // HikeForm.js
 import React, { useState, useEffect } from 'react';
-import './historystyles.css';
 
 const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   const [name, setName] = useState('');
@@ -35,24 +34,24 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>{selectedHike ? 'Edit Hike' : 'Add Hike'}</h2>
+      <h2>{selectedHike ? 'Edit Hike' : 'Add Trip'}</h2>
       <label>
-        Trail Name:
+        Name:
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
       </label>
       <label>
-        Trail Location:
+        Location:
         <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} required />
       </label>
       <label>
-        Date of Hike:
+        Date:
         <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
       </label>
       <label>
         Notes:
         <textarea value={notes} onChange={(e) => setNotes(e.target.value)} />
       </label>
-      <button type="submit">{selectedHike ? 'Update Hike' : 'Add Hike'}</button>
+      <button type="submit">{selectedHike ? 'Update Hike' : 'Add Trip'}</button>
     </form>
   );
 };
