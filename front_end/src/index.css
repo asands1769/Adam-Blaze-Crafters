@@ -11,16 +11,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-/* Refactor CSS to best practice */
-.missouri-map{
-  width: 400px;
-  height: 400px;
-  background-color: green;
-}
-
-.map-container {
-  margin: auto;
-  width: 400px;
-  height: 400px;
-}

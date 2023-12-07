@@ -1,0 +1,16 @@
+.row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.missouri-map{
+    width: 400px;
+    height: 400px;
+    background-color: green;
+  }
+  
+  .map-container {
+    margin: auto;
+    width: 400px;
+    height: 400px;
+  }
