@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 import java.util.Objects;
 
 @Entity
-public class Parks {
+public class ParkGeocode {
 
     @Id
     private int id;
@@ -15,7 +15,7 @@ public class Parks {
     private double lat;
     private String park_type;
 
-    public Parks(){}
+    public ParkGeocode(){}
 
     public int getId() {
         return id;
@@ -40,8 +40,8 @@ public class Parks {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Parks parks)) return false;
-        return id == parks.id && Double.compare(longitude, parks.longitude) == 0 && Double.compare(lat, parks.lat) == 0;
+        if (!(o instanceof ParkGeocode parkGeocode)) return false;
+        return id == parkGeocode.id && Double.compare(longitude, parkGeocode.longitude) == 0 && Double.compare(lat, parkGeocode.lat) == 0;
     }
 
     @Override
