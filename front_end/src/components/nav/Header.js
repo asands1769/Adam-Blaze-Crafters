@@ -6,7 +6,7 @@ export default function Header() {
             <nav>
                 <ul>
                     <li><a href='/'>Home</a></li>
-                    <li><a href='/parks'>Parks</a></li>
+                    <li><a href='/search'>Search</a></li>
                     <li><a href='/weather'>Weather</a></li>
                     <li><a href='/animals'>Animals</a></li>
                     <li><a href='/plants'>Plants</a></li>
