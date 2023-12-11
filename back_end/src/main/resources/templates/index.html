@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head>
+</head>
+<body>
+
+<div>
+    <h2>Local Fauna</h2>
+    <ul>
+        <li th:each="animal : ${fauna}">
+            <a th:text="${fauna.commonName}"></a>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
