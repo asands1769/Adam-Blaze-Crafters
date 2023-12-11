@@ -1,7 +1,7 @@
 // App.js
 import React, { useState, useEffect } from 'react';
-import HikeList from './HikeList';
-import HikeForm from './HikeForm';
+import HikeList from '../../HikeList';
+import HikeForm from '../../HikeForm';
 
 const App = () => {
   const [hikes, setHikes] = useState([]);
