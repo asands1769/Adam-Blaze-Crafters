@@ -14,3 +14,14 @@
     width: 400px;
     height: 400px;
   }
+
+  .sidebar-size {
+    width: 400px;
+    height: 60vh;
+    overflow-y: auto;
+  }
+
+  .park-list, .park-list a{
+    list-style: decimal;
+    text-decoration: none;
+  }
