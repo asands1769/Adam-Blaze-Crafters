@@ -10,8 +10,8 @@ const SidebarParks = () => {
   const [data, setData] = useState([]);
   const urlParkLocations = "http://localhost:8080/parks";
 
-  const fetchInfo = () => {
-    fetch(urlParkLocations)
+  const fetchInfo = async () => {
+    await fetch(urlParkLocations)
       .then((res) => res.json())
       .then((d) => setData(d))
   }
