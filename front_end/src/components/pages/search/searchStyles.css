@@ -1,0 +1,27 @@
+.row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.missouri-map{
+    width: 400px;
+    height: 400px;
+    background-color: green;
+  }
+  
+  .map-container {
+    margin: auto;
+    width: 400px;
+    height: 400px;
+  }
+
+  .sidebar-size {
+    width: 400px;
+    height: 60vh;
+    overflow-y: auto;
+  }
+
+  .park-list, .park-list a{
+    list-style: decimal;
+    text-decoration: none;
+  }
