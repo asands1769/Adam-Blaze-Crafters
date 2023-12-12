@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class FaunaData {
 
+
     /**
      * Returns the results of searching Fauna data by field and search term.
      *
