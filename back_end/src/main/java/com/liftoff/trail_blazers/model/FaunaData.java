@@ -1,4 +1,6 @@
-package com.liftoff.trail_blazers.models;
+package com.liftoff.trail_blazers.model;
+
+import com.liftoff.trail_blazers.model.Fauna;
 
 import java.util.ArrayList;
 

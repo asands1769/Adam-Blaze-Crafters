@@ -1,7 +1,8 @@
-package com.liftoff.trail_blazers.models;
+package com.liftoff.trail_blazers.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.util.Objects;
@@ -10,7 +11,7 @@ import java.util.Objects;
 public class Fauna {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String scientificName;
     private String commonName;
