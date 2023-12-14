@@ -19,13 +19,7 @@ public class Fauna {
     private String family;
     private String status;
 
-    public Fauna(String scientificName, String commonName, String currentDistribution, String family, String status) {
-        this.scientificName = scientificName;
-        this.commonName = commonName;
-        this.currentDistribution = currentDistribution;
-        this.family = family;
-        this.status = status;
-    }
+    public Fauna (){}
 
     public int getId() {
         return id;
