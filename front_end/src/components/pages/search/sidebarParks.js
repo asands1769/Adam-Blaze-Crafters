@@ -6,10 +6,12 @@ import "./searchStyles.css";
 
 const SidebarParks = () => {
 
-
+  const [val, setVal] = useState(null);
   const [data, setData] = useState([]);
   const urlParkLocations = "http://localhost:8080/parks";
 
+
+  // Fetching trail_blazer database
   const fetchInfo = async () => {
     await fetch(urlParkLocations)
       .then((res) => res.json())
@@ -20,27 +22,44 @@ const SidebarParks = () => {
     fetchInfo();
   }, []);
 
-const nameArray = [];
-    for (let i = 0; i < data.length; i++) {
-      nameArray.push(data[i].name);
+  // Sorting database by name column
+  const sortedData = data.sort((a, b)=>{
+    if(a.name < b.name){
+      return -1;
     }
-  const sortedNames = nameArray.sort();
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  })
 
-  const listedNames = sortedNames.map((names) => 
-    <div><a href="/">{names}</a></div>
-  );
+  // displaying only name and url
+  const nameUrlItems = sortedData.map(d => 
+      <li key={d.id} className='park-list'>
+        <a href={d.url}>{d.name}</a>
+      </li>
+    )
+
+    // Adding an event to update state park list
+    const click = (event) =>{
+      event.preventDefault();
+      alert(val)
+    }
+    const change = event => {
+        setVal(event.target.value)
+    }
 
 
-
-    return (
+  return (
       <div>
         <div>
         <h2>Missouri State Parks</h2>
-        <form method="POST" action="">
-            <input type="text" placeholder="Enter City, Zip Code, Park or Trial Name"/>
+        <form>
+            <input className="search-parks" onChange={change} type="search" placeholder="Enter City, Zip Code, Park Name"/>
+            <button onClick = {click}>Find</button>
             </form>
         <div className='sidebar-size'>
-        {listedNames}
+        {nameUrlItems}
         </div>
         </div>
         </div>
