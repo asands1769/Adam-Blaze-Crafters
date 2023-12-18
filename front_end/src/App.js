@@ -8,11 +8,13 @@ import Animals from './components/pages/Animals.js';
 import Plants from './components/pages/Plants.js';
 import Weather from './components/pages/Weather.js';
 import About from './components/pages/About.js';
-
+import LoginButton from './components/LoginButton.js';
+import LogoutButton from './components/LogoutButton.js';
 
 
 function App() {
   return (
+    <main>
     <Router>
       <Header/>
       <Routes>
@@ -24,6 +26,9 @@ function App() {
         <Route path='/about' element={<About/>} />
       </Routes>
     </Router>
+    <LoginButton/>
+    <LogoutButton/>
+    </main>
   );
 }
 
