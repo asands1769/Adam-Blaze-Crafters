@@ -1,5 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 import Header from './components/nav/Header.js';
 import Home from './components/pages/Home.js'
@@ -15,6 +16,7 @@ import './components/auth/Auth.css';
 
 
 function App() {
+  const { isLoading, error } = useAuth0();
   return (
     <main>
     <Router>
@@ -28,8 +30,14 @@ function App() {
         <Route path='/about' element={<About/>} />
       </Routes>
     </Router>
-    <LoginButton/>
-    <LogoutButton/>
+    {error && <p>Authentication Error</p>}
+    {!error && isLoading && <p>Loading...</p>}
+    {!error && !isLoading && (
+      <>
+          <LoginButton/>
+          <LogoutButton/>
+      </>
+    )}
     </main>
   );
 }
