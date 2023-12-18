@@ -10,6 +10,7 @@ const SidebarParks = () => {
   const [data, setData] = useState([]);
   const urlParkLocations = "http://localhost:8080/parks";
 
+
   // Fetching trail_blazer database
   const fetchInfo = async () => {
     await fetch(urlParkLocations)
