@@ -8,8 +8,10 @@ import Animals from './components/pages/Animals.js';
 import Plants from './components/pages/Plants.js';
 import Weather from './components/pages/Weather.js';
 import About from './components/pages/About.js';
-import LoginButton from './components/LoginButton.js';
-import LogoutButton from './components/LogoutButton.js';
+import LoginButton from './components/auth/LoginButton.js';
+import LogoutButton from './components/auth/LogoutButton.js';
+import './components/nav/Header.css';
+import './components/auth/Auth.css';
 
 
 function App() {
@@ -18,7 +20,7 @@ function App() {
     <Router>
       <Header/>
       <Routes>
-        <Route exact path='/' exact element={<Home />} />
+        <Route exact path='/' element={<Home />} />
         <Route path='/Search' element={<Search/>} />
         <Route path='/weather' element={<Weather/>} />
         <Route path='/animals' element={<Animals/>} /> 

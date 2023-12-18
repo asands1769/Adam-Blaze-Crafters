@@ -1,10 +1,11 @@
 import React from "react";
+import './Header.css';
 
 export default function Header() {
     return (
         <header>
             <nav>
-                <ul>
+                <ul className="navbar">
                     <li><a href='/'>Home</a></li>
                     <li><a href='/search'>Search</a></li>
                     <li><a href='/weather'>Weather</a></li>
