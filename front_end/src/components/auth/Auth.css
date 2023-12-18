@@ -1,0 +1,34 @@
+.login-button {
+    padding: 10px;
+    background-color: #4CAF50; 
+    color: white; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    position: absolute;
+    top: 20px;
+    left: 1700px;
+  }
+
+  .login-button:hover {
+    background-color: #bbf3be;
+  }
+
+  .logout-button {
+    margin-left: auto; /* Push the button to the right side of its container */
+    padding: 10px;
+    background-color: #f44336; 
+    color: white; 
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    position: absolute;
+    top: 20px;
+    left: 1700px;
+  }
+
+  .logout-button:hover {
+    background-color: #fbb4b4;
+  }
