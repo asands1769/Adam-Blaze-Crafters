@@ -14,9 +14,9 @@ import LogoutButton from './components/auth/LogoutButton.js';
 import './components/nav/Header.css';
 import './components/auth/Auth.css';
 
-
 function App() {
-  const { isLoading, error } = useAuth0();
+  const { isLoading, error, isAuthenticated } = useAuth0();
+  
   return (
     <main>
     <Router>
@@ -24,10 +24,16 @@ function App() {
       <Routes>
         <Route exact path='/' element={<Home />} />
         <Route path='/Search' element={<Search/>} />
-        <Route path='/weather' element={<Weather/>} />
-        <Route path='/animals' element={<Animals/>} /> 
-        <Route path='/plants' element={<Plants/>} />
         <Route path='/about' element={<About/>} />
+        
+        {/* Show these pages only if the user is authenticated */}
+        {isAuthenticated && (
+          <>
+            <Route path='/weather' element={<Weather/>} />
+            <Route path='/animals' element={<Animals/>} /> 
+            <Route path='/plants' element={<Plants/>} />
+          </>
+        )}
       </Routes>
     </Router>
     {error && <p>Authentication Error</p>}
