@@ -1,7 +1,6 @@
 // import React, { useEffect, useState } from 'react';
 import "../../../index.css";
 import "./searchStyles.css";
-import SidebarParks from './sidebarParks';
 // import Mapbox from './Mapbox';
 import FilterMap from './FilterMap';
 

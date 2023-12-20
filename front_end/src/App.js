@@ -5,7 +5,7 @@ import Header from './components/nav/Header.js';
 import Home from './components/pages/Home.js'
 import Search from './components/pages/search/Search.js';
 import Animals from './components/pages/Animals.js';
-import Plants from './components/pages/Plants.js';
+import Plants from './components/pages/plants/Plants.js';
 import Weather from './components/pages/Weather.js';
 import About from './components/pages/About.js';
 
