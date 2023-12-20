@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import "../../../index.css";
 import "./plantsStyles.css";
@@ -75,10 +74,11 @@ const Home = () => {
           <div className='leftside-container'>
             <div className='save-container'>
               <select>
-                <option>Select a Trip</option>
+                <option>Select a trip to save the plants to</option>
                 <option value='post.id1'>Trip 1</option>
               </select>
               <button type='submit' className='save-btn'>Save</button>
+              <a className='create-trip' href="../Trip.js">Create a Trip</a>
             </div>
             <div className='search-container'>
             <div className='sidebar-size'>
@@ -89,7 +89,7 @@ const Home = () => {
                 <small>*List is not a comprehensive of all plants in Missouri</small>
               </div>
               <div className='small'>
-                <small>**Data provided by <a href='https://ecos.fws.gov/ecp0/reports/ad-hoc-species-report-input'>U.S Fish & Wildlife Service: ECOS</a></small>
+                <small>*Data provided by <a href='https://ecos.fws.gov/ecp0/reports/ad-hoc-species-report-input'>U.S Fish & Wildlife Service: ECOS</a></small>
               </div>
             </div>
           </div>

@@ -1,8 +1,8 @@
 .row {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    margin: 0 10px;
+    justify-content: space-around;
+    
 }
 .flex {
     display: flex;
@@ -18,9 +18,15 @@
   width: auto;
 }
 select{
-  width: 70%;
+  width: 50%;
   margin: 5px;
   padding: 2px;
+}
+
+.create-trip {
+  display: inline-block;
+  padding: 0 10px;
+  font-size: .85rem;
 }
 
 .search-container {
@@ -30,7 +36,7 @@ select{
 }
 
 .small{
-    background-color: gold;
+    padding: 0 5px;
 }
 
 .search-plants {
@@ -51,6 +57,7 @@ select{
 
   /* button layout */
   .btn-plants{
+    width: 90%;
     display: inline-block;
     text-align: left;
     border-radius: 5px;
