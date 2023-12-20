@@ -2,48 +2,59 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    margin: 0 10px 20px;
+    margin: 0 10px;
 }
 .flex {
     display: flex;
     justify-content: space-evenly;
 }
 
+.main-container {
+  height: 450px;
+  margin: 10px 50px 50px;
+}
+
+.save-container {
+  width: auto;
+}
+select{
+  width: 70%;
+  margin: 5px;
+  padding: 2px;
+}
+
 .search-container {
-    min-width: 325px;
-    max-width: 250px;
-    max-height: 350px;
-    margin-right: 10px;
-    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 30px;
 }
 
 .small{
-    margin-bottom: 5px;
+    background-color: gold;
 }
 
 .search-plants {
-    width: 96%;
+    width: 100%;
     padding: 5px;
     border-radius: 5px 5px 0 0;
 }
 
 .sidebar-size {
-    width: 100%;
-    height: 70%;
-    overflow-y: auto;
+    width: 90%;
+    height: 400px;
+    overflow-y: scroll;
     background-color: #f5fafe;
     border: 1px solid black;
-    border-top: none;
-    border-radius: 0 0 5px 5px;
+    border-radius: 5px;
     text-wrap: wrap;
   }
 
   /* button layout */
   .btn-plants{
-    width: 98%;
+    display: inline-block;
     text-align: left;
     border-radius: 5px;
-    padding: 4px;
+    padding: 2px;
     margin: 2px;
     border: none;
     background-color: transparent;
@@ -54,13 +65,13 @@
     cursor: pointer;
   }
 
+  /* Display the plant information */
   .plant-container {
    min-width: 55%;
-   min-height: 400px;
+   height: 100%;
    border: 1px solid black;
    border-radius: 5px;
    padding-top: 10px;
-   margin-bottom: 40px;
   }
 
   .plant-details {
@@ -73,5 +84,5 @@
     object-fit: contain;
     width: auto;
     height: 200px;
-    margin-top: 10px;
+    margin-top: 15px;
   }
