@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import csvData from './databases/park_locations/MO_State_Park_and_Historic_Sites_Trails.csv';
+import csvData from '../../../databases/park_locations/MO_State_Park_and_Historic_Sites_Trails.csv';
 
 const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   const [name, setName] = useState('');

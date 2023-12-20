@@ -9,6 +9,7 @@ import Animals from './components/pages/Animals.js';
 import Plants from './components/pages/Plants.js';
 import Weather from './components/pages/Weather.js';
 import About from './components/pages/About.js';
+import Trip from './components/pages/Trip.js';
 import LoginButton from './components/auth/LoginButton.js';
 import LogoutButton from './components/auth/LogoutButton.js';
 import './components/nav/Header.css';
@@ -23,12 +24,13 @@ function App() {
       <Header/>
       <Routes>
         <Route exact path='/' element={<Home />} />
-        <Route path='/Search' element={<Search/>} />
+        <Route path='/search' element={<Search/>} />
         <Route path='/about' element={<About/>} />
         
         {/* Show these pages only if the user is authenticated */}
         {isAuthenticated && (
           <>
+            <Route path='/trip' element={<Trip/>} />
             <Route path='/weather' element={<Weather/>} />
             <Route path='/animals' element={<Animals/>} /> 
             <Route path='/plants' element={<Plants/>} />
