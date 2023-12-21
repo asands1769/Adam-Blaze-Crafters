@@ -13,11 +13,12 @@ public class Fauna {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String scientificName;
     private String commonName;
     private String currentDistribution;
     private String family;
+    private String scientificName;
     private String status;
+    private String image;
 
     public Fauna (){}
 
@@ -63,6 +64,14 @@ public class Fauna {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override
