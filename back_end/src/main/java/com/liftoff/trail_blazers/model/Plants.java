@@ -20,6 +20,7 @@ public class Plants {
     private String family;
     private String federalListingStatus;
     private String image;
+    private String photoCredit;
 
     public Plants(){}
 
@@ -49,6 +50,10 @@ public class Plants {
 
     public String getImage() {
         return image;
+    }
+
+    public String getPhotoCredit(){
+        return photoCredit;
     }
 
     @Override
