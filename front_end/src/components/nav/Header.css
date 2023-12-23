@@ -1,0 +1,16 @@
+/* Header.css */
+
+.navbar {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .navbar a {
+    text-decoration: none;
+    padding: 10px;
+    margin: 0 10px;
+    color: black;
+  }
+  
+  
