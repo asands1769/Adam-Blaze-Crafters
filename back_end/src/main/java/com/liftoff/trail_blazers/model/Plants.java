@@ -19,6 +19,7 @@ public class Plants {
     private String currentDistribution;
     private String family;
     private String federalListingStatus;
+    private String image;
 
     public Plants(){}
 
@@ -44,6 +45,10 @@ public class Plants {
 
     public String getFederalListingStatus() {
         return federalListingStatus;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     @Override

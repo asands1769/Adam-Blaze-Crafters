@@ -64,7 +64,7 @@ const Home = () => {
           </div>
           <div className='image-container'>
             <img className="plant-img-size" src={post.image} alt={post.commonName}/>
-            <div className='photo-credit'>{post.photo_credit}</div>
+            <div className='photo-credit'><a href={post.photoCredit} target="_blank" rel="noreferrer">photo credit</a></div>
           </div>
         </div>)
     })
