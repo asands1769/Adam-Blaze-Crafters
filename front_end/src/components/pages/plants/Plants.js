@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "../../../index.css";
 import "./plantsStyles.css";
-import placeholderImage from "./pexels-photomix-company-1002703.jpg";
+
 
 const Home = () => {
 
@@ -62,7 +62,10 @@ const Home = () => {
             <p>States found in: {post.currentDistribution}</p>
             <p>Federal listing status: {post.federalListingStatus}</p>
           </div>
-          <img className="plant-img-size" src={placeholderImage} alt="a plant sprouting with four leaves"/>
+          <div className='image-container'>
+            <img className="plant-img-size" src={post.image} alt={post.commonName}/>
+            <div className='photo-credit'>{post.photo_credit}</div>
+          </div>
         </div>)
     })
 

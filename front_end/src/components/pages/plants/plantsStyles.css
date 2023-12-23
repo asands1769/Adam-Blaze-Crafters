@@ -87,9 +87,19 @@ select{
     text-wrap: wrap;
   }
 
+  .image-container {
+    position:relative;
+  }
+
   .plant-img-size{
     object-fit: contain;
     width: auto;
     height: 200px;
     margin-top: 15px;
+  }
+
+  .photo-credit {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
   }
