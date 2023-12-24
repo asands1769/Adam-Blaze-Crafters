@@ -1,4 +1,5 @@
 .login-button {
+    margin-right: 20px;
     padding: 10px;
     background-color: #4CAF50; 
     color: white; 
@@ -8,7 +9,7 @@
     display: flex;
     position: absolute;
     top: 20px;
-    left: 1700px;
+    right:0;
   }
 
   .login-button:hover {
@@ -16,9 +17,8 @@
   }
 
   .logout-button {
-    margin-left: auto; /* Push the button to the right side of its container */
-    padding: 10px;
     margin-right: 20px;
+    padding: 10px;
     background-color: #f44336; 
     color: white; 
     border: none;
