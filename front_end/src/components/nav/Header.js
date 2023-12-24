@@ -12,6 +12,7 @@ export default function Header() {
                     <li><a href='/search'>Search</a></li>
                     {isAuthenticated && (
                         <>
+                            <li><a href='/trip'>Your Trips</a></li>
                             <li><a href='/weather'>Weather</a></li>
                             <li><a href='/animals'>Animals</a></li>
                             <li><a href='/plants'>Plants</a></li>
