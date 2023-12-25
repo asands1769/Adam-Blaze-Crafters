@@ -31,10 +31,6 @@ const FaunaList = () => {
                     result = e.target.value;
                     animalArray.map((animal) => {
                         if(animal.commonName === result) {
-                            console.log(animal.image);
-                            console.log(animal.commonName);
-                            console.log(animal.family);
-                            console.log(animal.currentDistribution);
                             return (
                                 <div>
                                     <img src={animal.image} alt=''/>
