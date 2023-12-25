@@ -1,0 +1,21 @@
+.displayAnimals {
+    display: flex;
+    justify-content: space-around;
+}
+
+.animalData {
+    width: 65%;
+    height: auto;
+}
+
+.aniamalDropContainer {
+    display: flex;
+    justify-content: space-around;
+}
+
+.animalDropDown {
+    background-color: #f0f0f0;
+    height: auto;
+    width: auto;
+    margin: 30px;
+}

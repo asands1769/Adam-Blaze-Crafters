@@ -13,10 +13,10 @@ public class Fauna {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String scientificName;
     private String commonName;
     private String currentDistribution;
     private String family;
-    private String scientificName;
     private String status;
     private String image;
 

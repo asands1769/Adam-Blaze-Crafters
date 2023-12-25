@@ -22,9 +22,25 @@ function App() {
         <Route path='/animals' element={<Animals/>} /> 
         <Route path='/plants' element={<Plants/>} />
         <Route path='/about' element={<About/>} />
+<<<<<<< Updated upstream
+=======
+        
+        {/* Show these pages only if the user is authenticated */}
+        
+          <>
+            <Route path='/weather' element={<Weather/>} />
+            <Route path='/animals' element={<Animals/>} /> 
+            <Route path='/plants' element={<Plants/>} />
+          </>
+        
+>>>>>>> Stashed changes
       </Routes>
     </Router>
   );
 }
-
+{/*{isAuthenticated && (*/
+/*)}*/
+}
 export default App;
+
+
