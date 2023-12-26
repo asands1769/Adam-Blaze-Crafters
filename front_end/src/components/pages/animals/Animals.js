@@ -1,11 +1,12 @@
 import React from "react";
 import FaunaList from "./faunaList";
+import "./animalStyles.css";
  
 const Home = () => {
     return (
         <>
             <h1>
-                Find an animal you encoutered at a park.
+                Search for an Animal
             </h1>
 
             <div>

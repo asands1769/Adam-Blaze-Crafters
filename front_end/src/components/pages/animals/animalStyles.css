@@ -1,21 +1,38 @@
-.displayAnimals {
+.animal-header {
+    text-align: center;
+}
+
+.display-animals {
     display: flex;
     justify-content: space-around;
 }
 
-.animalData {
-    width: 65%;
+.animal-data-container {
+    text-align: center;
+    width: 50%;
     height: auto;
+    border: black solid .1vw;
+    background-color: #f0f0f0;
+    margin-bottom: 10%;
 }
 
-.aniamalDropContainer {
+.animal-data {
+    margin: 10%;
+}
+
+.aniamal-drop-container {
     display: flex;
     justify-content: space-around;
 }
 
-.animalDropDown {
+.animal-drop-down {
     background-color: #f0f0f0;
     height: auto;
     width: auto;
-    margin: 30px;
+    margin: 15%;
+}
+
+.animal-image {
+    height: auto;
+    width: 60%;
 }

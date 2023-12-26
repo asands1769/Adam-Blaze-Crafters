@@ -1,68 +1,58 @@
 import React, { useEffect, useState } from "react";
 import "../../../index.css";
-import "./animalStyles.css"
+import "./animalStyles.css";
 
 const FaunaList = () => {
-  
-    const [data, setData] = useState([]);
-    const urlFaunaList = "http://localhost:8080/animals";
 
-    const fetchInfo = async () => {
-        await fetch(urlFaunaList)
-        .then((res) => res.json())
-        .then((d) => setData(d));
-    };
+  const [data, setData] = useState([]);
+  const [selectedAnimal, setSelectedAnimal] = useState(null);
+  const urlFaunaList = "http://localhost:8080/animals";
+//fetch data from database
+  const fetchInfo = async () => {
+    await fetch(urlFaunaList)
+      .then((res) => res.json())
+      .then((d) => setData(d));
+  };
 
-    useEffect(() => {
-        fetchInfo();
-    }, []);
+  useEffect(() => {
+    fetchInfo();
+  }, []);
+//map through data from database and capture selected animal
+  const animalArray = data.map((animal) => animal);
 
-    const animalArray = [];
-    for (let i = 0; i < data.length; i++) {
-        animalArray.push(data[i]);
-    }
+  const handleAnimalChange = (e) => {
+    const selectedValue = e.target.value;
+    const selectedAnimalData = animalArray.find(
+      (animal) => animal.commonName === selectedValue
+    );
+    setSelectedAnimal(selectedAnimalData);
+  };
 
-    const selectAnimal = document.querySelector('.animalDropDown');
-    let result;
-
-  const renderAnimalData = () => {
-            if(selectAnimal) {
-                selectAnimal.addEventListener('change', (e) => {
-                    result = e.target.value;
-                    animalArray.map((animal) => {
-                        if(animal.commonName === result) {
-                            return (
-                                <div>
-                                    <img src={animal.image} alt=''/>
-                                    <p>{animal.commonName}</p>
-                                    <p>{animal.family}</p>
-                                    <p>{animal.currentDistribution}</p>
-                                </div>
-                            );
-                        }
-                    });
-                });
-            }
-        }
-
-    
-    return (
-        <div className='displayAnimals'>
-            <div className='animalDropContainer'>
-                <select className='animalDropDown'>
-                    <option value='placeholder'>Select an Animal</option>
-                    {animalArray.map((animal) => (
-                        <option key={animal.id}>{animal.commonName}</option>
-                    ))}
-                </select>
+  return (
+    <div className="display-animals">
+        <div className="animal-drop-container">
+            <select className="animal-drop-down" onChange={handleAnimalChange}>
+            <option value="placeholder">Select an Animal</option>
+            {animalArray.map((animal) => (
+                <option key={animal.id}>{animal.commonName}</option>
+            ))}
+            </select>
+        </div>
+        <div className="animal-data-container">
+            <h2>Missouri Wildlife</h2>
+            {selectedAnimal && (
+            <div className="animal-data">
+                <img src={selectedAnimal.image} alt="" className="animal-image"/>
+                <p>{selectedAnimal.commonName}</p>
+                <p>Scientific Name: {selectedAnimal.scientificName}</p>
+                <p>Family: {selectedAnimal.family}</p>
+                <p>Can be found in the following states: {selectedAnimal.currentDistribution}</p>
             </div>
-            
-            <div className='animalData'>
-                <h2>Display Animal Here</h2>
-                {renderAnimalData()}
-            </div>
+            )}
+        </div>
         </div>
     );
 };
-
 export default FaunaList;
+
+

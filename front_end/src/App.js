@@ -16,14 +16,12 @@ function App() {
     <Router>
       <Header/>
       <Routes>
-        <Route exact path='/' exact element={<Home />} />
+        <Route exact path='/' element={<Home />} />
         <Route path='/Search' element={<Search/>} />
         <Route path='/weather' element={<Weather/>} />
         <Route path='/animals' element={<Animals/>} /> 
         <Route path='/plants' element={<Plants/>} />
         <Route path='/about' element={<About/>} />
-<<<<<<< Updated upstream
-=======
         
         {/* Show these pages only if the user is authenticated */}
         
@@ -33,7 +31,6 @@ function App() {
             <Route path='/plants' element={<Plants/>} />
           </>
         
->>>>>>> Stashed changes
       </Routes>
     </Router>
   );
