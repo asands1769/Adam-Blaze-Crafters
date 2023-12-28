@@ -1,4 +1,5 @@
 import React from "react";
+import WeatherSearch from "./weather/weatherSearch";
  
 const Weather = () => {
     return (
@@ -6,6 +7,9 @@ const Weather = () => {
             <h1>
                 Find weather for a park here.
             </h1>
+            <div>
+                <WeatherSearch />
+            </div>
         </div>
     );
 };

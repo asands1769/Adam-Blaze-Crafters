@@ -5,7 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import Header from './components/nav/Header.js';
 import Home from './components/pages/Home.js'
 import Search from './components/pages/search/Search.js';
-import Animals from './components/pages/Animals.js';
+import Animals from './components/pages/animals/Animals.js';
 import Plants from './components/pages/plants/Plants.js';
 import Weather from './components/pages/Weather.js';
 import About from './components/pages/About.js';
@@ -28,14 +28,14 @@ function App() {
         <Route path='/about' element={<About/>} />
         
         {/* Show these pages only if the user is authenticated */}
-        {isAuthenticated && (
+        
           <>
             <Route path='/trip' element={<Trip/>} />
             <Route path='/weather' element={<Weather/>} />
             <Route path='/animals' element={<Animals/>} /> 
             <Route path='/plants' element={<Plants/>} />
           </>
-        )}
+        
       </Routes>
     </Router>
     {error && <p>Authentication Error</p>}
