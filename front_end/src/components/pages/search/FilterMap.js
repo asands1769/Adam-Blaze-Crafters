@@ -1,10 +1,8 @@
 import mapboxgl from 'mapbox-gl';
 import React, { useEffect } from 'react';
-// import { } from 'react-map-gl';
 import "../../../index.css";
 import "./searchStyles.css";
 import 'mapbox-gl/dist/mapbox-gl.css';
-// import geoJson from "./data/geolocation_MO_parks.geojson";
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiZHVzdGluZnJpZXNlbiIsImEiOiJjbHB0eDVyN2cwZmx0Mmtuem8zZDJua3lmIn0.tDrxvISZrAzUKW_VUv9zqg';
 

@@ -4,7 +4,7 @@ import "../../index.css";
 // import "./searchStyles.css";
 // import geoJson from "./data/geolocation_MO_parks.json";
 
-const Home = () => {
+const Plants = () => {
 
   const [val, setVal] = useState(null);
   const [data, setData] = useState([]);
@@ -65,4 +65,4 @@ const Home = () => {
         );
 };
   
-export default Home;
+export default Plants;

@@ -1,7 +1,7 @@
 package com.liftoff.trail_blazers.controllers;
 
-import com.liftoff.trail_blazers.data.GeolocationsRepository;
-import com.liftoff.trail_blazers.model.Geolocations;
+import com.liftoff.trail_blazers.data.PlantsRepository;
+import com.liftoff.trail_blazers.model.Plants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,14 +12,11 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
-public class GeolocationsController {
+public class PlantsController {
 
     @Autowired
-    private GeolocationsRepository geolocationsRepository;
+    private PlantsRepository plantsRepository;
 
-    @GetMapping("/parks")
-    List<Geolocations> displayAllParks(){
-        return geolocationsRepository.findAll();
-    }
-
+    @GetMapping("/plants")
+    List<Plants> displayAllPlants() {return plantsRepository.findAll();}
 }
