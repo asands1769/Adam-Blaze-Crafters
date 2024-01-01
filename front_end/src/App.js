@@ -35,6 +35,7 @@ function App() {
             <Route path='/weather' element={<Weather/>} />
             <Route path='/animals' element={<Animals/>} /> 
             <Route path='/plants' element={<Plants/>} />
+            <Route path='/profile' element={<Profile/>} />
           </>
         )}
       </Routes>
@@ -45,7 +46,6 @@ function App() {
       <>
           <LoginButton/>
           <LogoutButton/>
-          <Profile/>
       </>
     )}
     </main>
