@@ -54,33 +54,53 @@ const WeatherSearch = () => {
 
   return (
     <>
-      <div className={(typeof weather.main != "undefined") ? ((weather.main.temp > 65) ? 'weather-app-hot' : 'weather-app-cold') : 'weather-app'}>
-        <main>
-          <div className="search-box">
-            <input
-              type="text"
-              className="search-bar"
-              placeholder="Search a Location..."
-              onChange={(e) => setQuery(e.target.value)}
-              value={query}
-              onKeyDown={fetchWeatherInfo}
-            />
-          </div>
-          {(typeof weather.main != "undefined") ? (
-          <div>
-            <div className="location-box">
-              <div className="location">{weather.name}, {weather.sys.country}</div>
-              <div className="date">{dateBuilder(new Date())}</div>
-            </div>
-            <div className="weather-box">
-              <div className="temp">
-              {Math.round(weather.main.temp)}°f
+      <div className="main">
+        <div
+          className={
+            typeof weather.main != "undefined"
+              ? weather.main.temp <= 32
+                ? "weather-app-cold"
+                : weather.main.temp < 65
+                ? "weather-app-warm"
+                : weather.main.temp > 65
+                ? "weather-app-hot"
+                : "weather-app"
+              : "weather-app"
+          }
+        >
+          <main className="weather-main">
+            <div className="main-div">
+              <div className="search-box">
+                <input
+                  type="text"
+                  className="search-bar"
+                  placeholder="Search a Location..."
+                  onChange={(e) => setQuery(e.target.value)}
+                  value={query}
+                  onKeyDown={fetchWeatherInfo}
+                />
               </div>
-              <div className="weather">{weather.weather[0].main}</div>
+              {typeof weather.main != "undefined" ? (
+                <div>
+                  <div className="location-box">
+                    <div className="location">
+                      {weather.name}, {weather.sys.country}
+                    </div>
+                    <div className="date">{dateBuilder(new Date())}</div>
+                  </div>
+                  <div className="weather-box">
+                    <div className="temp">
+                      {Math.round(weather.main.temp)}°f
+                    </div>
+                    <div className="weather">{weather.weather[0].main}</div>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
-          </div>
-          ) : ('')}
-        </main>
+          </main>
+        </div>
       </div>
     </>
   );
