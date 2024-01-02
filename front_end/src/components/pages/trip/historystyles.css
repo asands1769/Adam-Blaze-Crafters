@@ -5,7 +5,7 @@ body {
     margin: 20px;
   }
   
-  form {
+  .form-history {
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
@@ -45,7 +45,7 @@ body {
     margin-bottom: 10px;
   }
   
-  #hike-list-container {
+  .hike-list-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

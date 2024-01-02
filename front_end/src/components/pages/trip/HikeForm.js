@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import csvData from '../../../databases/park_locations/MO_State_Park_and_Historic_Sites_Trails.csv';
+// import useForm from './UseForm';
+
+const FORM_ENDPOINT = "http://localhost:8080/trips/add";
 
 const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
-  const [name, setName] = useState('');
+  const [tripName, setTripName] = useState('');
   const [location, setLocation] = useState('');
   const [date, setDate] = useState('');
   const [notes, setNotes] = useState('');
   const [locations, setLocations] = useState([]);
+
+  // const formElement = useRef(null);
+  const additionalData = {
+    sent: new Date().toISOString(),
+  };
+
+
 
   useEffect(() => {
     // Fetch and parse the CSV file
@@ -44,43 +54,64 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   useEffect(() => {
     // Populate form fields when selectedHike changes
     if (selectedHike) {
-      setName(selectedHike.name || '');
+      setTripName(selectedHike.tripName || '');
       setLocation(selectedHike.location || '');
       setDate(selectedHike.date || '');
       setNotes(selectedHike.notes || '');
     }
   }, [selectedHike]);
 
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const finalFormEndpoint = e.target.action;
+    const data = Array.from(e.target.elements)
+      .filter((input) => input.name)
+      .reduce((obj, input) => Object.assign(obj, { [input.name]: input.value }), {});
+
+    if (additionalData) {
+      Object.assign(data, additionalData);
+    }
+
+    fetch(finalFormEndpoint, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
     if (selectedHike) {
-      onEdit({ ...selectedHike, name, location, date, notes });
+      onEdit({ ...selectedHike, tripName, location, date, notes });
     } else {
-      onSubmit({ name, location, date, notes });
+      onSubmit({ tripName, location, date, notes });
     }
 
     // Reset form fields
-    setName('');
+    setTripName('');
     setLocation('');
     setDate('');
     setNotes('');
   };
 
+
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>{selectedHike ? 'Edit Hike' : 'Add Trip'}</h2>
+    <form className='form-history' onSubmit={handleSubmit} method="POST" action={FORM_ENDPOINT}>
+      <h2>{selectedHike ? 'Edit Trip' : 'Add Trip'}</h2>
       <label>
         Name:
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+        <input type="text" name="tripName" value={tripName} onChange={(e) => setTripName(e.target.value)} required />
       </label>
       <label>
         Location:
         {/* Use a dropdown select element */}
-        <select value={location} onChange={(e) => setLocation(e.target.value)} required>
+        <select name="location" value={location} onChange={(e) => setLocation(e.target.value)} required>
           <option value="" disabled>Select a location</option>
           {locations.map((loc) => (
-            <option key={String(loc.ID)} value={String(loc.LOC_NAME)}>
+            <option key={loc.ID} value={loc.LOC_NAME}>
               {loc.LOC_NAME}
             </option>
           ))}
@@ -88,11 +119,11 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
       </label>
       <label>
         Date:
-        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+        <input type="date" name="date" value={date} onChange={(e) => setDate(e.target.value)} required />
       </label>
       <label>
         Notes:
-        <textarea value={notes} onChange={(e) => setNotes(e.target.value)} />
+        <textarea name="notes" value={notes} onChange={(e) => setNotes(e.target.value)} />
       </label>
       <button type="submit">{selectedHike ? 'Update Hike' : 'Add Trip'}</button>
     </form>
