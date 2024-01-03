@@ -1,7 +1,7 @@
 package com.liftoff.trail_blazers.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
+//import jakarta.persistence.ManyToMany;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,8 +20,8 @@ public class Trips extends AbstractEntity {
 //    @ManyToOne
 //    private User username;
 
-    @ManyToMany
-    private final List<Plants> plants = new ArrayList<>();
+//    @ManyToMany
+//    private final List<Plants> plants = new ArrayList<>();
 
     public Trips(String tripName, String location, Date date, String notes) {
         this.tripName = tripName;

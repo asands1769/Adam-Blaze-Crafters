@@ -35,6 +35,10 @@ body {
   button:hover {
     background-color: #45a049;
   }
+
+  #update-form {
+    display: none;
+  }
   
   ul {
     list-style-type: none;
