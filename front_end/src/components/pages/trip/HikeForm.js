@@ -1,3 +1,4 @@
+// HikeForm.js
 import React, { useState, useEffect } from 'react';
 import csvData from '../../../databases/park_locations/MO_State_Park_and_Historic_Sites_Trails.csv';
 
@@ -6,6 +7,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   const [location, setLocation] = useState('');
   const [date, setDate] = useState('');
   const [notes, setNotes] = useState('');
+  const [category, setCategory] = useState('');
   const [locations, setLocations] = useState([]);
 
   useEffect(() => {
@@ -48,16 +50,18 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
       setLocation(selectedHike.location || '');
       setDate(selectedHike.date || '');
       setNotes(selectedHike.notes || '');
+      setCategory(selectedHike.category || ''); // Populate category field for editing
     }
   }, [selectedHike]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const hikeData = { name, location, date, notes, category };
     if (selectedHike) {
-      onEdit({ ...selectedHike, name, location, date, notes });
+      onEdit({ ...selectedHike, ...hikeData });
     } else {
-      onSubmit({ name, location, date, notes });
+      onSubmit(hikeData);
     }
 
     // Reset form fields
@@ -65,6 +69,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
     setLocation('');
     setDate('');
     setNotes('');
+    setCategory('');
   };
 
   return (
@@ -79,8 +84,8 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
         {/* Use a dropdown select element */}
         <select value={location} onChange={(e) => setLocation(e.target.value)} required>
           <option value="" disabled>Select a location</option>
-          {locations.map((loc) => (
-            <option key={String(loc.ID)} value={String(loc.LOC_NAME)}>
+          {locations.map((loc, index) => (
+            <option key={index} value={loc.LOC_NAME}>
               {loc.LOC_NAME}
             </option>
           ))}
@@ -93,6 +98,14 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
       <label>
         Notes:
         <textarea value={notes} onChange={(e) => setNotes(e.target.value)} />
+      </label>
+      <label>
+        Category:
+        <select value={category} onChange={(e) => setCategory(e.target.value)} required>
+          <option value="" disabled>Select a category</option>
+          <option value="Past">Past Trip</option>
+          <option value="Future">Future Trip</option>
+        </select>
       </label>
       <button type="submit">{selectedHike ? 'Update Hike' : 'Add Trip'}</button>
     </form>

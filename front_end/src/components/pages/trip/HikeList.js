@@ -9,9 +9,10 @@ const HikeList = ({ hikes, onDelete, onEdit }) => {
       {hikes.map((hike) => (
         <div key={hike.id} className="hike-card">
           <strong>{hike.name}</strong>
-          <p>Trail Location:  {hike.location}</p>
-          <p>Hike Date:  {hike.date}</p>
-          <p>Hike Notes:  {hike.notes}</p>
+          <p>Location: {hike.location}</p>
+          <p>Date: {hike.date}</p>
+          <p>Notes: {hike.notes}</p>
+          <p>Category: {hike.category}</p>
           <button onClick={() => onEdit(hike)}>Edit</button>
           <button onClick={() => onDelete(hike.id)}>Delete</button>
         </div>
