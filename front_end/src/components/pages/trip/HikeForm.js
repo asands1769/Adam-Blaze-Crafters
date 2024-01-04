@@ -18,6 +18,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   const [data, setData] = useState([]);
   const [trips, setTrips] = useState([]);
   const [click, setClick] = useState('');
+  const [checkbox, setCheckbox] = useState('');
   
   const urlPlants = "http://localhost:8080/plants";
   const urlTrips = "http://localhost:8080/trips/all";
@@ -166,7 +167,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
  const clicked = (event) => {
    setClick(event.target.id);
  }
-  
+//SEARCH BAR FUNCTION TO DISPLAY WHAT USER TYPES 
  const searchItems = data.filter(post => {
     if(val === ''){
       return post;
@@ -174,34 +175,39 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
       return post;
     }
   })
+// CHECKBOX CHECKED IF PLANTSID IS FOUND IN THE PLANT ARRAY
+  // function selectedPlant(prop){
+  //   if(plants.includes(prop)){
+  //      return console.log(true);
+  //   }else {
+  //     return console.log(false);
+  //   }
+  // } 
 
-  function selectedPlant(prop){
-    if(plants.includes(prop)){
-       return true;
-    }else {
-      return false;
-    }
-  } 
-
+// DISPLAY CHECKBOX, NAME, ADD BUTTON, AND DELETE, BUTTON WITH METHODS TO ADD OR DELETE PLANT FROM ARRAY.
   const displaySearchedItems = searchItems.map(post => {
     return (
     <div key={post.id}>
       <div className='add-plant-form' >
       <div className='display-inline-block'>
-        <input type="checkbox" id={post.id} name={post.id} value={post.scientificName} className='checkboxSize' checked={selectedPlant(post.id)} onChange={(e)=> {
-          let nextId = 0;
-          setPlantsId(e.target.id);
-          setPlants([
-            ...plants, 
-            {id: nextId, name: plantsId}
-          ])
-        }} />
-        {/* TODO set plants or set plant id to push to an array then push to plants?? */}
+        <input type="checkbox" id={post.id} name={post.id} value={post.scientificName} className='checkboxSize'/>
         <label id={post.id} onClick={clicked} className='btn-plants'> {`${post.scientificName} (${post.commonName})`}</label>
         </div>
         <div>
-        <button className='btn-plant-size'>add</button>
-        <button className='btn-plant-size'>delete</button>
+        <p className='btn-plant-size' onClick={(e)=> {
+          // let nextId = 0;
+          setPlantsId(post.id);
+          if (plants.includes(plantsId)){
+            e.target.disabled=true;
+         } else {
+            setPlants([...plants, {plantsId: plantsId}])
+          }
+          return console.log(plants);
+        }}>add</p>
+        <p className='btn-plant-size' onClick={() => {
+          setPlantsId(post.id);
+          setPlants(plants.filter(a => a.name !== plants.plantsId));
+        }}>delete</p>
         </div>
       </div>
     </div>

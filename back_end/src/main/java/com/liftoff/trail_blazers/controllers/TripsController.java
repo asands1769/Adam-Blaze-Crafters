@@ -4,9 +4,11 @@ import com.liftoff.trail_blazers.data.TripsPlantsRepository;
 import com.liftoff.trail_blazers.data.TripsRepository;
 import com.liftoff.trail_blazers.model.Plants;
 import com.liftoff.trail_blazers.model.Trips;
+import com.liftoff.trail_blazers.model.dto.TripsPlantsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.management.AttributeNotFoundException;
@@ -35,6 +37,20 @@ public class TripsController {
         return "redirect:/trip";
     }
 
+    @PostMapping("/add-plant")
+    public String processAddPlantForm(TripsPlantsDTO tripsPlants, Errors errors){
+        if(!errors.hasErrors()){
+            Trips trips = tripsPlants.getTrips();
+            Plants plants = tripsPlants.getPlants();
+            if(!trips.getPlants().contains(plants)){
+                trips.addPlants(plants);
+                tripsRepository.save(trips);
+            }
+        }
+        return "redirect:/all";
+    }
+
+
     @PutMapping("/update/{id}")
     public Trips updateTrip(@PathVariable int id, @RequestBody Trips newTrips) {
        return tripsRepository.findById(id)
@@ -43,7 +59,6 @@ public class TripsController {
             trip.setLocation(newTrips.getLocation());
             trip.setDate(newTrips.getDate());
             trip.setNotes(newTrips.getNotes());
-            trip.setPlants(newTrips.getPlants());
             return tripsRepository.save(trip);
         }).orElseThrow(()-> new Error("trip not found"));
     }

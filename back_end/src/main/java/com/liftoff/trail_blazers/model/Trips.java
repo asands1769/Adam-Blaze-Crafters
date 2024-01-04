@@ -69,7 +69,7 @@ public class Trips extends AbstractEntity {
 
     public List<Plants> getPlants() {return plants;}
 
-    public void setPlants(List<Plants> plant) {this.plants = plants; }
+    public void addPlants(Plants plants) {this.plants.add(plants); }
 
     @Override
     public String toString() {
