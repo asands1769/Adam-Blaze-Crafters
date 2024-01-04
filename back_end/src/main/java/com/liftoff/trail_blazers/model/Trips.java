@@ -1,7 +1,9 @@
 package com.liftoff.trail_blazers.model;
 
 import jakarta.persistence.Entity;
-//import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,16 +20,17 @@ public class Trips extends AbstractEntity {
 
 //    THIS PROPERTY WILL BE SET ONCE WE FETCH THE USERNAME FROM REACT SIDE
 //    @ManyToOne
-//    private User username;
+////    private User username;
 
-//    @ManyToMany
-//    private final List<Plants> plants = new ArrayList<>();
+    @ManyToMany
+    private List<Plants> plants = new ArrayList<>();
 
-    public Trips(String tripName, String location, Date date, String notes) {
+    public Trips(String tripName, String location, Date date, String notes, List<Plants> plants) {
         this.tripName = tripName;
         this.location = location;
         this.date = date;
         this.notes = notes;
+        this.plants = plants;
     }
 
     public Trips() {}
@@ -64,9 +67,9 @@ public class Trips extends AbstractEntity {
         this.notes = notes;
     }
 
-//    public List<Plants> getPlants() {return plants;}
-//
-//    public void addPlant(Plants plant) {this.plants.add(plant);}
+    public List<Plants> getPlants() {return plants;}
+
+    public void setPlants(List<Plants> plant) {this.plants = plants; }
 
     @Override
     public String toString() {

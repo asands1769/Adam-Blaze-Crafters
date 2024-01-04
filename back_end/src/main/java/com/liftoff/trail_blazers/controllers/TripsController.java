@@ -1,6 +1,8 @@
 package com.liftoff.trail_blazers.controllers;
 
+import com.liftoff.trail_blazers.data.TripsPlantsRepository;
 import com.liftoff.trail_blazers.data.TripsRepository;
+import com.liftoff.trail_blazers.model.Plants;
 import com.liftoff.trail_blazers.model.Trips;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,13 +23,11 @@ public class TripsController {
     @Autowired
     private TripsRepository tripsRepository;
 
+    @Autowired
+    private TripsPlantsRepository tripsPlantsRepository;
+
     @GetMapping("/all")
     List<Trips> displayAllTrips() {return tripsRepository.findAll();}
-
-//    @GetMapping("/{id}")
-//    Optional<Trips> getTripsById(@PathVariable Integer id){
-//        return tripsRepository.findById(id);
-//    }
 
     @PostMapping("/add")
     public String addTrip(@RequestBody Trips newTrip){
@@ -43,6 +43,7 @@ public class TripsController {
             trip.setLocation(newTrips.getLocation());
             trip.setDate(newTrips.getDate());
             trip.setNotes(newTrips.getNotes());
+            trip.setPlants(newTrips.getPlants());
             return tripsRepository.save(trip);
         }).orElseThrow(()-> new Error("trip not found"));
     }
@@ -50,11 +51,17 @@ public class TripsController {
     @DeleteMapping("/delete/{id}")
     public String processDeleteTrip(@PathVariable int id){
         if (!tripsRepository.existsById(id)) {
-            throw new RuntimeException();
+            throw new Error("Trip not found.");
         }
         tripsRepository.deleteById(id);
         return "redirect:/all";
     }
 
+
+    @PostMapping("/trips_plants")
+    public String addPlants(@RequestBody Trips newTrip){
+        tripsPlantsRepository.save(newTrip);
+        return "redirect:/trip";
+    }
 
 }

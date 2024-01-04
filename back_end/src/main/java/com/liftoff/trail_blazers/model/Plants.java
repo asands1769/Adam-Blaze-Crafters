@@ -16,8 +16,8 @@ public class Plants extends AbstractEntity {
     private String image;
     private String photoCredit;
 
-//    @ManyToMany(mappedBy = "plants")
-//    private final List<Trips> trips = new ArrayList<>();
+    @ManyToMany(mappedBy = "plants")
+    private List<Trips> trips = new ArrayList<>();
 
     public Plants(){}
 
@@ -49,9 +49,9 @@ public class Plants extends AbstractEntity {
         return photoCredit;
     }
 
-//    public List<Trips> getTrips() {
-//        return trips;
-//    }
+    public List<Trips> getTrips() {
+        return trips;
+    }
 
     @Override
     public String toString() {
