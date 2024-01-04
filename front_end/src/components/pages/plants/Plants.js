@@ -3,14 +3,15 @@ import "../../../index.css";
 import "./plantsStyles.css";
 
 
-const Plants = () => {
-
+const DisplayPlants = () => {
+// PLANTS DISPLAY
   const [val, setVal] = useState('');
   const [data, setData] = useState([]);
   const [trips, setTrips] = useState([]);
   const [click, setClick] = useState('');
+  const [plantsId, setPlantsId] = useState('');
   const urlPlants = "http://localhost:8080/plants";
-  const urlTrips = "http://localhost:8080/trips";
+  const urlTrips = "http://localhost:8080/trips/all";
 
   // Fetching trail_blazer database
   const fetchInfo = async () => {
@@ -48,10 +49,10 @@ const Plants = () => {
     const displaySearchedItems = searchItems.map(post => {
       return (
       <div key={post.id}>
-        <form  className='add-plant-form' >
-          <input type="checkbox" id={post.id} name={post.id} value={post.scientificName} className='checkboxSize'/>
+        <div  className='add-plant-form' >
+          {/* <input type="checkbox" id={post.id} name={post.id} value={post.scientificName} className='checkboxSize'/> */}
           <label id={post.id} onClick={clicked} className='btn-plants'> {`${post.scientificName} (${post.commonName})`}</label>
-        </form>
+        </div>
       </div>
       )
     })
@@ -81,28 +82,20 @@ const Plants = () => {
     })
 
     // Methods for displaying trips to save to
-    const reversePlantTrip = trips.sort((a, b) => a.id < b.id ? 1 : -1 );
-    const displayTrips = reversePlantTrip.map(trip => {
-      return (
-        <option key={trip.id} name="trip_name" value={trip.tripName}>
-          {trip.tripName}
-        </option>
-      )
-    })
+    // const reversePlantTrip = trips.sort((a, b) => a.id < b.id ? 1 : -1 );
+    // const displayTrips = reversePlantTrip.map(trip => {
+    //   return (
+    //         <option key={trip.id} id={trip.id} name="tripName" value={trip.tripName}>
+    //           {trip.tripName}
+    //         </option>
+    //   )
+    // })
   
   return (
       <div>
-          <h2>Plants of Missouri</h2>
+        <h2>Plants of Missouri</h2>
         <div className='row main-container'>
           <div className='leftside-container'>
-            <div className='save-container'>
-              <select>
-                <option>Select a trip to save the plants to</option>
-                {displayTrips}
-              </select>
-              <button type='submit' className='save-btn'>Save</button>
-              <a className='create-trip' href="../trip">Create a Trip</a>
-            </div>
             <div className='search-container'>
             <div className='sidebar-size-plants'>
               <input className="search-plants" onChange={change} placeholder="Find a plant by scientific or common name"/>
@@ -124,4 +117,4 @@ const Plants = () => {
         );
 };
 
-export default Plants;
+export default DisplayPlants;

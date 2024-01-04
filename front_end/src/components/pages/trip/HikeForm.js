@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import React, { useState, useEffect } from 'react'; 
 import csvData from '../../../databases/park_locations/MO_State_Park_and_Historic_Sites_Trails.csv';
+import DisplayPlants from '../plants/Plants';
 // import useForm from './UseForm';
 
 const FORM_ENDPOINT = "http://localhost:8080/trips/add";
@@ -12,7 +12,15 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   const [date, setDate] = useState('');
   const [notes, setNotes] = useState('');
   const [locations, setLocations] = useState([]);
-  const navigate = useNavigate();
+  const [plantsId, setPlantsId] = useState('');
+  const [plants, setPlants] = useState([]);
+  const [val, setVal] = useState('');
+  const [data, setData] = useState([]);
+  const [trips, setTrips] = useState([]);
+  const [click, setClick] = useState('');
+  
+  const urlPlants = "http://localhost:8080/plants";
+  const urlTrips = "http://localhost:8080/trips/all";
   
   // const formElement = useRef(null);
   const additionalData = {
@@ -60,6 +68,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
       setLocation(selectedHike.location || '');
       setDate(selectedHike.date || '');
       setNotes(selectedHike.notes || '');
+      setPlants(selectedHike.plants || '');
       document.getElementById("submit-form").style.display = "none";
       document.getElementById("update-form").style.display = "block";
       
@@ -87,9 +96,9 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
     });
 
     if (selectedHike) {
-      onEdit({ ...selectedHike, tripName, location, date, notes });
+      onEdit({ ...selectedHike, tripName, location, date, notes, plants });
     } else {
-      onSubmit({ tripName, location, date, notes });
+      onSubmit({ tripName, location, date, notes, plants });
     }
 
     // Reset form fields
@@ -97,6 +106,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
     setLocation('');
     setDate('');
     setNotes('');
+    setPlants('');
   };
 
   function updateTrip(e){
@@ -107,7 +117,6 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
 
     if (additionalData) {
       Object.assign(updatedData, additionalData);
-    
     }
 
     fetch(finalFormEndpointUpdate, {
@@ -126,16 +135,114 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
         console.log(updatedDate)
       });
     if (selectedHike) {
-      onEdit({ ...selectedHike, id, tripName, location, date, notes });
+      onEdit({ ...selectedHike, id, tripName, location, date, notes, plants });
     } else {
-      onSubmit({ id, tripName, location, date, notes });
+      onSubmit({ id, tripName, location, date, notes, plants });
     }
   };
+
+// PLANTS DISPLAY
+// Fetching TRIPS and PLANTS
+  const fetchInfo = async () => {
+    Promise.all([
+      await fetch(urlPlants),
+      await fetch(urlTrips),
+    ])
+      .then(([resData, resTrips]) => 
+      Promise.all([resData.json(), resTrips.json()])
+      )
+      .then(([dData, dTrips]) => {
+        setData(dData);
+        setTrips(dTrips);
+      })
+    }
+
+  useEffect(() => {
+    fetchInfo();
+  }, []);
+
+ // setting val based on event provided in HTML section and click based on click to display image of plant
+ const change = event => {setVal(event.target.value)}
+ const clicked = (event) => {
+   setClick(event.target.id);
+ }
+  
+ const searchItems = data.filter(post => {
+    if(val === ''){
+      return post;
+    } else if (post.scientificName.toLowerCase().includes(val.toLowerCase()) || post.commonName.toLowerCase().includes(val.toLowerCase())){
+      return post;
+    }
+  })
+
+  function selectedPlant(prop){
+    if(plants.includes(prop)){
+       return true;
+    }else {
+      return false;
+    }
+  } 
+
+  const displaySearchedItems = searchItems.map(post => {
+    return (
+    <div key={post.id}>
+      <div className='add-plant-form' >
+      <div className='display-inline-block'>
+        <input type="checkbox" id={post.id} name={post.id} value={post.scientificName} className='checkboxSize' checked={selectedPlant(post.id)} onChange={(e)=> {
+          let nextId = 0;
+          setPlantsId(e.target.id);
+          setPlants([
+            ...plants, 
+            {id: nextId, name: plantsId}
+          ])
+        }} />
+        {/* TODO set plants or set plant id to push to an array then push to plants?? */}
+        <label id={post.id} onClick={clicked} className='btn-plants'> {`${post.scientificName} (${post.commonName})`}</label>
+        </div>
+        <div>
+        <button className='btn-plant-size'>add</button>
+        <button className='btn-plant-size'>delete</button>
+        </div>
+      </div>
+    </div>
+    )
+  })
+
+// methods for displaying information of plant within plant-container
+  const clickedItems = data.filter(post => {
+    if(post.id == click){
+      return post;
+    }
+  })
+
+  const displayClickedItems = clickedItems.map(post => {
+    return (
+    <div key={post.id} className='flex'>
+        <div className='image-container'>
+          <img className="plant-img-size" src={post.image} alt={post.commonName}/>
+          <div className='photo-credit'><a href={post.photoCredit} target="_blank" rel="noreferrer">photo credit</a></div>
+        </div>
+      </div>)
+  })
+
+  // Methods for displaying trips to save to
+  // const reversePlantTrip = trips.sort((a, b) => a.id < b.id ? 1 : -1 );
+  // const displayTrips = reversePlantTrip.map(trip => {
+  //   return (
+  //         <option key={trip.id} id={trip.id} name="tripName" value={trip.tripName}>
+  //           {trip.tripName}
+  //         </option>
+        
+  //   )
+  // })
+
 
   return (
     <>
     <div id="submit-form">
-    <form className='form-history' onSubmit={handleSubmit} method="POST" action={FORM_ENDPOINT}>
+    <form onSubmit={handleSubmit} method="POST" action={FORM_ENDPOINT}>
+      <div className='parent-container'>
+      <div className='left-container'>
       <h2>Add Trip</h2>
       <label>
         Name:
@@ -161,11 +268,38 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
         Notes:
         <textarea name="notes" value={notes} onChange={(e) => setNotes(e.target.value)} />
       </label>
+      </div>
+
+      {/* PLANTS DISPLAY */}
+      <div className='middle-container'>
+        <h2>Plants of Missouri</h2>
+        <div className='row main-container'>
+          <div className='leftside-container'>
+            <div className='search-container'>
+            <div className='sidebar-size-plants'>
+              <input className="search-plants" onChange={change} placeholder="Find a plant by scientific or common name"/>
+              {displaySearchedItems}
+              </div>
+              <div className='small'>
+                <small>*List is not a comprehensive of all plants in Missouri</small>
+              </div>
+              <div className='small'>
+                <small>*Data provided by <a href='https://ecos.fws.gov/ecp0/reports/ad-hoc-species-report-input'>U.S Fish & Wildlife Service: ECOS</a></small>
+              </div>
+            </div>
+          </div>
+          <div className='plant-container flex'>
+            {displayClickedItems}
+          </div>
+        </div>
+      </div>
+      </div>
       <button type="submit" id="btn-submit-trip">Add Trip</button>
     </form>
     </div>
 
     {/* UPDATE FORM */}
+    {/* TODO: CHANGE EDIT FORMAT */}
     <div id="update-form">
     <form className='form-history' onSubmit={updateTrip}>
       <h2>Edit Trip</h2>
@@ -193,6 +327,10 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
       <label>
         Notes:
         <textarea name="notes" value={notes} onChange={(e) => setNotes(e.target.value)} />
+      </label>
+      <label>
+      {/* TODO change update form to match submit form */}
+        Plants:
       </label>
       <button type="submit" id="btn-update-trip">Update Trip</button>
     </form>

@@ -5,13 +5,31 @@ body {
     margin: 20px;
   }
   
-  .form-history {
+  .parent-container {
     margin-bottom: 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
   }
+
+  .left-container {
+    width: 300px;
+  }
   
+  .add-plant-form{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .btn-plants{
+    display: inline-block;
+  }
+
+  .btn-plant-size {
+    width: 20px;
+    padding: 2px;
+    text-align: center;
+  }
   label {
     margin-bottom: 10px;
   }
