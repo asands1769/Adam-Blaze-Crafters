@@ -12,13 +12,12 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   const [date, setDate] = useState('');
   const [notes, setNotes] = useState('');
   const [locations, setLocations] = useState([]);
-  const [plantsId, setPlantsId] = useState('');
   const [plants, setPlants] = useState([]);
   const [val, setVal] = useState('');
   const [data, setData] = useState([]);
   const [trips, setTrips] = useState([]);
   const [click, setClick] = useState('');
-  const [checkbox, setCheckbox] = useState('');
+  const [checkmark, setCheckmark] = useState('');
   
   const urlPlants = "http://localhost:8080/plants";
   const urlTrips = "http://localhost:8080/trips/all";
@@ -69,7 +68,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
       setLocation(selectedHike.location || '');
       setDate(selectedHike.date || '');
       setNotes(selectedHike.notes || '');
-      setPlants(selectedHike.plants || '');
+      // setPlants(selectedHike.plants || '');
       document.getElementById("submit-form").style.display = "none";
       document.getElementById("update-form").style.display = "block";
       
@@ -79,13 +78,26 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const finalFormEndpoint = e.target.action;
-    const data = Array.from(e.target.elements)
-      .filter((input) => input.name)
-      .reduce((obj, input) => Object.assign(obj, { [input.name]: input.value }), {});
+    // const data = Array.from(e.target.elements)
+    //   .filter((input) => input.name)
+    //   .reduce((obj, input) => Object.assign(obj, { [input.name]: input.value }), {});
 
-    if (additionalData) {
-      Object.assign(data, additionalData);
+    // if (additionalData) {
+    //   Object.assign(data, additionalData);
+    // }
+    let arrPlants = plants.map(plant => {
+        return (
+          {"id":plant.id}
+        )
+      })
+    const data = {
+      "tripName": tripName,
+      "location": location,
+      "date": date,
+      "notes": notes,
+      "plants": plants
     }
+
 
     fetch(finalFormEndpoint, {
       method: 'POST',
@@ -175,14 +187,8 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
       return post;
     }
   })
-// CHECKBOX CHECKED IF PLANTSID IS FOUND IN THE PLANT ARRAY
-  // function selectedPlant(prop){
-  //   if(plants.includes(prop)){
-  //      return console.log(true);
-  //   }else {
-  //     return console.log(false);
-  //   }
-  // } 
+
+
 
 // DISPLAY CHECKBOX, NAME, ADD BUTTON, AND DELETE, BUTTON WITH METHODS TO ADD OR DELETE PLANT FROM ARRAY.
   const displaySearchedItems = searchItems.map(post => {
@@ -190,23 +196,19 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
     <div key={post.id}>
       <div className='add-plant-form' >
       <div className='display-inline-block'>
-        <input type="checkbox" id={post.id} name={post.id} value={post.scientificName} className='checkboxSize'/>
-        <label id={post.id} onClick={clicked} className='btn-plants'> {`${post.scientificName} (${post.commonName})`}</label>
+        <input type="checkbox"  name={post.id} value={post.scientificName} className='checkboxSize' checked={checkmark}/>
+        <label id={post.id} onClick={clicked} className='label-plants'> {`${post.scientificName} (${post.commonName})`}</label>
         </div>
         <div>
-        <p className='btn-plant-size' onClick={(e)=> {
-          // let nextId = 0;
-          setPlantsId(post.id);
-          if (plants.includes(plantsId)){
-            e.target.disabled=true;
-         } else {
-            setPlants([...plants, {plantsId: plantsId}])
-          }
-          return console.log(plants);
-        }}>add</p>
-        <p className='btn-plant-size' onClick={() => {
-          setPlantsId(post.id);
-          setPlants(plants.filter(a => a.name !== plants.plantsId));
+        <button type="button" className='btn-plant' onClick={(e)=> {
+          setPlants([...plants, {id: Number(post.id)}])
+          e.currentTarget.disabled = true;
+        
+         console.log(plants);
+        }}>add</button>
+        <p className='btn-plant' onClick={() => {
+          // enable add button after delete
+          setPlants(plants.filter(a => a.name !== plants.plants));
         }}>delete</p>
         </div>
       </div>
@@ -227,6 +229,9 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
         <div className='image-container'>
           <img className="plant-img-size" src={post.image} alt={post.commonName}/>
           <div className='photo-credit'><a href={post.photoCredit} target="_blank" rel="noreferrer">photo credit</a></div>
+          {/* <p>{plants.map(i => {
+
+          })}</p> */}
         </div>
       </div>)
   })

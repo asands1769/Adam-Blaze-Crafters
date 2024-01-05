@@ -1,5 +1,6 @@
 package com.liftoff.trail_blazers.controllers;
 
+import com.liftoff.trail_blazers.data.PlantsRepository;
 import com.liftoff.trail_blazers.data.TripsPlantsRepository;
 import com.liftoff.trail_blazers.data.TripsRepository;
 import com.liftoff.trail_blazers.model.Plants;
@@ -27,28 +28,38 @@ public class TripsController {
 
     @Autowired
     private TripsPlantsRepository tripsPlantsRepository;
+    @Autowired
+    private PlantsRepository plantsRepository;
 
     @GetMapping("/all")
-    List<Trips> displayAllTrips() {return tripsRepository.findAll();}
+    public List<Trips> displayAllTrips() {
+        return tripsRepository.findAll();
+    }
 
     @PostMapping("/add")
-    public String addTrip(@RequestBody Trips newTrip){
-        tripsRepository.save(newTrip);
+    public String addTrip(@RequestBody TripsPlantsDTO tripsPlants){
+        Trips trips = new Trips();
+        trips.setDate(tripsPlants.getDate());
+        trips.setLocation(tripsPlants.getLocation());
+        trips.setTripName(tripsPlants.getTripName());
+        trips.setPlants(tripsPlants.getPlants());
+        trips.setNotes(tripsPlants.getNotes());
+        tripsRepository.save(trips);
         return "redirect:/trip";
     }
 
-    @PostMapping("/add-plant")
-    public String processAddPlantForm(TripsPlantsDTO tripsPlants, Errors errors){
-        if(!errors.hasErrors()){
-            Trips trips = tripsPlants.getTrips();
-            Plants plants = tripsPlants.getPlants();
-            if(!trips.getPlants().contains(plants)){
-                trips.addPlants(plants);
-                tripsRepository.save(trips);
-            }
-        }
-        return "redirect:/all";
-    }
+//    @PostMapping("/add-plant")
+//    public String processAddPlantForm(TripsPlantsDTO tripsPlants, Errors errors){
+//        if(!errors.hasErrors()){
+//            Trips trips = tripsPlants.getTrips();
+//            Plants plants = tripsPlants.getPlants();
+//            if(!trips.getPlants().contains(plants)){
+//                trips.setPlants(List<Plants> plants);
+//                tripsRepository.save(trips);
+//            }
+//        }
+//        return "redirect:/all";
+//    }
 
 
     @PutMapping("/update/{id}")

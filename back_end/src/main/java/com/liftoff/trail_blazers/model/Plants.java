@@ -1,5 +1,6 @@
 package com.liftoff.trail_blazers.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class Plants extends AbstractEntity {
     private String photoCredit;
 
     @ManyToMany(mappedBy = "plants")
+    @JsonBackReference
     private List<Trips> trips = new ArrayList<>();
 
     public Plants(){}

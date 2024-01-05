@@ -1,8 +1,9 @@
 package com.liftoff.trail_blazers.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
 
 
 import java.util.ArrayList;
@@ -14,6 +15,8 @@ public class Trips extends AbstractEntity {
 
     private String tripName;
     private String location;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date date;
     private String notes;
 
@@ -69,7 +72,9 @@ public class Trips extends AbstractEntity {
 
     public List<Plants> getPlants() {return plants;}
 
-    public void addPlants(Plants plants) {this.plants.add(plants); }
+    public void setPlants(List<Plants> plants) {
+        this.plants = plants;
+    }
 
     @Override
     public String toString() {

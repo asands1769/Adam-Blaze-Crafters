@@ -31,7 +31,7 @@ const HikeList = ({ hikes, onEdit }) => {
       <div className="hike-list-container">
       {hikes.map((hike) => (
         <div key={hike.id}  className="hike-card">
-          <strong>{hike.name}</strong>
+          <strong>{hike.tripName}</strong>
           <p>Trail Location:  {hike.location}</p>
           <p>Hike Date:  {hike.date}</p>
           <p>Hike Notes:  {hike.notes}</p>

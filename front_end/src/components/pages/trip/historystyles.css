@@ -21,15 +21,48 @@ body {
     flex-direction: column;
   }
 
-  .btn-plants{
+  .label-plants{
     display: inline-block;
   }
 
-  .btn-plant-size {
+  .btn-plant {
     width: 20px;
     padding: 2px;
     text-align: center;
   }
+
+  .btn-plant:hover {
+    cursor: pointer;
+    background-color:#45a049;
+  }
+
+  .add-plant-form{
+    display: flex;
+    justify-content: start;
+    margin-left: 5px;
+  }
+
+.checkboxSize {
+  width: 15px;
+}
+
+.label-plants{
+  width: 95%;
+  display: inline-block;
+  text-align: left;
+  border-radius: 5px;
+  padding: 2px;
+  margin: 2px 2px 2px 0;
+  border: none;
+  background-color: transparent;
+  text-wrap: pretty;
+}
+
+.label-plants:hover {
+  background-color: #90ad73;
+  cursor: pointer;
+}
+
   label {
     margin-bottom: 10px;
   }
