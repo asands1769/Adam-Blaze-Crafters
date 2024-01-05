@@ -2,105 +2,84 @@ import React, { useState, useEffect } from "react";
 import "../weather/weatherStyles.css";
 
 const WeatherSearch = () => {
+  const [data, setData] = useState([]);
+  const [lon, setLon] = useState(null);
+  const [lat, setLat] = useState('');
+  const [click, setClick] = useState('');
+  const parksArray = data.map((park) => park);
+
+  //fetch park locations from database
+  //set coordinates to use in weather api fetch
+  const fetchInfo = async () => {
+    await fetch("http://localhost:8080/parks")
+      .then((res) => res.json())
+      .then((d) => setData(d));
+    console.log(data);
+  };
+
+  useEffect(() => {
+    fetchInfo();
+  }, []);
+
+  const setLatitude = (e) => {
+    const selectedValue = e.target.value;
+    parksArray.filter(
+        (park) => {
+            if(park.id == selectedValue){
+                setLat(park.latitude);
+            }
+        }
+    );
+    console.log(lat);
+  };
+
+  const setLongitude = (e) => {
+    const selectedPark = e.target.value;
+
+    console.log(selectedPark);
+  };
+
+  const setCoordinates = (e) => {
+    setLatitude(e);
+    // setLongitude(e);
+    //fetchWeatherInfo(e);
+  };
+
+  //weather api fetch
   const [weather, setWeather] = useState({});
-  const [query, setQuery] = useState("");
-
-  const fetchWeatherInfo = (evt) => {
-    if (evt.key === "Enter") {
-      fetch(
-        `http://api.openweathermap.org/data/2.5/weather?q=${query}&units=imperial&APPID=88dc04c24e0e5db12db28e304cdca6a0`
-      )
-        .then((res) => res.json())
-        .then((result) => {
-          setWeather(result);
-          setQuery("");
-          console.log(result);
-        });
-    }
+  const api = {
+    key: "88dc04c24e0e5db12db28e304cdca6a0",
+    base: "https://api.openweathermap.org/geo/1.0/",
   };
 
-  const dateBuilder = (d) => {
-    let months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
 
-    let days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    let day = days[d.getDay()];
-    let date = d.getDate();
-    let month = months[d.getMonth()];
-    let year = d.getFullYear();
-
-    return `${day}, ${month} ${date}, ${year}`;
-  };
+  const fetchWeatherInfo = (e) => {
+    fetch(`${api.base}reverse?lat=${lat}&lon=${lon}&limit=1&appid=${api.key}`)
+    .then(res => res.json())
+    .then(result => {
+        if(result.result === "Ok"){
+            setWeather(result);
+            console.log(result);
+        }else{
+            throw new Error ("Oops! Something went wrong.");
+        }
+    }).catch(err => console.log(err));
+  }
 
   return (
     <>
-      <div className="main">
-        <div
-          className={
-            typeof weather.main != "undefined"
-              ? weather.main.temp <= 32
-                ? "weather-app-cold"
-                : weather.main.temp < 65
-                ? "weather-app-warm"
-                : weather.main.temp > 65
-                ? "weather-app-hot"
-                : "weather-app"
-              : "weather-app"
-          }
+      <h1>Park Weather</h1>
+      <div>
+        <select
+        onChange={setCoordinates}
         >
-          <main className="weather-main">
-            <div className="main-div">
-              <div className="search-box">
-                <input
-                  type="text"
-                  className="search-bar"
-                  placeholder="Search a Location..."
-                  onChange={(e) => setQuery(e.target.value)}
-                  value={query}
-                  onKeyDown={fetchWeatherInfo}
-                />
-              </div>
-              {typeof weather.main != "undefined" ? (
-                <div>
-                  <div className="location-box">
-                    <div className="location">
-                      {weather.name}, {weather.sys.country}
-                    </div>
-                    <div className="date">{dateBuilder(new Date())}</div>
-                  </div>
-                  <div className="weather-box">
-                    <div className="temp">
-                      {Math.round(weather.main.temp)}°f
-                    </div>
-                    <div className="weather">{weather.weather[0].main}</div>
-                  </div>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-          </main>
-        </div>
+          <option value="placeholder">Select a Park</option>
+          {parksArray.map((park) => (
+            <option key={park.id} value={park.id}>
+              {park.name}
+            </option>
+          ))}
+        </select>
       </div>
     </>
   );
