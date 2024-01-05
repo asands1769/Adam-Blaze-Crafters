@@ -188,28 +188,28 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
     }
   })
 
-
-
 // DISPLAY CHECKBOX, NAME, ADD BUTTON, AND DELETE, BUTTON WITH METHODS TO ADD OR DELETE PLANT FROM ARRAY.
   const displaySearchedItems = searchItems.map(post => {
     return (
     <div key={post.id}>
       <div className='add-plant-form' >
       <div className='display-inline-block'>
-        <input type="checkbox"  name={post.id} value={post.scientificName} className='checkboxSize' checked={checkmark}/>
         <label id={post.id} onClick={clicked} className='label-plants'> {`${post.scientificName} (${post.commonName})`}</label>
         </div>
         <div>
-        <button type="button" className='btn-plant' onClick={(e)=> {
-          setPlants([...plants, {id: Number(post.id)}])
-          e.currentTarget.disabled = true;
-        
-         console.log(plants);
-        }}>add</button>
-        <p className='btn-plant' onClick={() => {
-          // enable add button after delete
-          setPlants(plants.filter(a => a.name !== plants.plants));
-        }}>delete</p>
+          <button type="button" className='btn-plant' onClick={(e)=> {
+            setPlants([...plants, {id: Number(post.id)}])
+            e.currentTarget.disabled = true;
+            let chebox = document.createElement("img");
+            chebox.src="https://cdn2.iconfinder.com/data/icons/flat-ui-icons-24-px/24/checkmark-24-1024.png";
+            chebox.width=20;
+            chebox.className="checkbox-style";
+            e.currentTarget.after(chebox);
+          }}>add</button>
+          <p className='btn-plant' onClick={() => {
+            // enable add button after delete
+            setPlants(plants.filter(a => a.name !== plants.plants));
+          }}>delete</p>
         </div>
       </div>
     </div>

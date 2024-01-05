@@ -47,28 +47,29 @@ const HikeList = ({ hikes, onEdit }) => {
           <p>Trail Location:  {trip.location}</p>
           <p>Hike Date:  {trip.date}</p>
           <p>Hike Notes:  {trip.notes}</p>
-          {/* <p>Plants Fount: {trip.plants}</p> */}
+          <div> <p>Plants Found:</p> {trip.plants.map((plant) => (
+            <span key={plant.id}><span>{plant.scientificName} | </span></span> 
+      ))}</div>
           <button id={trip.id} onClick={() => onEdit(trip)}>Edit</button>
           <button onClick={() => {
-    const urlDelete = "http://localhost:8080/trips/delete/" + trip.id;
-    let text = "Are you sure you want to delete this trip?";
-    // eslint-disable-next-line no-restricted-globals
-    if(confirm(text) == true){
-      fetch(urlDelete, {method: 'DELETE'}).then((response) => {
-      if(!response.ok){
-        throw new Error('Something went wrong');
-      }
-      window.location.reload(false);
-    })
-    .catch((e) =>{
-      console.log(e);
-    });
-    } else {
-      return null;
-    }
-    
-   }}
-   >Delete</button>
+              const urlDelete = "http://localhost:8080/trips/delete/" + trip.id;
+              let text = "Are you sure you want to delete this trip?";
+              // eslint-disable-next-line no-restricted-globals
+              if(confirm(text) == true){
+                fetch(urlDelete, {method: 'DELETE'}).then((response) => {
+                if(!response.ok){
+                  throw new Error('Something went wrong');
+                }
+                window.location.reload(false);
+              })
+              .catch((e) =>{
+                console.log(e);
+              });
+              } else {
+                return null;
+              }
+            }}
+            >Delete</button>
         </div>
       ))}
       </div>

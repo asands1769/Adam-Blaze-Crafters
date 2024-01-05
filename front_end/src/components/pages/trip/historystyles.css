@@ -58,6 +58,12 @@ body {
   text-wrap: pretty;
 }
 
+
+.checkbox-style{
+  margin-left: 5px;
+  margin-top: 3px;
+}
+
 .label-plants:hover {
   background-color: #90ad73;
   cursor: pointer;
