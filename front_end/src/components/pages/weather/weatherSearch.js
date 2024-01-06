@@ -4,8 +4,7 @@ import "../weather/weatherStyles.css";
 const WeatherSearch = () => {
   const [data, setData] = useState([]);
   const [lon, setLon] = useState(null);
-  const [lat, setLat] = useState('');
-  const [click, setClick] = useState('');
+  const [lat, setLat] = useState("");
   const parksArray = data.map((park) => park);
 
   //fetch park locations from database
@@ -14,7 +13,6 @@ const WeatherSearch = () => {
     await fetch("http://localhost:8080/parks")
       .then((res) => res.json())
       .then((d) => setData(d));
-    console.log(data);
   };
 
   useEffect(() => {
@@ -23,56 +21,58 @@ const WeatherSearch = () => {
 
   const setLatitude = (e) => {
     const selectedValue = e.target.value;
-    parksArray.filter(
-        (park) => {
-            if(park.id == selectedValue){
-                setLat(park.latitude);
-            }
-        }
-    );
+    parksArray.filter((park) => {
+      if (Number(park.id) === Number(selectedValue)) {
+        setLat(park.latitude);
+      }
+      return lat;
+    });
     console.log(lat);
   };
 
   const setLongitude = (e) => {
-    const selectedPark = e.target.value;
-
-    console.log(selectedPark);
+    const selectedValue = e.target.value;
+    parksArray.filter((park) => {
+      if (Number(park.id) === Number(selectedValue)) {
+        setLon(park.longitude);
+      }
+      return lon;
+    });
+    console.log(lon);
   };
 
   const setCoordinates = (e) => {
     setLatitude(e);
-    // setLongitude(e);
-    //fetchWeatherInfo(e);
+    setLongitude(e);
+    fetchWeatherInfo();
   };
 
   //weather api fetch
   const [weather, setWeather] = useState({});
   const api = {
     key: "88dc04c24e0e5db12db28e304cdca6a0",
-    base: "https://api.openweathermap.org/geo/1.0/",
+    base: "http://api.openweathermap.org/geo/1.0/",
   };
 
-
-  const fetchWeatherInfo = (e) => {
+  const fetchWeatherInfo = () => {
     fetch(`${api.base}reverse?lat=${lat}&lon=${lon}&limit=1&appid=${api.key}`)
-    .then(res => res.json())
-    .then(result => {
-        if(result.result === "Ok"){
-            setWeather(result);
-            console.log(result);
-        }else{
-            throw new Error ("Oops! Something went wrong.");
-        }
-    }).catch(err => console.log(err));
-  }
+      .then((res) => res.json())
+      .then((result) => {
+        setWeather(result);
+        console.log(result);
+      });
+  };
+
+  const displayWeather = (e) => {
+    const location = e.target.value;
+    console.log(location);
+  };
 
   return (
     <>
       <h1>Park Weather</h1>
       <div>
-        <select
-        onChange={setCoordinates}
-        >
+        <select onChange={setCoordinates}>
           <option value="placeholder">Select a Park</option>
           {parksArray.map((park) => (
             <option key={park.id} value={park.id}>
@@ -80,6 +80,25 @@ const WeatherSearch = () => {
             </option>
           ))}
         </select>
+      </div>
+      <div>
+        <div className="main-div">
+          {typeof weather.main != "undefined" ? (
+            <div>
+              <div className="location-box">
+                <div className="location">
+                  {displayWeather}, {weather.sys.country}
+                </div>
+              </div>
+              <div className="weather-box">
+                <div className="temp">{Math.round(weather.main.temp)}°f</div>
+                <div className="weather">{weather.weather[0].main}</div>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
       </div>
     </>
   );
