@@ -3,19 +3,30 @@ import "../../../index.css";
 import "./plantsStyles.css";
 
 
-const Home = () => {
-
+const DisplayPlants = () => {
+// PLANTS DISPLAY
   const [val, setVal] = useState('');
   const [data, setData] = useState([]);
+  const [trips, setTrips] = useState([]);
   const [click, setClick] = useState('');
+  const [plantsId, setPlantsId] = useState('');
   const urlPlants = "http://localhost:8080/plants";
+  const urlTrips = "http://localhost:8080/trips/all";
 
   // Fetching trail_blazer database
   const fetchInfo = async () => {
-    await fetch(urlPlants)
-      .then((res) => res.json())
-      .then((d) => setData(d))
-  }
+    Promise.all([
+      await fetch(urlPlants),
+      await fetch(urlTrips),
+    ])
+      .then(([resData, resTrips]) => 
+      Promise.all([resData.json(), resTrips.json()])
+      )
+      .then(([dData, dTrips]) => {
+        setData(dData);
+        setTrips(dTrips);
+      })
+    }
 
   useEffect(() => {
     fetchInfo();
@@ -38,13 +49,14 @@ const Home = () => {
     const displaySearchedItems = searchItems.map(post => {
       return (
       <div key={post.id}>
-        <form>
-          <input type="checkbox" id={post.id} name={post.id} value={post.scientificName}/>
-          <label id={post.id} onClick={clicked} className='btn-plants'>{`${post.scientificName} (${post.commonName})`}</label>
-        </form>
+        <div  className='add-plant-form' >
+          {/* <input type="checkbox" id={post.id} name={post.id} value={post.scientificName} className='checkboxSize'/> */}
+          <label id={post.id} onClick={clicked} className='btn-plants'> {`${post.scientificName} (${post.commonName})`}</label>
+        </div>
       </div>
       )
     })
+
 // methods for displaying information of plant within plant-container
     const clickedItems = data.filter(post => {
       if(post.id == click){
@@ -69,22 +81,23 @@ const Home = () => {
         </div>)
     })
 
+    // Methods for displaying trips to save to
+    // const reversePlantTrip = trips.sort((a, b) => a.id < b.id ? 1 : -1 );
+    // const displayTrips = reversePlantTrip.map(trip => {
+    //   return (
+    //         <option key={trip.id} id={trip.id} name="tripName" value={trip.tripName}>
+    //           {trip.tripName}
+    //         </option>
+    //   )
+    // })
   
   return (
       <div>
-          <h2>Plants of Missouri</h2>
+        <h2>Plants of Missouri</h2>
         <div className='row main-container'>
           <div className='leftside-container'>
-            <div className='save-container'>
-              <select>
-                <option>Select a trip to save the plants to</option>
-                <option value='post.id1'>Trip 1</option>
-              </select>
-              <button type='submit' className='save-btn'>Save</button>
-              <a className='create-trip' href="../Trip.js">Create a Trip</a>
-            </div>
             <div className='search-container'>
-            <div className='sidebar-size'>
+            <div className='sidebar-size-plants'>
               <input className="search-plants" onChange={change} placeholder="Find a plant by scientific or common name"/>
               {displaySearchedItems}
               </div>
@@ -104,6 +117,4 @@ const Home = () => {
         );
 };
 
-export default Home;
-
-// Photo by PhotoMIX Company: https://www.pexels.com/photo/closeup-photo-of-sprout-1002703/
+export default DisplayPlants;

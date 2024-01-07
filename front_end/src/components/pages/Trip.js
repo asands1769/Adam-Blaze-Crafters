@@ -11,6 +11,7 @@ const Trip = () => {
     // Load hikes from local storage on mount
     const storedHikes = JSON.parse(localStorage.getItem('hikes')) || [];
     setHikes(storedHikes);
+ 
   }, []);
 
   useEffect(() => {

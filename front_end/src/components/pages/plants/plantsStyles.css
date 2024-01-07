@@ -14,6 +14,10 @@
   margin: 10px 50px 50px;
 }
 
+.leftside-container{
+  width: 40%;
+}
+
 .save-container {
   width: auto;
 }
@@ -45,8 +49,7 @@ select{
     border-radius: 5px 5px 0 0;
 }
 
-.sidebar-size {
-    width: 90%;
+.sidebar-size-plants {
     height: 400px;
     overflow-y: scroll;
     background-color: #f5fafe;
@@ -56,15 +59,26 @@ select{
   }
 
   /* button layout */
+    .add-plant-form{
+      display: flex;
+      justify-content: start;
+      margin-left: 5px;
+    }
+
+  .checkboxSize {
+    width: 15px;
+  }
+
   .btn-plants{
-    width: 90%;
+    width: 95%;
     display: inline-block;
     text-align: left;
     border-radius: 5px;
     padding: 2px;
-    margin: 2px;
+    margin: 2px 2px 2px 0;
     border: none;
     background-color: transparent;
+    text-wrap: pretty;
   }
 
   .btn-plants:hover {
