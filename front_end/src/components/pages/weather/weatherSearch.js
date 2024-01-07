@@ -4,7 +4,7 @@ import "../weather/weatherStyles.css";
 const WeatherSearch = () => {
   const [data, setData] = useState([]);
   const [lon, setLon] = useState(null);
-  const [lat, setLat] = useState("");
+  const [lat, setLat] = useState(null);
   const parksArray = data.map((park) => park);
 
   //fetch park locations from database
@@ -21,9 +21,10 @@ const WeatherSearch = () => {
 
   const setLatitude = (e) => {
     const selectedValue = e.target.value;
-    parksArray.filter((park) => {
+    parksArray.find((park) => {
       if (Number(park.id) === Number(selectedValue)) {
         setLat(park.latitude);
+        console.log(park.name);
       }
       return lat;
     });
@@ -32,7 +33,7 @@ const WeatherSearch = () => {
 
   const setLongitude = (e) => {
     const selectedValue = e.target.value;
-    parksArray.filter((park) => {
+    parksArray.find((park) => {
       if (Number(park.id) === Number(selectedValue)) {
         setLon(park.longitude);
       }
