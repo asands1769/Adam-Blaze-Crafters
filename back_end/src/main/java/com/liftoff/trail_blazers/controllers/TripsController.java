@@ -69,7 +69,13 @@ public class TripsController {
             trip.setTripName(newTrips.getTripName());
             trip.setLocation(newTrips.getLocation());
             trip.setDate(newTrips.getDate());
-            trip.setNotes(newTrips.getNotes());
+            if(newTrips.getNotes().isEmpty()){
+                trip.setNotes(null);
+            } else {
+                trip.setNotes(newTrips.getNotes());
+            }
+            trip.setPlants(newTrips.getPlants());
+
             return tripsRepository.save(trip);
         }).orElseThrow(()-> new Error("trip not found"));
     }

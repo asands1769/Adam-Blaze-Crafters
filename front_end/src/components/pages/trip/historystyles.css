@@ -25,9 +25,15 @@ body {
     display: inline-block;
   }
 
+  .add-delete-plants{
+    display: flex;
+    flex-direction: column;
+  }
+
   .btn-plant {
-    width: 20px;
+    width: 45px;
     padding: 2px;
+    margin-bottom: 2px;
     text-align: center;
   }
 

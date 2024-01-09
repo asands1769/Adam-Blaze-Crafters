@@ -17,16 +17,29 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   const [data, setData] = useState([]);
   const [trips, setTrips] = useState([]);
   const [click, setClick] = useState('');
-  const [checkmark, setCheckmark] = useState('');
   
   const urlPlants = "http://localhost:8080/plants";
   const urlTrips = "http://localhost:8080/trips/all";
   
-  // const formElement = useRef(null);
-  const additionalData = {
-    sent: new Date().toISOString(),
-  };
+  // const insertCheckboxImage = (e) => {
+  //   let chebox = document.createElement("img");
+  //   chebox.src="https://cdn2.iconfinder.com/data/icons/flat-ui-icons-24-px/24/checkmark-24-1024.png";
+  //   chebox.width=20;
+  //   chebox.className="checkbox-style";
+  //   e.currentTarget.after(chebox);
+  //   }
 
+    const imageCheckbox = document.querySelectorAll(".checkbox-style");
+    const addDeleteAllBtn = document.querySelectorAll("btn-plants") 
+    function deleteCheckbox(){
+      for(const el of imageCheckbox){
+        el.parentNode.removeChild(el);
+      for(const btn of addDeleteAllBtn){
+        btn.reset();
+      }
+      }
+    }
+    
   useEffect(() => {
     // Fetch and parse the CSV file
     const fetchData = async () => {
@@ -68,28 +81,43 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
       setLocation(selectedHike.location || '');
       setDate(selectedHike.date || '');
       setNotes(selectedHike.notes || '');
-      // setPlants(selectedHike.plants || '');
+      setPlants(selectedHike.plants || '');
+      
       document.getElementById("submit-form").style.display = "none";
       document.getElementById("update-form").style.display = "block";
-      
+
     }
   }, [selectedHike]);
+
+  const updateForm = document.getElementById("update-form");
+useEffect(()=>{
+  if (document.getElementById("update-form").style.display === "block"){
+    const updateFormAddBtn = updateForm.querySelectorAll("#add-btn-plant");
+    for (const chmk of updateFormAddBtn){
+      const markId = chmk.parentElement.parentElement.firstElementChild.firstChild.id;
+      if(chmk.lastElementChild.type === "img"){
+        return
+      } else {
+        plants.map(plant => {
+          if(plant.id == markId){
+            let chebox = document.createElement("img");
+            chebox.src="https://cdn2.iconfinder.com/data/icons/flat-ui-icons-24-px/24/checkmark-24-1024.png";
+            chebox.width=20;
+            chebox.className="checkbox-style";
+            chmk.firstElementChild.after(chebox);
+            chmk.parentElement.firstChild.lastChild.disabled = true;
+            chmk.parentElement.lastChild.disabled = false;
+            console.log(chmk.childNodes.length);
+          }
+        })
+      }
+    }
+  }
+})
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const finalFormEndpoint = e.target.action;
-    // const data = Array.from(e.target.elements)
-    //   .filter((input) => input.name)
-    //   .reduce((obj, input) => Object.assign(obj, { [input.name]: input.value }), {});
-
-    // if (additionalData) {
-    //   Object.assign(data, additionalData);
-    // }
-    let arrPlants = plants.map(plant => {
-        return (
-          {"id":plant.id}
-        )
-      })
     const data = {
       "tripName": tripName,
       "location": location,
@@ -97,7 +125,6 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
       "notes": notes,
       "plants": plants
     }
-
 
     fetch(finalFormEndpoint, {
       method: 'POST',
@@ -108,11 +135,15 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
       body: JSON.stringify(data),
     });
 
+    
+
     if (selectedHike) {
       onEdit({ ...selectedHike, tripName, location, date, notes, plants });
     } else {
       onSubmit({ tripName, location, date, notes, plants });
     }
+
+    
 
     // Reset form fields
     setTripName('');
@@ -120,17 +151,18 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
     setDate('');
     setNotes('');
     setPlants('');
+    deleteCheckbox();
   };
 
-  function updateTrip(e){
+  function updateTrip(){
       const finalFormEndpointUpdate = 'http://localhost:8080/trips/update/' + id;
-      const updatedData = Array.from(e.target.elements)
-      .filter((input) => input.name)
-      .reduce((obj, input) => Object.assign(obj, { [input.name]: input.value }), {});
-
-    if (additionalData) {
-      Object.assign(updatedData, additionalData);
-    }
+      const updatedData = {
+        "tripName": tripName,
+        "location": location,
+        "date": date,
+        "notes": notes,
+        "plants": plants
+      }
 
     fetch(finalFormEndpointUpdate, {
       method: 'PUT',
@@ -144,14 +176,12 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
         return response.json();
       })
       .then((updatedDate) => {
-
-        console.log(updatedDate)
       });
     if (selectedHike) {
       onEdit({ ...selectedHike, id, tripName, location, date, notes, plants });
     } else {
       onSubmit({ id, tripName, location, date, notes, plants });
-    }
+    } 
   };
 
 // PLANTS DISPLAY
@@ -176,9 +206,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
 
  // setting val based on event provided in HTML section and click based on click to display image of plant
  const change = event => {setVal(event.target.value)}
- const clicked = (event) => {
-   setClick(event.target.id);
- }
+ const clicked = (event) => {setClick(event.target.id);}
 //SEARCH BAR FUNCTION TO DISPLAY WHAT USER TYPES 
  const searchItems = data.filter(post => {
     if(val === ''){
@@ -193,23 +221,27 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
     return (
     <div key={post.id}>
       <div className='add-plant-form' >
-      <div className='display-inline-block'>
+        <div className='display-inline-block'>
         <label id={post.id} onClick={clicked} className='label-plants'> {`${post.scientificName} (${post.commonName})`}</label>
         </div>
-        <div>
-          <button type="button" className='btn-plant' onClick={(e)=> {
+        <div className='add-delete-plants'>
+          <div id="add-btn-plant">
+          <button type="button" className='btn-plant add-btn-plant' onClick={(e)=> {
             setPlants([...plants, {id: Number(post.id)}])
             e.currentTarget.disabled = true;
-            let chebox = document.createElement("img");
-            chebox.src="https://cdn2.iconfinder.com/data/icons/flat-ui-icons-24-px/24/checkmark-24-1024.png";
-            chebox.width=20;
-            chebox.className="checkbox-style";
-            e.currentTarget.after(chebox);
+            e.currentTarget.parentElement.parentElement.lastChild.disabled = false;
           }}>add</button>
-          <p className='btn-plant' onClick={() => {
-            // enable add button after delete
-            setPlants(plants.filter(a => a.name !== plants.plants));
-          }}>delete</p>
+          </div>
+          <button type="button" className='btn-plant' onClick={(e) => {
+            setPlants(plants.filter(a => a.id !== post.id))
+            e.currentTarget.disabled = true;
+            if(e.currentTarget.parentElement.firstChild.lastChild.localName === "img"){
+              e.currentTarget.parentElement.firstChild.lastChild.remove();
+            } else {
+              return null;
+            }
+            e.currentTarget.parentElement.firstChild.firstChild.disabled = false;
+          }}>delete</button>
         </div>
       </div>
     </div>
@@ -229,24 +261,9 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
         <div className='image-container'>
           <img className="plant-img-size" src={post.image} alt={post.commonName}/>
           <div className='photo-credit'><a href={post.photoCredit} target="_blank" rel="noreferrer">photo credit</a></div>
-          {/* <p>{plants.map(i => {
-
-          })}</p> */}
         </div>
       </div>)
   })
-
-  // Methods for displaying trips to save to
-  // const reversePlantTrip = trips.sort((a, b) => a.id < b.id ? 1 : -1 );
-  // const displayTrips = reversePlantTrip.map(trip => {
-  //   return (
-  //         <option key={trip.id} id={trip.id} name="tripName" value={trip.tripName}>
-  //           {trip.tripName}
-  //         </option>
-        
-  //   )
-  // })
-
 
   return (
     <>
@@ -309,43 +326,68 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
     </form>
     </div>
 
+
+
     {/* UPDATE FORM */}
     {/* TODO: CHANGE EDIT FORMAT */}
-    <div id="update-form">
-    <form className='form-history' onSubmit={updateTrip}>
-      <h2>Edit Trip</h2>
-      <input type="text" name="id" value={id} onChange={(e) => setId(e.target.value)} disabled style={{display: "none"}}/>
-      <label>
-        Name:
-        <input type="text" name="tripName" value={tripName} onChange={(e) => setTripName(e.target.value)} required />
-      </label>
-      <label>
-        Location:
-        {/* Use a dropdown select element */}
-        <select name="location" value={location} onChange={(e) => setLocation(e.target.value)} required>
-          <option value="" disabled>Select a location</option>
-          {locations.map((loc) => (
-            <option key={loc.ID} value={loc.LOC_NAME}>
-              {loc.LOC_NAME}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label>
-        Date:
-        <input type="date" name="date" value={date} onChange={(e) => setDate(e.target.value)} required />
-      </label>
-      <label>
-        Notes:
-        <textarea name="notes" value={notes} onChange={(e) => setNotes(e.target.value)} />
-      </label>
-      <label>
-      {/* TODO change update form to match submit form */}
-        Plants:
-      </label>
-      <button type="submit" id="btn-update-trip">Update Trip</button>
+    <div id="update-form" >
+      <form className='form-history' onSubmit={updateTrip}>
+        <div className='parent-container'>
+        <div className='left-container'>
+          <h2>Edit Trip</h2>
+           <input type="text" name="id" value={id} onChange={(e) => setId(e.target.value)} disabled style={{display: "none"}}/>
+          <label>
+           Name:
+          <input type="text" id="focusedTripName" name="tripName" value={tripName} onChange={(e) => setTripName(e.target.value)} required />
+          </label>
+          <label>
+            Location:
+            {/* Use a dropdown select element */}
+            <select name="location" value={location} onChange={(e) => setLocation(e.target.value)} required>
+               <option value="" disabled>Select a location</option>
+               {locations.map((loc) => (
+               <option key={loc.ID} value={loc.LOC_NAME}>
+                 {loc.LOC_NAME}
+               </option>
+                 ))}
+            </select>
+          </label>
+          <label>
+            Date:
+            <input type="date" name="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+          </label>
+          <label>
+            Notes:
+            <textarea name="notes" value={notes} onChange={(e) => setNotes(e.target.value)} />
+          </label>
+        </div>
+    {/* TODO change update form to match submit form */}
+        <div className='middle-container'>
+          <h2>Plants of Missouri</h2>
+          <div className='row main-container'>
+            <div className='leftside-container'>
+              <div className='search-container'>
+                <div className='sidebar-size-plants'>
+                  <input className="search-plants" onChange={change} placeholder="Find a plant by scientific or common name"/>
+                  {displaySearchedItems}
+                </div>
+                <div className='small'>
+                  <small>*List is not a comprehensive of all plants in Missouri</small>
+                </div>
+                <div className='small'>
+                  <small>*Data provided by <a href='https://ecos.fws.gov/ecp0/reports/ad-hoc-species-report-input'>U.S Fish & Wildlife Service: ECOS</a></small>
+                </div>
+              </div>
+            </div>
+            <div className='plant-container flex'>
+              {displayClickedItems}
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" id="btn-submit-trip">Updated Trip</button>
     </form>
-    </div>
+  </div>
   </>
   );
 };
