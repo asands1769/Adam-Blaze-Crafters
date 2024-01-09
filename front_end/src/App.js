@@ -12,6 +12,7 @@ import About from './components/pages/About.js';
 import Trip from './components/pages/Trip.js';
 import LoginButton from './components/auth/LoginButton.js';
 import LogoutButton from './components/auth/LogoutButton.js';
+import Profile from './components/auth/Profile.js';
 import './components/nav/Header.css';
 import './components/auth/Auth.css';
 
@@ -34,6 +35,7 @@ function App() {
             <Route path='/weather' element={<Weather/>} />
             <Route path='/animals' element={<Animals/>} /> 
             <Route path='/plants' element={<Plants/>} />
+            <Route path='/profile' element={<Profile/>} />
           </>
         )}
       </Routes>
@@ -49,9 +51,7 @@ function App() {
     </main>
   );
 }
-{/*{isAuthenticated && (*/
-/*)}*/
-}
+
 export default App;
 
 

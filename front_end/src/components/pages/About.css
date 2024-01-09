@@ -1,0 +1,15 @@
+section {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  
+  footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1em 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }

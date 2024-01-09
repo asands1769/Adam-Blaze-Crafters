@@ -16,6 +16,7 @@ export default function Header() {
                             <li><a href='/weather'>Weather</a></li>
                             <li><a href='/animals'>Animals</a></li>
                             <li><a href='/plants'>Plants</a></li>
+                            <li><a href='/profile'>Profile</a></li>
                         </>
                     )}
                     <li><a href='/about'>About</a></li>
