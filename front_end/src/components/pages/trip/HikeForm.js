@@ -17,17 +17,10 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   const [data, setData] = useState([]);
   const [trips, setTrips] = useState([]);
   const [click, setClick] = useState('');
+  // const [toggle, setToggle] = useState(false);
   
   const urlPlants = "http://localhost:8080/plants";
   const urlTrips = "http://localhost:8080/trips/all";
-  
-  // const insertCheckboxImage = (e) => {
-  //   let chebox = document.createElement("img");
-  //   chebox.src="https://cdn2.iconfinder.com/data/icons/flat-ui-icons-24-px/24/checkmark-24-1024.png";
-  //   chebox.width=20;
-  //   chebox.className="checkbox-style";
-  //   e.currentTarget.after(chebox);
-  //   }
 
     const imageCheckbox = document.querySelectorAll(".checkbox-style");
     const addDeleteAllBtn = document.querySelectorAll("btn-plants") 
@@ -95,25 +88,22 @@ useEffect(()=>{
     const updateFormAddBtn = updateForm.querySelectorAll("#add-btn-plant");
     for (const chmk of updateFormAddBtn){
       const markId = chmk.parentElement.parentElement.firstElementChild.firstChild.id;
-      if(chmk.lastElementChild.type === "img"){
-        return
-      } else {
-        plants.map(plant => {
-          if(plant.id == markId){
-            let chebox = document.createElement("img");
-            chebox.src="https://cdn2.iconfinder.com/data/icons/flat-ui-icons-24-px/24/checkmark-24-1024.png";
-            chebox.width=20;
-            chebox.className="checkbox-style";
-            chmk.firstElementChild.after(chebox);
-            chmk.parentElement.firstChild.lastChild.disabled = true;
-            chmk.parentElement.lastChild.disabled = false;
-            console.log(chmk.childNodes.length);
-          }
+        chmk.lastChild.style.visibility = "hidden";
+        chmk.firstElementChild.disabled = false;
+        chmk.lastElementChild.disabled = true;
+        console.log(chmk.lastElementChild.disabled)
+      plants.map(plant => {
+        if(plant.id == markId){
+          chmk.lastChild.style.visibility = "visible";
+          chmk.firstElementChild.disabled = true;
+          chmk.lastElementChild.disabled = false;
+          console.log(plants)
+        }
         })
       }
     }
   }
-})
+)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -226,20 +216,20 @@ useEffect(()=>{
         </div>
         <div className='add-delete-plants'>
           <div id="add-btn-plant">
-          <button type="button" className='btn-plant add-btn-plant' onClick={(e)=> {
-            setPlants([...plants, {id: Number(post.id)}])
-            e.currentTarget.disabled = true;
-            e.currentTarget.parentElement.parentElement.lastChild.disabled = false;
-          }}>add</button>
+            <button type="button" className='btn-plant add-btn-plant' onClick={(e)=> {
+              setPlants([...plants, {id: Number(post.id)}])
+              e.currentTarget.nextSibling.style.visibility = "visible";
+              e.currentTarget.disabled = true;
+              e.currentTarget.parentElement.parentElement.lastChild.disabled = false;
+            }}>
+              add
+            </button>
+              <img src="https://cdn2.iconfinder.com/data/icons/flat-ui-icons-24-px/24/checkmark-24-1024.png" alt="a checkmark, indicating the plant is associated with your current trip." className="checkbox-style" style={{visibility:"hidden"}}/>
           </div>
           <button type="button" className='btn-plant' onClick={(e) => {
-            setPlants(plants.filter(a => a.id !== post.id))
+            setPlants(plants.filter(a => a.id !== post.id));
+            e.currentTarget.parentElement.firstElementChild.lastChild.style.visibility = "hidden";
             e.currentTarget.disabled = true;
-            if(e.currentTarget.parentElement.firstChild.lastChild.localName === "img"){
-              e.currentTarget.parentElement.firstChild.lastChild.remove();
-            } else {
-              return null;
-            }
             e.currentTarget.parentElement.firstChild.firstChild.disabled = false;
           }}>delete</button>
         </div>
