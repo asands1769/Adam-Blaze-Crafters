@@ -22,16 +22,8 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   const urlPlants = "http://localhost:8080/plants";
   const urlTrips = "http://localhost:8080/trips/all";
 
-    const imageCheckbox = document.querySelectorAll(".checkbox-style");
-    const addDeleteAllBtn = document.querySelectorAll("btn-plants") 
-    function deleteCheckbox(){
-      for(const el of imageCheckbox){
-        el.parentNode.removeChild(el);
-      for(const btn of addDeleteAllBtn){
-        btn.reset();
-      }
-      }
-    }
+  const imageCheckbox = document.querySelectorAll(".checkbox-style");
+  const updateForm = document.getElementById("update-form");  
     
   useEffect(() => {
     // Fetch and parse the CSV file
@@ -82,22 +74,21 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
     }
   }, [selectedHike]);
 
-  const updateForm = document.getElementById("update-form");
+  
 useEffect(()=>{
   if (document.getElementById("update-form").style.display === "block"){
     const updateFormAddBtn = updateForm.querySelectorAll("#add-btn-plant");
     for (const chmk of updateFormAddBtn){
       const markId = chmk.parentElement.parentElement.firstElementChild.firstChild.id;
-        chmk.lastChild.style.visibility = "hidden";
-        chmk.firstElementChild.disabled = false;
-        chmk.lastElementChild.disabled = true;
-        console.log(chmk.lastElementChild.disabled)
+      chmk.lastChild.style.visibility = "hidden";
+      chmk.firstElementChild.disabled = false;
+      chmk.lastElementChild.disabled = true;
+      console.log(imageCheckbox)
       plants.map(plant => {
         if(plant.id == markId){
           chmk.lastChild.style.visibility = "visible";
           chmk.firstElementChild.disabled = true;
           chmk.lastElementChild.disabled = false;
-          console.log(plants)
         }
         })
       }
@@ -105,6 +96,16 @@ useEffect(()=>{
   }
 )
 
+const submitForm = document.getElementById("submit-form"); 
+function deleteCheckmarks(){
+  const submitCheckbox = submitForm.querySelectorAll("#add-btn-plant");
+    for (const chmk of submitCheckbox){
+      chmk.lastChild.style.visibility = "hidden";
+      chmk.firstElementChild.disabled = false;
+      chmk.lastElementChild.disabled = true;
+      }
+}
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     const finalFormEndpoint = e.target.action;
@@ -140,8 +141,8 @@ useEffect(()=>{
     setLocation('');
     setDate('');
     setNotes('');
-    setPlants('');
-    deleteCheckbox();
+    setPlants([]);
+    deleteCheckmarks();
   };
 
   function updateTrip(){
@@ -269,7 +270,7 @@ useEffect(()=>{
       <label>
         Location:
         {/* Use a dropdown select element */}
-        <select name="location" value={location} onChange={(e) => setLocation(e.target.value)} required>
+        <select className="display-block select-style" name="location" value={location} onChange={(e) => setLocation(e.target.value)} required>
           <option value="" disabled>Select a location</option>
           {locations.map((loc) => (
             <option key={loc.ID} value={loc.LOC_NAME}>
@@ -278,7 +279,7 @@ useEffect(()=>{
           ))}
         </select>
       </label>
-      <label>
+      <label className='display-block'>
         Date:
         <input type="date" name="date" value={date} onChange={(e) => setDate(e.target.value)}  required />
       </label>
@@ -286,6 +287,7 @@ useEffect(()=>{
         Notes:
         <textarea name="notes" value={notes} onChange={(e) => setNotes(e.target.value)} />
       </label>
+      <button type="submit" id="btn-submit-trip">Add Trip</button>
       </div>
 
       {/* PLANTS DISPLAY */}
@@ -312,7 +314,7 @@ useEffect(()=>{
         </div>
       </div>
       </div>
-      <button type="submit" id="btn-submit-trip">Add Trip</button>
+      
     </form>
     </div>
 
@@ -333,7 +335,7 @@ useEffect(()=>{
           <label>
             Location:
             {/* Use a dropdown select element */}
-            <select name="location" value={location} onChange={(e) => setLocation(e.target.value)} required>
+            <select className="display-block select-style" name="location" value={location} onChange={(e) => setLocation(e.target.value)} required>
                <option value="" disabled>Select a location</option>
                {locations.map((loc) => (
                <option key={loc.ID} value={loc.LOC_NAME}>
@@ -342,7 +344,7 @@ useEffect(()=>{
                  ))}
             </select>
           </label>
-          <label>
+          <label className='display-block'>
             Date:
             <input type="date" name="date" value={date} onChange={(e) => setDate(e.target.value)} required />
           </label>
@@ -350,6 +352,19 @@ useEffect(()=>{
             Notes:
             <textarea name="notes" value={notes} onChange={(e) => setNotes(e.target.value)} />
           </label>
+          
+          <button type="submit" id="btn-submit-trip">Updated Trip</button>
+          <button type="button" 
+          onClick={()=>{
+            setTripName('');
+            setLocation('');
+            setDate('');
+            setNotes('');
+            setPlants([]);
+            document.getElementById("submit-form").style.display = "block";
+            document.getElementById("update-form").style.display = "none";
+          }}
+          >Clear Form</button>
         </div>
     {/* TODO change update form to match submit form */}
         <div className='middle-container'>
@@ -375,7 +390,7 @@ useEffect(()=>{
           </div>
         </div>
       </div>
-      <button type="submit" id="btn-submit-trip">Updated Trip</button>
+     
     </form>
   </div>
   </>

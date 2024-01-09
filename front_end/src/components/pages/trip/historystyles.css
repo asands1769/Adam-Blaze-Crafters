@@ -13,9 +13,22 @@ body {
   }
 
   .left-container {
-    width: 300px;
+    width: 275px;
+    margin-left: 20px;
+    margin-right: 30px;
   }
-  
+
+  .middle-container {
+    width: 80%;
+  }
+
+  .middle-container h2 {
+    margin-left: 50px;
+  }
+  .search-container {
+    width: 90%;
+  }
+
   .add-plant-form{
     display: flex;
     flex-direction: column;
@@ -70,11 +83,25 @@ body {
     margin-bottom: 10px;
   }
 
+
+  .plant-container{
+    width: 50%;
+  }
+
+.display-block{
+  display: block;
+}
+  
   input,
   textarea {
-    width: 100%;
+    width: 98%;
     padding: 8px;
     margin-top: 4px;
+  }
+
+  .select-style{
+    margin: 4px 0 ;
+    width: 100%;
   }
   
   button {
