@@ -7,11 +7,11 @@ const WeatherSearch = () => {
   const [lat, setLat] = useState(null);
   const [parkName, setParkName] = useState("");
   const [weather, setWeather] = useState({});
+  const parksArray = data.map((park) => park);
   const api = {
     key: "88dc04c24e0e5db12db28e304cdca6a0",
     base: "https://api.openweathermap.org/data/2.5/",
   };
-  const parksArray = data.map((park) => park);
   let weatherLoaded = false;
 
   //fetch park locations from database
@@ -116,7 +116,7 @@ const WeatherSearch = () => {
               ))}
             </select>
           </div>
-          <div className="weather-container child">
+          <div className="child">
             <div className="weather-main">
               {
                 (weatherLoaded = true ? (
