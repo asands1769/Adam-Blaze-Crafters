@@ -30,16 +30,18 @@ const WeatherSearch = () => {
     weatherLoaded = true;
   }, [weather]);
 
+  useEffect(() => {
+    fetchWeatherInfo();
+  }, [lon]);
+
   const setLatitude = (e) => {
     const selectedPark = e.target.value;
     parksArray.find((park) => {
       if (Number(park.id) === Number(selectedPark)) {
         setLat(park.latitude);
         setParkName(park.name);
-        console.log(parkName);
       }
     });
-    console.log(lat);
   };
 
   const setLongitude = (e) => {
@@ -49,7 +51,6 @@ const WeatherSearch = () => {
         setLon(park.longitude);
       }
     });
-    console.log(lon);
   };
 
   const setCoordinates = (e) => {
@@ -58,14 +59,12 @@ const WeatherSearch = () => {
   };
 
   //weather api fetch
-  async function fetchWeatherInfo(e) {
-    setCoordinates(e);
+  async function fetchWeatherInfo() {
     let response = await fetch(
       `${api.base}weather?lat=${lat}&lon=${lon}&appid=${api.key}&units=imperial`
     );
     let data = await response.json();
     setWeather(data);
-    console.log(data);
   }
 
   //create current date to display when location is searched
@@ -107,7 +106,7 @@ const WeatherSearch = () => {
         <h1>Park Weather</h1>
         <div className="parent-container">
           <div className="park-list child">
-            <select className="select" onChange={fetchWeatherInfo}>
+            <select className="select" onChange={setCoordinates}>
               <option value="placeholder">Select a Park</option>
               {parksArray.map((park) => (
                 <option key={park.id} value={park.id}>
