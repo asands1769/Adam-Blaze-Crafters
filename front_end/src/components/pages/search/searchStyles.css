@@ -41,12 +41,12 @@
 
   #map {
     width: 60vw;
-    height: 70vh;
+    height: 100%;
     }
     .map-overlay {
     overflow-y: scroll;
     width: 28%;
-    height: 70vh;
+    height: 100%;
     max-height: 500px;
     font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
     background-color: #efefef;

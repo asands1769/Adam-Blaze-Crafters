@@ -9,13 +9,12 @@ export default function Header() {
             <nav>
                 <ul className="navbar">
                     <li><a href='/'>Home</a></li>
-                    <li><a href='/search'>Search</a></li>
+                    <li><a href='/weather'>Weather</a></li>
+                    <li><a href='/animals'>Animals</a></li>
+                    <li><a href='/plants'>Plants</a></li>
                     {isAuthenticated && (
                         <>
                             <li><a href='/trip'>Your Trips</a></li>
-                            <li><a href='/weather'>Weather</a></li>
-                            <li><a href='/animals'>Animals</a></li>
-                            <li><a href='/plants'>Plants</a></li>
                             <li><a href='/profile'>Profile</a></li>
                         </>
                     )}
