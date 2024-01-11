@@ -1,11 +1,9 @@
-// import React, { useEffect, useState } from 'react';
 import "../../../index.css";
 import "./searchStyles.css";
-// import Mapbox from './Mapbox';
 import FilterMap from './FilterMap';
 
 
-const Home = () => {
+const Search = () => {
  
     return (
         <>
@@ -17,4 +15,4 @@ const Home = () => {
         );
 };
  
-export default Home;
+export default Search;
