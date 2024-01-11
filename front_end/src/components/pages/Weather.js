@@ -1,13 +1,14 @@
-import React from "react";
- 
+import React, { useState, useEffect } from "react";
+import WeatherSearch from "./weather/weatherSearch";
+
 const Weather = () => {
-    return (
-        <div>
-            <h1>
-                Find weather for a park here.
-            </h1>
-        </div>
-    );
+  return (
+    <div>
+      <div>
+        <WeatherSearch />
+      </div>
+    </div>
+  );
 };
- 
+
 export default Weather;
