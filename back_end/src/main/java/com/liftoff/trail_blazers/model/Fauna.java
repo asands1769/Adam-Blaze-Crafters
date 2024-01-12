@@ -19,6 +19,7 @@ public class Fauna {
     private String family;
     private String status;
     private String image;
+    private String photoCredit;
 
     public Fauna (){}
 
@@ -72,6 +73,14 @@ public class Fauna {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getPhotoCredit() {
+        return photoCredit;
+    }
+
+    public void setPhotoCredit(String photoCredit) {
+        this.photoCredit = photoCredit;
     }
 
     @Override
