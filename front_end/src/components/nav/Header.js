@@ -12,6 +12,7 @@ export default function Header() {
                     <li><a href='/weather'>Weather</a></li>
                     <li><a href='/animals'>Animals</a></li>
                     <li><a href='/plants'>Plants</a></li>
+                    <li><a href='http://discourse-trailblazer-forum.social' target="_blank">Forum</a></li>
                     {isAuthenticated && (
                         <>
                             <li><a href='/trip'>Your Trips</a></li>
