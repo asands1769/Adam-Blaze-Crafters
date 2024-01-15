@@ -1,22 +1,13 @@
 package com.liftoff.trail_blazers.controllers;
 
-import com.liftoff.trail_blazers.data.PlantsRepository;
-import com.liftoff.trail_blazers.data.TripsPlantsRepository;
+import com.liftoff.trail_blazers.data.TripsFPRepository;
 import com.liftoff.trail_blazers.data.TripsRepository;
-import com.liftoff.trail_blazers.model.Plants;
 import com.liftoff.trail_blazers.model.Trips;
-import com.liftoff.trail_blazers.model.dto.TripsPlantsDTO;
+import com.liftoff.trail_blazers.model.dto.TripsFPDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import javax.management.AttributeNotFoundException;
-import java.nio.file.attribute.UserPrincipalNotFoundException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -27,9 +18,7 @@ public class TripsController {
     private TripsRepository tripsRepository;
 
     @Autowired
-    private TripsPlantsRepository tripsPlantsRepository;
-    @Autowired
-    private PlantsRepository plantsRepository;
+    private TripsFPRepository tripsFPRepository;
 
     @GetMapping("/all")
     public List<Trips> displayAllTrips() {
@@ -37,22 +26,23 @@ public class TripsController {
     }
 
     @PostMapping("/add")
-    public String addTrip(@RequestBody TripsPlantsDTO tripsPlants){
+    public String addTrip(@RequestBody TripsFPDTO tripsFP){
         Trips trips = new Trips();
-        trips.setDate(tripsPlants.getDate());
-        trips.setLocation(tripsPlants.getLocation());
-        trips.setTripName(tripsPlants.getTripName());
-        trips.setPlants(tripsPlants.getPlants());
-        trips.setNotes(tripsPlants.getNotes());
+        trips.setDate(tripsFP.getDate());
+        trips.setLocation(tripsFP.getLocation());
+        trips.setTripName(tripsFP.getTripName());
+        trips.setPlants(tripsFP.getPlants());
+        trips.setNotes(tripsFP.getNotes());
+        trips.setFauna(tripsFP.getFauna());
         tripsRepository.save(trips);
         return "redirect:/trip";
     }
 
 //    @PostMapping("/add-plant")
-//    public String processAddPlantForm(TripsPlantsDTO tripsPlants, Errors errors){
+//    public String processAddPlantForm(TripsFPDTO tripsFP, Errors errors){
 //        if(!errors.hasErrors()){
-//            Trips trips = tripsPlants.getTrips();
-//            Plants plants = tripsPlants.getPlants();
+//            Trips trips = tripsFP.getTrips();
+//            Plants plants = tripsFP.getPlants();
 //            if(!trips.getPlants().contains(plants)){
 //                trips.setPlants(List<Plants> plants);
 //                tripsRepository.save(trips);
@@ -75,7 +65,7 @@ public class TripsController {
                 trip.setNotes(newTrips.getNotes());
             }
             trip.setPlants(newTrips.getPlants());
-
+            trip.setFauna(newTrips.getFauna());
             return tripsRepository.save(trip);
         }).orElseThrow(()-> new Error("trip not found"));
     }
@@ -92,7 +82,7 @@ public class TripsController {
 
     @PostMapping("/trips_plants")
     public String addPlants(@RequestBody Trips newTrip){
-        tripsPlantsRepository.save(newTrip);
+        tripsFPRepository.save(newTrip);
         return "redirect:/trip";
     }
 

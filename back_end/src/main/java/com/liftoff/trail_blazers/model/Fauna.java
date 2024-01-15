@@ -1,30 +1,28 @@
 package com.liftoff.trail_blazers.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Fauna {
+public class Fauna extends AbstractEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     private String scientificName;
     private String commonName;
     private String currentDistribution;
     private String family;
     private String status;
     private String image;
+    private String photoCredit;
+
+    @ManyToMany (mappedBy = "fauna")
+    @JsonBackReference
+    private List<Trips> trips = new ArrayList<>();
 
     public Fauna (){}
-
-    public int getId() {
-        return id;
-    }
 
     public String getScientificName() {
         return scientificName;
@@ -74,15 +72,17 @@ public class Fauna {
         this.image = image;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Fauna fauna)) return false;
-        return getId() == fauna.getId();
+    public String getPhotoCredit() {
+        return photoCredit;
     }
 
-    @Override
-    public int hashCode() { return Objects.hash(getId()); }
+    public void setPhotoCredit(String photoCredit) {
+        this.photoCredit = photoCredit;
+    }
+
+    public List<Trips> getTrips() {
+        return trips;
+    }
 
     @Override
     public String toString() { return commonName; }
