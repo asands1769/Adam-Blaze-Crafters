@@ -80,6 +80,17 @@ public class Fauna extends AbstractEntity{
         this.photoCredit = photoCredit;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Fauna fauna)) return false;
+        return getId() == fauna.getId();
+    }
+
+    public void setPhotoCredit(String photoCredit) {
+        this.photoCredit = photoCredit;
+    }
+
     public List<Trips> getTrips() {
         return trips;
     }
