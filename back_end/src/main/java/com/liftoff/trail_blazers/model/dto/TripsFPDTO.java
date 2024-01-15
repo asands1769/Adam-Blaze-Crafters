@@ -1,15 +1,13 @@
 package com.liftoff.trail_blazers.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.liftoff.trail_blazers.model.Fauna;
 import com.liftoff.trail_blazers.model.Plants;
-import com.liftoff.trail_blazers.model.Trips;
-import jakarta.persistence.ManyToMany;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class TripsPlantsDTO {
+public class TripsFPDTO {
 
     private String tripName;
     private String location;
@@ -18,12 +16,9 @@ public class TripsPlantsDTO {
     private Date date;
     private String notes;
     private List<Plants> plants;
+    private List<Fauna> fauna;
 
-
-//    private Trips trips;
-//    private Plants plants;
-
-    public TripsPlantsDTO(){}
+    public TripsFPDTO(){}
 
     public String getTripName() {
         return tripName;
@@ -62,20 +57,12 @@ public class TripsPlantsDTO {
     public void setPlants(List<Plants> plants) {
         this.plants = plants;
     }
-    //    public Trips getTrips() {
-//        return trips;
-//    }
-//
-//    public void setTrips(Trips trips) {
-//        this.trips = trips;
-//    }
-//
-//    public Plants getPlants() {
-//        return plants;
-//    }
-//
-//    public void setPlants(Plants plants) {
-//        this.plants = plants;
-//    }
 
+    public List<Fauna> getFauna() {
+        return fauna;
+    }
+
+    public void setFauna(List<Fauna> fauna) {
+        this.fauna = fauna;
+    }
 }
