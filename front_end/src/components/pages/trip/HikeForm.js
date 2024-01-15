@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import csvData from "../../../databases/park_locations/MO_State_Park_and_Historic_Sites_Trails.csv";
-import DisplayPlants from "../plants/Plants";
+//import DisplayPlants from "../plants/Plants";
 // import useForm from './UseForm';
 
 const FORM_ENDPOINT = "http://localhost:8080/trips/add";
@@ -27,7 +27,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   const urlPlants = "http://localhost:8080/plants";
   const urlTrips = "http://localhost:8080/trips/all";
 
-  const imageCheckbox = document.querySelectorAll(".checkbox-style");
+  // const imageCheckbox = document.querySelectorAll(".checkbox-style");
   const updateForm = document.getElementById("update-form");
 
   useEffect(() => {
@@ -87,20 +87,13 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
       const updateFormAddBtn = updateForm.querySelectorAll("#add-btn-plant");
       for (const chmk of updateFormAddBtn) {
         const markId =
-          chmk.parentElement.parentElement.firstElementChild.firstChild.id;
+        chmk.parentElement.parentElement.firstElementChild.firstChild.id;
         chmk.lastChild.style.visibility = "hidden";
         chmk.firstElementChild.disabled = false;
         chmk.lastElementChild.disabled = true;
         //console.log(imageCheckbox)
         plants.map((plant) => {
-          if (plant.id == markId) {
-            chmk.lastChild.style.visibility = "visible";
-            chmk.firstElementChild.disabled = true;
-            chmk.lastElementChild.disabled = false;
-          }
-        });
-        fauna.map((animal) => {
-          if (animal.id == markId) {
+          if (Number(plant.id) === Number(markId)) {
             chmk.lastChild.style.visibility = "visible";
             chmk.firstElementChild.disabled = true;
             chmk.lastElementChild.disabled = false;
@@ -110,7 +103,29 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
     }
   });
 
+  useEffect (() => {
+    if (document.getElementById("update-form").style.display === "block") {
+    const updateAnimalFormAddBtn = updateForm.querySelectorAll("#add-btn-animal");
+    for (const animalChmk of updateAnimalFormAddBtn) {
+      const markAnimalId = 
+      animalChmk.parentElement.parentElement.firstElementChild.firstChild.id;
+      animalChmk.lastChild.style.visibility = "hidden";
+      animalChmk.firstElementChild.disabled = false;
+      animalChmk.lastElementChild.disabled = true;
+
+      fauna.map((item) => {
+        if (Number(item.id) === Number(markAnimalId)) {
+          animalChmk.lastChild.style.visibility = "visible";
+          animalChmk.firstElementChild.disabled = true;
+          animalChmk.lastElementChild.disabled = false;
+        }
+      })
+    }
+  }
+  });
+
   const submitForm = document.getElementById("submit-form");
+
   function deleteCheckmarks() {
     const submitCheckbox = submitForm.querySelectorAll("#add-btn-plant");
     for (const chmk of submitCheckbox) {
@@ -174,7 +189,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
       date: date,
       notes: notes,
       plants: plants,
-      fauna: fauna,
+      fauna: fauna
     };
     console.log(updatedData);
 
@@ -187,8 +202,8 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
       body: JSON.stringify(updatedData),
     }).then((response) => {
       return response.json();
-    });
-    //.then((updatedDate) => {});
+    })
+    .then((updatedDate) => {});
     if (selectedHike) {
       onEdit({
         ...selectedHike,
@@ -198,7 +213,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
         date,
         notes,
         plants,
-        fauna,
+        fauna
       });
     } else {
       onSubmit({ id, tripName, location, date, notes, plants, fauna });
@@ -208,7 +223,10 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   // PLANTS DISPLAY
   // Fetching data from
   const fetchInfo = async () => {
-    Promise.all([await fetch(urlPlants), await fetch(urlTrips)])
+    Promise.all([
+      await fetch(urlPlants), 
+      await fetch(urlTrips)
+    ])
       .then(([resData, resTrips]) =>
         Promise.all([resData.json(), resTrips.json()])
       )
@@ -223,23 +241,17 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   }, []);
 
   // setting val based on event provided in HTML section and click based on click to display image of plant
-  const change = (event) => {
-    setVal(event.target.value);
-  };
-  const clicked = (event) => {
-    setClick(event.target.id);
-  };
+  const change = (event) => {setVal(event.target.value);};
+  const clicked = (event) => {setClick(event.target.id);};
   //SEARCH BAR FUNCTION TO DISPLAY WHAT USER TYPES
   //PLANTS DATA
   const searchItems = data.filter((post) => {
     if (val === "") {
       return post;
-    } else if (
-      post.scientificName.toLowerCase().includes(val.toLowerCase()) ||
-      post.commonName.toLowerCase().includes(val.toLowerCase())
-    ) {
-      return post;
-    }
+    } else if (post.scientificName.toLowerCase().includes(val.toLowerCase()) ||
+      post.commonName.toLowerCase().includes(val.toLowerCase())){
+        return post;
+      }
   });
 
   // DISPLAY CHECKBOX, NAME, ADD BUTTON, AND DELETE, BUTTON WITH METHODS TO ADD OR DELETE PLANT FROM ARRAY.
@@ -295,7 +307,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
 
   // methods for displaying information of plant within plant-container
   const clickedItems = data.filter((post) => {
-    if (post.id == click) {
+    if (Number(post.id) === Number(click)) {
       return post;
     }
   });
@@ -325,7 +337,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   const fetchAnimalInfo = async () => {
     await fetch("http://localhost:8080/animals")
       .then((res) => res.json())
-      .then((d) => setFauna(d));
+      .then((d) => setAnimals(d));
   };
 
   useEffect(() => {
@@ -333,14 +345,10 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   }, []);
 
   //setting animal based on event provided in HTML section and click based on click to display image of animal
-  const changeAnimal = (e) => {
-    setAnimal(e.target.value);
-  };
-  const animalClicked = (e) => {
-    setClickedAnimal(e.target.id);
-  };
+  const changeAnimal = (e) => {setAnimal(e.target.value);};
+  const animalClicked = (e) => {setClickedAnimal(e.target.id);};
   //search bar function to filter list of animals according to what the user types in search bar
-  const searchFauna = fauna.filter((filteredAnimal) => {
+  const searchFauna = animals.filter((filteredAnimal) => {
     if (animal === "") {
       return filteredAnimal;
     } else if (
@@ -353,27 +361,27 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
     }
   });
 
-  const displaySearchedAnimals = searchFauna.map((animal) => {
+  const displaySearchedAnimals = searchFauna.map((post) => {
     return (
-      <div key={animal.id}>
+      <div key={post.id}>
         <div className="add-plant-form">
           <div className="display-inline-block">
             <label
-              id={animal.id}
+              id={post.id}
               onClick={animalClicked}
               className="label-plants"
             >
               {" "}
-              {`${animal.scientificName} (${animal.commonName})`}
+              {`${post.commonName} (${post.scientificName})`}
             </label>
           </div>
           <div className="add-delete-plants">
-            <div id="add-btn-plant">
+            <div id="add-btn-animal">
               <button
                 type="button"
                 className="btn-plant add-btn-plant"
                 onClick={(e) => {
-                  setAnimals([...animals, { id: Number(animal.id) }]);
+                  setFauna([...fauna, { id: Number(post.id) }]);
                   e.currentTarget.nextSibling.style.visibility = "visible";
                   e.currentTarget.disabled = true;
                   e.currentTarget.parentElement.parentElement.lastChild.disabled = false;
@@ -392,7 +400,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
               type="button"
               className="btn-plant"
               onClick={(e) => {
-                setAnimals(animals.filter((a) => a.id !== animal.id));
+                setFauna(fauna.filter((a) => a.id !== post.id));
                 e.currentTarget.parentElement.firstElementChild.lastChild.style.visibility =
                   "hidden";
                 e.currentTarget.disabled = true;
@@ -407,9 +415,9 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
     );
   });
 
-  // methods for displaying information of plant within plant-container
-  const selectedAnimal = fauna.filter((item) => {
-    if (item.id == clickedAnimal) {
+  // methods for displaying information of animal within container
+  const selectedAnimal = animals.filter((item) => {
+    if (Number(item.id) === Number(clickedAnimal)) {
       return item;
     }
   });
@@ -423,7 +431,6 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
             src={animal.image}
             alt={animal.commonName}
           />
-          <br />
           <div className="photo-credit">
             {animal.commonName}
             <br />
@@ -597,7 +604,6 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
               </label>
               <label>
                 Location:
-                {/* Use a dropdown select element */}
                 <select
                   className="display-block select-style"
                   name="location"
