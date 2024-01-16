@@ -7,24 +7,19 @@ const DisplayPlants = () => {
 // PLANTS DISPLAY
   const [val, setVal] = useState('');
   const [data, setData] = useState([]);
-  const [trips, setTrips] = useState([]);
   const [click, setClick] = useState('');
-  const [plantsId, setPlantsId] = useState('');
   const urlPlants = "http://localhost:8080/plants";
-  const urlTrips = "http://localhost:8080/trips/all";
 
   // Fetching trail_blazer database
   const fetchInfo = async () => {
     Promise.all([
-      await fetch(urlPlants),
-      await fetch(urlTrips),
+      await fetch(urlPlants)
     ])
-      .then(([resData, resTrips]) => 
-      Promise.all([resData.json(), resTrips.json()])
+      .then((resData) => 
+      Promise.all(resData.json())
       )
-      .then(([dData, dTrips]) => {
+      .then((dData) => {
         setData(dData);
-        setTrips(dTrips);
       })
     }
 
