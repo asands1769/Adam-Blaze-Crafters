@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import csvData from "../../../databases/park_locations/MO_State_Park_and_Historic_Sites_Trails.csv";
+import "./historystyles.css";
+
 //import DisplayPlants from "../plants/Plants";
 // import useForm from './UseForm';
 
@@ -22,7 +24,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   const [animal, setAnimal] = useState("");
   const [animals, setAnimals] = useState([]);
   const [clickedAnimal, setClickedAnimal] = useState("");
-  // const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
 
   const urlPlants = "http://localhost:8080/plants";
   const urlTrips = "http://localhost:8080/trips/all";
@@ -87,7 +89,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
       const updateFormAddBtn = updateForm.querySelectorAll("#add-btn-plant");
       for (const chmk of updateFormAddBtn) {
         const markId =
-        chmk.parentElement.parentElement.firstElementChild.firstChild.id;
+          chmk.parentElement.parentElement.firstElementChild.firstChild.id;
         chmk.lastChild.style.visibility = "hidden";
         chmk.firstElementChild.disabled = false;
         chmk.lastElementChild.disabled = true;
@@ -103,25 +105,28 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
     }
   });
 
-  useEffect (() => {
+  //*** Animal Check Marks ***//
+  useEffect(() => {
     if (document.getElementById("update-form").style.display === "block") {
-    const updateAnimalFormAddBtn = updateForm.querySelectorAll("#add-btn-animal");
-    for (const animalChmk of updateAnimalFormAddBtn) {
-      const markAnimalId = 
-      animalChmk.parentElement.parentElement.firstElementChild.firstChild.id;
-      animalChmk.lastChild.style.visibility = "hidden";
-      animalChmk.firstElementChild.disabled = false;
-      animalChmk.lastElementChild.disabled = true;
+      const updateAnimalFormAddBtn =
+        updateForm.querySelectorAll("#add-btn-animal");
+      for (const animalChmk of updateAnimalFormAddBtn) {
+        const markAnimalId =
+          animalChmk.parentElement.parentElement.firstElementChild.firstChild
+            .id;
+        animalChmk.lastChild.style.visibility = "hidden";
+        animalChmk.firstElementChild.disabled = false;
+        animalChmk.lastElementChild.disabled = true;
 
-      fauna.map((item) => {
-        if (Number(item.id) === Number(markAnimalId)) {
-          animalChmk.lastChild.style.visibility = "visible";
-          animalChmk.firstElementChild.disabled = true;
-          animalChmk.lastElementChild.disabled = false;
-        }
-      })
+        fauna.map((item) => {
+          if (Number(item.id) === Number(markAnimalId)) {
+            animalChmk.lastChild.style.visibility = "visible";
+            animalChmk.firstElementChild.disabled = true;
+            animalChmk.lastElementChild.disabled = false;
+          }
+        });
+      }
     }
-  }
   });
 
   const submitForm = document.getElementById("submit-form");
@@ -189,7 +194,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
       date: date,
       notes: notes,
       plants: plants,
-      fauna: fauna
+      fauna: fauna,
     };
     console.log(updatedData);
 
@@ -200,10 +205,11 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(updatedData),
-    }).then((response) => {
-      return response.json();
     })
-    .then((updatedDate) => {});
+      .then((response) => {
+        return response.json();
+      })
+      .then((updatedDate) => {});
     if (selectedHike) {
       onEdit({
         ...selectedHike,
@@ -213,7 +219,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
         date,
         notes,
         plants,
-        fauna
+        fauna,
       });
     } else {
       onSubmit({ id, tripName, location, date, notes, plants, fauna });
@@ -223,10 +229,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   // PLANTS DISPLAY
   // Fetching data from
   const fetchInfo = async () => {
-    Promise.all([
-      await fetch(urlPlants), 
-      await fetch(urlTrips)
-    ])
+    Promise.all([await fetch(urlPlants), await fetch(urlTrips)])
       .then(([resData, resTrips]) =>
         Promise.all([resData.json(), resTrips.json()])
       )
@@ -241,17 +244,23 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   }, []);
 
   // setting val based on event provided in HTML section and click based on click to display image of plant
-  const change = (event) => {setVal(event.target.value);};
-  const clicked = (event) => {setClick(event.target.id);};
+  const change = (event) => {
+    setVal(event.target.value);
+  };
+  const clicked = (event) => {
+    setClick(event.target.id);
+  };
   //SEARCH BAR FUNCTION TO DISPLAY WHAT USER TYPES
   //PLANTS DATA
   const searchItems = data.filter((post) => {
     if (val === "") {
       return post;
-    } else if (post.scientificName.toLowerCase().includes(val.toLowerCase()) ||
-      post.commonName.toLowerCase().includes(val.toLowerCase())){
-        return post;
-      }
+    } else if (
+      post.scientificName.toLowerCase().includes(val.toLowerCase()) ||
+      post.commonName.toLowerCase().includes(val.toLowerCase())
+    ) {
+      return post;
+    }
   });
 
   // DISPLAY CHECKBOX, NAME, ADD BUTTON, AND DELETE, BUTTON WITH METHODS TO ADD OR DELETE PLANT FROM ARRAY.
@@ -345,8 +354,12 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   }, []);
 
   //setting animal based on event provided in HTML section and click based on click to display image of animal
-  const changeAnimal = (e) => {setAnimal(e.target.value);};
-  const animalClicked = (e) => {setClickedAnimal(e.target.id);};
+  const changeAnimal = (e) => {
+    setAnimal(e.target.value);
+  };
+  const animalClicked = (e) => {
+    setClickedAnimal(e.target.id);
+  };
   //search bar function to filter list of animals according to what the user types in search bar
   const searchFauna = animals.filter((filteredAnimal) => {
     if (animal === "") {
@@ -443,6 +456,28 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
     );
   });
 
+  const handleToggleClick = () => {
+    setToggle(!toggle);
+    if (!toggle) {
+      document.getElementById("toggle-btn").innerHTML = "Animals";
+      document.getElementById("toggle-animals").style.display = "none";
+      document.getElementById("toggle-plants").style.display = "block";
+      //Edit Trip
+      document.getElementById("toggle-btn-edit").innerHTML = "Animals";
+      document.getElementById("toggle-animals-edit").style.display = "none";
+      document.getElementById("toggle-plants-edit").style.display = "block";
+    } else {
+      document.getElementById("toggle-btn").innerHTML = "Plants";
+      document.getElementById("toggle-plants").style.display = "none";
+      document.getElementById("toggle-animals").style.display = "block";
+      //Edit Trip
+      document.getElementById("toggle-btn-edit").innerHTML = "Plants";
+      document.getElementById("toggle-plants-edit").style.display = "none";
+      document.getElementById("toggle-animals-edit").style.display = "block";
+    }
+    return toggle;
+  };
+
   return (
     <>
       <div id="submit-form">
@@ -503,73 +538,87 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
               </button>
             </div>
 
-            {/* PLANTS DISPLAY */}
-            <div className="middle-container">
-              <h2>Plants of Missouri</h2>
-              <div className="row main-container">
-                <div className="leftside-container">
-                  <div className="search-container">
-                    <div className="sidebar-size-plants">
-                      <input
-                        className="search-plants"
-                        onChange={change}
-                        placeholder="Find a plant by scientific or common name"
-                      />
-                      {displaySearchedItems}
-                    </div>
-                    <div className="small">
-                      <small>
-                        *List is not a comprehensive of all plants in Missouri
-                      </small>
-                    </div>
-                    <div className="small">
-                      <small>
-                        *Data provided by{" "}
-                        <a href="https://ecos.fws.gov/ecp0/reports/ad-hoc-species-report-input">
-                          U.S Fish & Wildlife Service: ECOS
-                        </a>
-                      </small>
+            <div>
+              <button type="button" id="toggle-btn" onClick={handleToggleClick}>
+                Animals
+              </button>
+
+              {/* PLANTS DISPLAY */}
+              <div
+                className="middle-container"
+                id="toggle-plants"
+                style={{ display: "block" }}
+              >
+                <h2>Plants of Missouri</h2>
+                <div className="row main-container">
+                  <div className="leftside-container">
+                    <div className="search-container">
+                      <div className="sidebar-size-plants">
+                        <input
+                          className="search-plants"
+                          onChange={change}
+                          placeholder="Find a plant by scientific or common name"
+                        />
+                        {displaySearchedItems}
+                      </div>
+                      <div className="small">
+                        <small>
+                          *List is not a comprehensive of all plants in Missouri
+                        </small>
+                      </div>
+                      <div className="small">
+                        <small>
+                          *Data provided by{" "}
+                          <a href="https://ecos.fws.gov/ecp0/reports/ad-hoc-species-report-input">
+                            U.S Fish & Wildlife Service: ECOS
+                          </a>
+                        </small>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="plant-container flex">
-                  {displayClickedItems}
+                  <div className="plant-container flex">
+                    {displayClickedItems}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* ANIMALS DISPLAY */}
-            <div className="middle-container">
-              <h2>Animals of Missouri</h2>
-              <div className="row main-container">
-                <div className="leftside-container">
-                  <div className="search-container">
-                    <div className="sidebar-size-plants">
-                      <input
-                        className="search-plants"
-                        onChange={changeAnimal}
-                        placeholder="Find a plant by scientific or common name"
-                      />
-                      {displaySearchedAnimals}
-                    </div>
-                    <div className="small">
-                      <small>
-                        *List is not a comprehensive of all wildlife in
-                        Missouri.
-                      </small>
-                    </div>
-                    <div className="small">
-                      <small>
-                        *Data provided by{" "}
-                        <a href="https://ecos.fws.gov/ecp0/reports/ad-hoc-species-report-input">
-                          U.S Fish & Wildlife Service: ECOS
-                        </a>
-                      </small>
+              {/* ANIMALS DISPLAY */}
+              <div
+                className="middle-container"
+                id="toggle-animals"
+                style={{ display: "none" }}
+              >
+                <h2>Animals of Missouri</h2>
+                <div className="row main-container">
+                  <div className="leftside-container">
+                    <div className="search-container">
+                      <div className="sidebar-size-plants">
+                        <input
+                          className="search-plants"
+                          onChange={changeAnimal}
+                          placeholder="Find a plant by scientific or common name"
+                        />
+                        {displaySearchedAnimals}
+                      </div>
+                      <div className="small">
+                        <small>
+                          *List is not a comprehensive of all wildlife in
+                          Missouri.
+                        </small>
+                      </div>
+                      <div className="small">
+                        <small>
+                          *Data provided by{" "}
+                          <a href="https://ecos.fws.gov/ecp0/reports/ad-hoc-species-report-input">
+                            U.S Fish & Wildlife Service: ECOS
+                          </a>
+                        </small>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="plant-container flex">
-                  {displayClickedAnimal}
+                  <div className="plant-container flex">
+                    {displayClickedAnimal}
+                  </div>
                 </div>
               </div>
             </div>
@@ -660,8 +709,18 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
                 Clear Form
               </button>
             </div>
-            <div className="plants-and-animals-container">
-              <div className="middle-container">
+
+            <div>
+              <button type="button" id="toggle-btn-edit" onClick={handleToggleClick}>
+                Animals
+              </button>
+
+              {/* PLANTS DISPLAY */}
+              <div
+                className="middle-container"
+                id="toggle-plants-edit"
+                style={{ display: "block" }}
+              >
                 <h2>Plants of Missouri</h2>
                 <div className="row main-container">
                   <div className="leftside-container">
@@ -695,7 +754,12 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
                 </div>
               </div>
 
-              <div className="middle-container">
+              {/* ANIMALS DISPLAY */}
+              <div
+                className="middle-container"
+                id="toggle-animals-edit"
+                style={{ display: "none" }}
+              >
                 <h2>Animals of Missouri</h2>
                 <div className="row main-container">
                   <div className="leftside-container">
