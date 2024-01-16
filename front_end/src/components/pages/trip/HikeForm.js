@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createElement } from "react";
 import csvData from "../../../databases/park_locations/MO_State_Park_and_Historic_Sites_Trails.csv";
 import "./historystyles.css";
 
@@ -18,7 +18,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   const [plants, setPlants] = useState([]);
   const [val, setVal] = useState("");
   const [data, setData] = useState([]);
-  const [click, setClick] = useState("");
+  const [click, setClick] = useState(0);
 
   const [fauna, setFauna] = useState([]);
   const [animal, setAnimal] = useState("");
@@ -128,6 +128,20 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
       }
     }
   });
+
+  useEffect(()=>{
+    const plantDisplay = document.querySelector("plant-display");
+    
+    console.log(plantDisplay);
+    // if (click === 0){
+    //   let pImg = new Image();
+    //   pImg.src = 'https://live.staticflickr.com/65535/53411161716_035efe01a1_z.jpg';
+    //   // pImg.alt = "Elegant and beautiful flowers.";
+    //   plantDisplay.appendChild(pImg);
+    //   console.log("if is working"); 
+    // }
+    
+  })
 
   const submitForm = document.getElementById("submit-form");
 
@@ -576,7 +590,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="plant-container flex">
+                  <div className="plant-container flex plant-display">
                     {displayClickedItems}
                   </div>
                 </div>
@@ -748,7 +762,8 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="plant-container flex">
+                  <div className="plant-container flex ">
+                  <div>tyring something</div>
                     {displayClickedItems}
                   </div>
                 </div>
@@ -788,7 +803,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="plant-container flex">
+                  <div className="plant-container flex ">
                     {displayClickedAnimal}
                   </div>
                 </div>
