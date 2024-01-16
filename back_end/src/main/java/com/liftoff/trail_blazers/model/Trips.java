@@ -22,8 +22,8 @@ public class Trips extends AbstractEntity {
 
 
 //    THIS PROPERTY WILL BE SET ONCE WE FETCH THE USERNAME FROM REACT SIDE
-//    @ManyToOne
-////    private User username;
+    @ManyToOne
+    private User user;
 
     @ManyToMany
     private List<Plants> plants = new ArrayList<>();
