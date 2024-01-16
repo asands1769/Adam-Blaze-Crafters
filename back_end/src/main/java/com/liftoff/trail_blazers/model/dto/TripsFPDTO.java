@@ -17,6 +17,7 @@ public class TripsFPDTO {
     private String notes;
     private List<Plants> plants;
     private List<Fauna> fauna;
+    private String userName;
 
     public TripsFPDTO(){}
 
@@ -64,5 +65,13 @@ public class TripsFPDTO {
 
     public void setFauna(List<Fauna> fauna) {
         this.fauna = fauna;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
-import csvData from "../../../databases/park_locations/MO_State_Park_and_Historic_Sites_Trails.csv";
+import React, { useState, useEffect } from 'react'; 
+import csvData from '../../../databases/park_locations/MO_State_Park_and_Historic_Sites_Trails.csv';
 import "./historystyles.css";
-
-//import DisplayPlants from "../plants/Plants";
-// import useForm from './UseForm';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const FORM_ENDPOINT = "http://localhost:8080/trips/add";
 
@@ -25,13 +23,16 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   const [animals, setAnimals] = useState([]);
   const [clickedAnimal, setClickedAnimal] = useState("");
   const [toggle, setToggle] = useState(true);
+  const { user } = useAuth0();
+  const [userName] = useState(user.name);
 
   const urlPlants = "http://localhost:8080/plants";
-  const urlTrips = "http://localhost:8080/trips/all";
+  const urlTrips = "http://localhost:8080/trips/all/" + userName;
 
   // const imageCheckbox = document.querySelectorAll(".checkbox-style");
   const updateForm = document.getElementById("update-form");
-
+  const submitForm = document.getElementById("submit-form");   
+    
   useEffect(() => {
     // Fetch and parse the CSV file
     const fetchData = async () => {
@@ -84,23 +85,24 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
     }
   }, [selectedHike]);
 
-  useEffect(() => {
-    if (document.getElementById("update-form").style.display === "block") {
-      const updateFormAddBtn = updateForm.querySelectorAll("#add-btn-plant");
-      for (const chmk of updateFormAddBtn) {
-        const markId =
-          chmk.parentElement.parentElement.firstElementChild.firstChild.id;
-        chmk.lastChild.style.visibility = "hidden";
-        chmk.firstElementChild.disabled = false;
-        chmk.lastElementChild.disabled = true;
-        //console.log(imageCheckbox)
-        plants.map((plant) => {
-          if (Number(plant.id) === Number(markId)) {
-            chmk.lastChild.style.visibility = "visible";
-            chmk.firstElementChild.disabled = true;
-            chmk.lastElementChild.disabled = false;
-          }
-        });
+// Checkbox repopulated with onEdit  
+useEffect(() => {
+  if (document.getElementById("update-form").style.display === "block") {
+    const updateFormAddBtn = updateForm.querySelectorAll("#add-btn-plant");
+    for (const chmk of updateFormAddBtn) {
+      const markId =
+        chmk.parentElement.parentElement.firstElementChild.firstChild.id;
+      chmk.lastChild.style.visibility = "hidden";
+      chmk.firstElementChild.disabled = false;
+      chmk.lastElementChild.disabled = true;
+      //console.log(imageCheckbox)
+      plants.map((plant) => {
+        if (Number(plant.id) === Number(markId)) {
+          chmk.lastChild.style.visibility = "visible";
+          chmk.firstElementChild.disabled = true;
+          chmk.lastElementChild.disabled = false;
+        }
+      });
       }
     }
   });
@@ -129,29 +131,29 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
     }
   });
 
-  const submitForm = document.getElementById("submit-form");
-
-  function deleteCheckmarks() {
-    const submitCheckbox = submitForm.querySelectorAll("#add-btn-plant");
-    for (const chmk of submitCheckbox) {
+// Delete checkmark onClick button Delete
+function deleteCheckmarks(){
+  const submitCheckbox = submitForm.querySelectorAll("#add-btn-plant");
+    for (const chmk of submitCheckbox){
       chmk.lastChild.style.visibility = "hidden";
       chmk.firstElementChild.disabled = false;
       chmk.lastElementChild.disabled = true;
-    }
-  }
-
+      }
+}
+ 
+// Submit function with POST request
   const handleSubmit = (e) => {
     e.preventDefault();
     const finalFormEndpoint = e.target.action;
     const data = {
-      tripName: tripName,
-      location: location,
-      date: date,
-      notes: notes,
-      plants: plants,
-      fauna: fauna,
+      "tripName": tripName,
+      "location": location,
+      "date": date,
+      "notes": notes,
+      "plants": plants,
+      "fauna": fauna,
+      "userName" : userName
     };
-    console.log(data);
 
     fetch(finalFormEndpoint, {
       method: "POST",
@@ -173,7 +175,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
         fauna,
       });
     } else {
-      onSubmit({ tripName, location, date, notes, plants, fauna });
+      onSubmit({ tripName, location, date, notes, plants, fauna, userName });
     }
 
     // Reset form fields
