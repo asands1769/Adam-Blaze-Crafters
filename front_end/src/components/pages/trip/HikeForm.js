@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'; 
 import csvData from '../../../databases/park_locations/MO_State_Park_and_Historic_Sites_Trails.csv';
 import DisplayPlants from '../plants/Plants';
+import { useAuth0 } from '@auth0/auth0-react';
 // import useForm from './UseForm';
 
 const FORM_ENDPOINT = "http://localhost:8080/trips/add";
@@ -17,14 +18,24 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   const [data, setData] = useState([]);
   const [trips, setTrips] = useState([]);
   const [click, setClick] = useState('');
+  const { user } = useAuth0();
+  const [userName] = useState(user.name);
   // const [toggle, setToggle] = useState(false);
   
   const urlPlants = "http://localhost:8080/plants";
-  const urlTrips = "http://localhost:8080/trips/all";
+  const urlTrips = "http://localhost:8080/trips/all/" + userName;
 
   const imageCheckbox = document.querySelectorAll(".checkbox-style");
-  const updateForm = document.getElementById("update-form");  
-    
+  const updateForm = document.getElementById("update-form"); 
+  const submitForm = document.getElementById("submit-form");  
+  // setUserName(user.name);
+
+
+  useEffect(()=>{
+    console.log(userName)
+    console.log(user.name)
+  })
+
   useEffect(() => {
     // Fetch and parse the CSV file
     const fetchData = async () => {
@@ -74,7 +85,7 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
     }
   }, [selectedHike]);
 
-  
+// Checkbox repopulated with onEdit
 useEffect(()=>{
   if (document.getElementById("update-form").style.display === "block"){
     const updateFormAddBtn = updateForm.querySelectorAll("#add-btn-plant");
@@ -96,7 +107,7 @@ useEffect(()=>{
   }
 )
 
-const submitForm = document.getElementById("submit-form"); 
+// Delete checkmark onClick button Delete
 function deleteCheckmarks(){
   const submitCheckbox = submitForm.querySelectorAll("#add-btn-plant");
     for (const chmk of submitCheckbox){
@@ -105,7 +116,8 @@ function deleteCheckmarks(){
       chmk.lastElementChild.disabled = true;
       }
 }
-  
+
+// Submit function with POST request
   const handleSubmit = (e) => {
     e.preventDefault();
     const finalFormEndpoint = e.target.action;
@@ -114,7 +126,8 @@ function deleteCheckmarks(){
       "location": location,
       "date": date,
       "notes": notes,
-      "plants": plants
+      "plants": plants,
+      "userName" : userName
     }
 
     fetch(finalFormEndpoint, {
@@ -131,7 +144,7 @@ function deleteCheckmarks(){
     if (selectedHike) {
       onEdit({ ...selectedHike, tripName, location, date, notes, plants });
     } else {
-      onSubmit({ tripName, location, date, notes, plants });
+      onSubmit({ tripName, location, date, notes, plants, userName });
     }
 
     

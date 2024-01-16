@@ -1,13 +1,15 @@
 // HikeList.js
 // import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import './historystyles.css';
 
 const HikeList = ({ hikes, onEdit }) => {
   const [data, setData] = useState([]);
+  const { user} = useAuth0();
   
   // const navigate = useNavigate();
-  const urlTrips = "http://localhost:8080/trips/all";
+  const urlTrips = `http://localhost:8080/trips/all/${user.name}`;
 
   // Fetching trail_blazer trips database
   const fetchInfo = async () => {

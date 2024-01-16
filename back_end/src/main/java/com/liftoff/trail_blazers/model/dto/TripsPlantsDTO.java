@@ -2,10 +2,7 @@ package com.liftoff.trail_blazers.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.liftoff.trail_blazers.model.Plants;
-import com.liftoff.trail_blazers.model.Trips;
-import jakarta.persistence.ManyToMany;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,10 +15,7 @@ public class TripsPlantsDTO {
     private Date date;
     private String notes;
     private List<Plants> plants;
-
-
-//    private Trips trips;
-//    private Plants plants;
+    private String userName;
 
     public TripsPlantsDTO(){}
 
@@ -62,20 +56,12 @@ public class TripsPlantsDTO {
     public void setPlants(List<Plants> plants) {
         this.plants = plants;
     }
-    //    public Trips getTrips() {
-//        return trips;
-//    }
-//
-//    public void setTrips(Trips trips) {
-//        this.trips = trips;
-//    }
-//
-//    public Plants getPlants() {
-//        return plants;
-//    }
-//
-//    public void setPlants(Plants plants) {
-//        this.plants = plants;
-//    }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setuserName(String userName) {
+        this.userName = userName;
+    }
 }

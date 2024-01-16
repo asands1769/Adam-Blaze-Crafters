@@ -3,20 +3,12 @@ package com.liftoff.trail_blazers.controllers;
 import com.liftoff.trail_blazers.data.PlantsRepository;
 import com.liftoff.trail_blazers.data.TripsPlantsRepository;
 import com.liftoff.trail_blazers.data.TripsRepository;
-import com.liftoff.trail_blazers.model.Plants;
 import com.liftoff.trail_blazers.model.Trips;
 import com.liftoff.trail_blazers.model.dto.TripsPlantsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import javax.management.AttributeNotFoundException;
-import java.nio.file.attribute.UserPrincipalNotFoundException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -25,15 +17,14 @@ public class TripsController {
 
     @Autowired
     private TripsRepository tripsRepository;
-
     @Autowired
     private TripsPlantsRepository tripsPlantsRepository;
     @Autowired
     private PlantsRepository plantsRepository;
 
-    @GetMapping("/all")
-    public List<Trips> displayAllTrips() {
-        return tripsRepository.findAll();
+    @GetMapping("/all/{userName}")
+    public List<Trips> displayAllTrips(@PathVariable String userName) {
+        return tripsRepository.findByUserName(userName);
     }
 
     @PostMapping("/add")
@@ -44,6 +35,7 @@ public class TripsController {
         trips.setTripName(tripsPlants.getTripName());
         trips.setPlants(tripsPlants.getPlants());
         trips.setNotes(tripsPlants.getNotes());
+        trips.setUserName((tripsPlants.getUserName()));
         tripsRepository.save(trips);
         return "redirect:/trip";
     }
@@ -75,6 +67,7 @@ public class TripsController {
                 trip.setNotes(newTrips.getNotes());
             }
             trip.setPlants(newTrips.getPlants());
+            trip.setUserName(newTrips.getUserName());
 
             return tripsRepository.save(trip);
         }).orElseThrow(()-> new Error("trip not found"));
