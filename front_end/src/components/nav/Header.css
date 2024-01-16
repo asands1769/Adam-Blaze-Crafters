@@ -5,13 +5,14 @@
     list-style: none;
     padding: 0;
     width: 100%;
+    background-color: #D4CDB0;
   }
   
   .navbar a {
-    text-decoration: none;
+    text-decoration: bold;
     padding: 10px;
     margin: 0 10px;
-    color: black;
+    color: #2C2521;
   }
   
   

@@ -143,11 +143,13 @@
     font-size: 1.2em;
     display: block;
     margin-bottom: 8px;
+    color: #FEF3E8;
   }
   
   .hike-card p {
     margin: 0;
-    font-weight: bold; 
+    font-weight: bold;
+    color: #BB9359; 
   }
   
   .hike-card button {
@@ -162,4 +164,13 @@
   
   .hike-card button:hover {
     background-color: #45a049;
+  }
+
+  span {
+color: #85AB49;
+  }
+
+  label {
+    color: #BB9359;
+    font-weight:bold;
   }

@@ -90,15 +90,17 @@ select{
   .plant-container {
    min-width: 55%;
    height: 100%;
-   border: 1px solid black;
+   border: 1px solid #85AB49;
    border-radius: 5px;
    padding-top: 10px;
+   background-color: #452E16;
   }
 
   .plant-details {
     max-width: 270px;
     margin: 10px 45px 10px 0;
     text-wrap: wrap;
+    color: #85AB49;
   }
 
   .image-container {
@@ -121,7 +123,7 @@ select{
     right: 10px;
   }
   .photo-credit a {
-    text-decoration: none;
+    text-decoration: bold;
     font-size: .8rem;
     color: black;
   }
