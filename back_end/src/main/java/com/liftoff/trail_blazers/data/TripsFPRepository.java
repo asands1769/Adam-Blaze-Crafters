@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TripsPlantsRepository extends JpaRepository<Trips, Integer> {
+public interface TripsFPRepository extends JpaRepository<Trips, Integer> {
 }

@@ -24,12 +24,16 @@ public class Trips extends AbstractEntity {
     @ManyToMany
     private List<Plants> plants = new ArrayList<>();
 
-    public Trips(String tripName, String location, Date date, String notes, List<Plants> plants, String userName) {
+    @ManyToMany
+    private List<Fauna> fauna = new ArrayList<>();
+
+    public Trips(String tripName, String location, Date date, String notes, List<Plants> plants, List<Fauna> fauna, String userName) {
         this.tripName = tripName;
         this.location = location;
         this.date = date;
         this.notes = notes;
         this.plants = plants;
+        this.fauna = fauna;
         this.userName = userName;
     }
 
@@ -71,6 +75,14 @@ public class Trips extends AbstractEntity {
 
     public void setPlants(List<Plants> plants) {
         this.plants = plants;
+    }
+
+    public List<Fauna> getFauna() {
+        return fauna;
+    }
+
+    public void setFauna(List<Fauna> fauna) {
+        this.fauna = fauna;
     }
 
     public String getUserName() {

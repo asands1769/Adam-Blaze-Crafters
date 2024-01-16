@@ -1,12 +1,13 @@
 package com.liftoff.trail_blazers.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.liftoff.trail_blazers.model.Fauna;
 import com.liftoff.trail_blazers.model.Plants;
 
 import java.util.Date;
 import java.util.List;
 
-public class TripsPlantsDTO {
+public class TripsFPDTO {
 
     private String tripName;
     private String location;
@@ -15,9 +16,10 @@ public class TripsPlantsDTO {
     private Date date;
     private String notes;
     private List<Plants> plants;
+    private List<Fauna> fauna;
     private String userName;
 
-    public TripsPlantsDTO(){}
+    public TripsFPDTO(){}
 
     public String getTripName() {
         return tripName;
@@ -57,11 +59,19 @@ public class TripsPlantsDTO {
         this.plants = plants;
     }
 
+    public List<Fauna> getFauna() {
+        return fauna;
+    }
+
+    public void setFauna(List<Fauna> fauna) {
+        this.fauna = fauna;
+    }
+
     public String getUserName() {
         return userName;
     }
 
-    public void setuserName(String userName) {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 }

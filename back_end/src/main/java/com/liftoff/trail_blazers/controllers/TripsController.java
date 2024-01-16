@@ -1,10 +1,9 @@
 package com.liftoff.trail_blazers.controllers;
 
-import com.liftoff.trail_blazers.data.PlantsRepository;
-import com.liftoff.trail_blazers.data.TripsPlantsRepository;
+import com.liftoff.trail_blazers.data.TripsFPRepository;
 import com.liftoff.trail_blazers.data.TripsRepository;
 import com.liftoff.trail_blazers.model.Trips;
-import com.liftoff.trail_blazers.model.dto.TripsPlantsDTO;
+import com.liftoff.trail_blazers.model.dto.TripsFPDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +17,7 @@ public class TripsController {
     @Autowired
     private TripsRepository tripsRepository;
     @Autowired
-    private TripsPlantsRepository tripsPlantsRepository;
-    @Autowired
-    private PlantsRepository plantsRepository;
+    private TripsFPRepository tripsFPRepository;
 
     @GetMapping("/all/{userName}")
     public List<Trips> displayAllTrips(@PathVariable String userName) {
@@ -28,31 +25,18 @@ public class TripsController {
     }
 
     @PostMapping("/add")
-    public String addTrip(@RequestBody TripsPlantsDTO tripsPlants){
+    public String addTrip(@RequestBody TripsFPDTO tripsFP){
         Trips trips = new Trips();
-        trips.setDate(tripsPlants.getDate());
-        trips.setLocation(tripsPlants.getLocation());
-        trips.setTripName(tripsPlants.getTripName());
-        trips.setPlants(tripsPlants.getPlants());
-        trips.setNotes(tripsPlants.getNotes());
-        trips.setUserName((tripsPlants.getUserName()));
+        trips.setDate(tripsFP.getDate());
+        trips.setLocation(tripsFP.getLocation());
+        trips.setTripName(tripsFP.getTripName());
+        trips.setPlants(tripsFP.getPlants());
+        trips.setNotes(tripsFP.getNotes());
+        trips.setUserName((tripsFP.getUserName()));
+        trips.setFauna(tripsFP.getFauna());
         tripsRepository.save(trips);
         return "redirect:/trip";
     }
-
-//    @PostMapping("/add-plant")
-//    public String processAddPlantForm(TripsPlantsDTO tripsPlants, Errors errors){
-//        if(!errors.hasErrors()){
-//            Trips trips = tripsPlants.getTrips();
-//            Plants plants = tripsPlants.getPlants();
-//            if(!trips.getPlants().contains(plants)){
-//                trips.setPlants(List<Plants> plants);
-//                tripsRepository.save(trips);
-//            }
-//        }
-//        return "redirect:/all";
-//    }
-
 
     @PutMapping("/update/{id}")
     public Trips updateTrip(@PathVariable int id, @RequestBody Trips newTrips) {
@@ -67,7 +51,7 @@ public class TripsController {
                 trip.setNotes(newTrips.getNotes());
             }
             trip.setPlants(newTrips.getPlants());
-            trip.setUserName(newTrips.getUserName());
+            trip.setFauna(newTrips.getFauna());
 
             return tripsRepository.save(trip);
         }).orElseThrow(()-> new Error("trip not found"));
@@ -80,13 +64,6 @@ public class TripsController {
         }
         tripsRepository.deleteById(id);
         return "redirect:/all";
-    }
-
-
-    @PostMapping("/trips_plants")
-    public String addPlants(@RequestBody Trips newTrip){
-        tripsPlantsRepository.save(newTrip);
-        return "redirect:/trip";
     }
 
 }
