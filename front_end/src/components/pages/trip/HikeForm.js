@@ -29,7 +29,6 @@ const HikeForm = ({ onSubmit, selectedHike, onEdit }) => {
   const urlPlants = "http://localhost:8080/plants";
   const urlTrips = "http://localhost:8080/trips/all/" + userName;
 
-  // const imageCheckbox = document.querySelectorAll(".checkbox-style");
   const updateForm = document.getElementById("update-form");
   const submitForm = document.getElementById("submit-form");   
     
@@ -165,15 +164,7 @@ function deleteCheckmarks(){
     });
 
     if (selectedHike) {
-      onEdit({
-        ...selectedHike,
-        tripName,
-        location,
-        date,
-        notes,
-        plants,
-        fauna,
-      });
+      onEdit({...selectedHike, tripName, location, date, notes, plants, fauna,});
     } else {
       onSubmit({ tripName, location, date, notes, plants, fauna, userName });
     }
