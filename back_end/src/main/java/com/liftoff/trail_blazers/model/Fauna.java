@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 public class Fauna extends AbstractEntity{
@@ -85,10 +84,6 @@ public class Fauna extends AbstractEntity{
         if (this == o) return true;
         if (!(o instanceof Fauna fauna)) return false;
         return getId() == fauna.getId();
-    }
-
-    public void setPhotoCredit(String photoCredit) {
-        this.photoCredit = photoCredit;
     }
 
     public List<Trips> getTrips() {
