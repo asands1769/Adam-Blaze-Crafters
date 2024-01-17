@@ -1,3 +1,8 @@
+.page-container{
+  min-height: 500px;
+  margin: 10px;
+}
+
 .row {
     display: flex;
     flex-wrap: wrap;
@@ -11,7 +16,6 @@
 
 .main-container {
   height: 450px;
-  margin: 10px 50px 50px;
 }
 
 .leftside-container{
@@ -20,11 +24,6 @@
 
 .save-container {
   width: auto;
-}
-select{
-  width: 50%;
-  margin: 5px;
-  padding: 2px;
 }
 
 .create-trip {
@@ -39,8 +38,13 @@ select{
     margin-right: 30px;
 }
 
-.small{
-    padding: 0 5px;
+.small, small > a {
+  padding: 0 5px;
+  color: #FEF3E8;
+}
+
+small > a:hover, .photo-credit >a:hover {
+  color: #546e2a;
 }
 
 .search-plants {
@@ -65,10 +69,6 @@ select{
       margin-left: 5px;
     }
 
-  .checkboxSize {
-    width: 15px;
-  }
-
   .btn-plants{
     width: 95%;
     display: inline-block;
@@ -92,7 +92,7 @@ select{
    height: 100%;
    border: 1px solid #85AB49;
    border-radius: 5px;
-   padding-top: 10px;
+   padding: 10px 20px;
    background-color: #452E16;
   }
 
@@ -101,6 +101,14 @@ select{
     margin: 10px 45px 10px 0;
     text-wrap: wrap;
     color: #85AB49;
+  }
+
+  .plant-title {
+    color: #e9b035;
+    margin-bottom: 10px;
+  }
+  .plant-details > p {
+    margin-bottom: 5px;
   }
 
   .image-container {
@@ -125,5 +133,5 @@ select{
   .photo-credit a {
     text-decoration: bold;
     font-size: .8rem;
-    color: black;
+    color: #FEF3E8;
   }

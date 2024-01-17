@@ -68,14 +68,6 @@
   margin-left: 3px;
 }
 
-.form-small, small > a {
-  color: #FEF3E8;
-}
-
-small > a:hover {
-  color: #546e2a;
-}
-
 .label-plants{
   width: 95%;
   display: inline-block;
@@ -100,15 +92,20 @@ small > a:hover {
 
   .form-plant-container{
     min-width: 55%;
-   height: 100%;
-   border: 1px solid #85AB49;
-   border-radius: 5px;
-   padding-top: 10px;
-   background-color: #452E16;
+    height: 100%;
+    border: 1px solid #85AB49;
+    border-radius: 5px;
+    padding-top: 10px;
+    background-color: #452E16;
   }
 
   .form-plant-container a {
     color: #FEF3E8;
+  }
+
+  .pl-image-container{
+    text-align: center;
+    position: relative;
   }
 
 .display-block{

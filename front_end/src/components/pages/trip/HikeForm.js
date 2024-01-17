@@ -262,13 +262,10 @@ useEffect(() => {
 // *** Plant Display A Picture Of the Plant *** //
   const displayClickedItems = clickedItems.map((post) => {
     return (
-      <div key={post.id} className="flex">
-        <div className="image-container">
-          <img
-            className="plant-img-size"
-            src={post.image}
-            alt={post.commonName}
-          />
+      <div key={post.id}>
+        <div className="pl-image-container">
+          <h3 className='plant-title'>{post.scientificName}</h3>
+          <img className="plant-img-size" src={post.image} alt={post.commonName} />
           <div className="photo-credit">
             <a href={post.photoCredit} target="_blank" rel="noreferrer">
               photo credit
@@ -402,8 +399,7 @@ useEffect(() => {
     return (
       <div key={animal.id} className="flex">
         <div className="image-container">
-          <img
-            className="plant-img-size"
+          <img className="plant-img-size" 
             src={animal.image}
             alt={animal.commonName}
           />
@@ -539,12 +535,12 @@ function deleteCheckmarks(){
                         />
                         {displaySearchedItems}
                       </div>
-                      <div className="form-small">
+                      <div className="small">
                         <small>
                           *List is not a comprehensive of all plants in Missouri
                         </small>
                       </div>
-                      <div className="form-small">
+                      <div className="small">
                         <small>
                           *Data provided by{" "}
                           <a href="https://ecos.fws.gov/ecp0/reports/ad-hoc-species-report-input">
@@ -578,13 +574,13 @@ function deleteCheckmarks(){
                         />
                         {displaySearchedAnimals}
                       </div>
-                      <div className="form-small">
+                      <div className="small">
                         <small>
                           *List is not a comprehensive of all wildlife in
                           Missouri.
                         </small>
                       </div>
-                      <div className="form-small">
+                      <div className="small">
                         <small>
                           *Data provided by{" "}
                           <a href="https://ecos.fws.gov/ecp0/reports/ad-hoc-species-report-input">
@@ -712,12 +708,12 @@ function deleteCheckmarks(){
                         />
                         {displaySearchedItems}
                       </div>
-                      <div className="form-small">
+                      <div className="small">
                         <small>
                           *List is not a comprehensive of all plants in Missouri
                         </small>
                       </div>
-                      <div className="form-small">
+                      <div className="small">
                         <small>
                           *Data provided by{" "}
                           <a href="https://ecos.fws.gov/ecp0/reports/ad-hoc-species-report-input">
@@ -751,13 +747,13 @@ function deleteCheckmarks(){
                         />
                         {displaySearchedAnimals}
                       </div>
-                      <div className="form-small">
+                      <div className="small">
                         <small>
                           *List is not a comprehensive of all wildlife in
                           Missouri.
                         </small>
                       </div>
-                      <div className="form-small">
+                      <div className="small">
                         <small>
                           *Data provided by{" "}
                           <a href="https://ecos.fws.gov/ecp0/reports/ad-hoc-species-report-input">

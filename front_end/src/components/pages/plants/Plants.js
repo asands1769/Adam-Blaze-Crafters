@@ -10,7 +10,7 @@ const DisplayPlants = () => {
   const [click, setClick] = useState('');
   const urlPlants = "http://localhost:8080/plants";
 
-  // Fetching trail_blazer database
+  // Fetching plants database
   const fetchInfo = async () => {
     await fetch(urlPlants)
       .then((resData) => (resData.json()))
@@ -39,7 +39,6 @@ const DisplayPlants = () => {
       return (
       <div key={post.id}>
         <div  className='add-plant-form' >
-          {/* <input type="checkbox" id={post.id} name={post.id} value={post.scientificName} className='checkboxSize'/> */}
           <label id={post.id} onClick={clicked} className='btn-plants'> {`${post.scientificName} (${post.commonName})`}</label>
         </div>
       </div>
@@ -57,11 +56,11 @@ const DisplayPlants = () => {
       return (
       <div key={post.id} className='flex'>
         <div className='plant-details'>
-            <h3>{post.commonName}</h3>
-            <p>{`Scientific Name: ${post.scientificName}`}</p>
-            <p>Family: {post.family}</p>
-            <p>States found in: {post.currentDistribution}</p>
-            <p>Federal listing status: {post.federalListingStatus}</p>
+            <h3 className='plant-title'>{post.commonName}</h3>
+            <p><b>Scientific Name:</b> {post.scientificName}</p>
+            <p><b>Family: </b> {post.family}</p>
+            <p><b>States found in: </b>{post.currentDistribution}</p>
+            <p><b>Federal listing status: </b>{post.federalListingStatus}</p>
           </div>
           <div className='image-container'>
             <img className="plant-img-size" src={post.image} alt={post.commonName}/>
@@ -69,20 +68,11 @@ const DisplayPlants = () => {
           </div>
         </div>)
     })
-
-    // Methods for displaying trips to save to
-    // const reversePlantTrip = trips.sort((a, b) => a.id < b.id ? 1 : -1 );
-    // const displayTrips = reversePlantTrip.map(trip => {
-    //   return (
-    //         <option key={trip.id} id={trip.id} name="tripName" value={trip.tripName}>
-    //           {trip.tripName}
-    //         </option>
-    //   )
-    // })
   
   return (
-      <div>
+      <div className='page-container'>
         <h2>Plants of Missouri</h2>
+        <h3 className='plant-title'>Select a plant to view more details</h3>
         <div className='row main-container'>
           <div className='leftside-container'>
             <div className='search-container'>
