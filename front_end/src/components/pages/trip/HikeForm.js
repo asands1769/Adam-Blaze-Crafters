@@ -439,15 +439,15 @@ function deleteCheckmarks(){
   const handleToggleClick = () => {
     setToggle(!toggle);
     if (!toggle) {
-      document.getElementById("toggle-btn").innerHTML = "Animals";
+      document.getElementById("toggle-btn").innerHTML = "Animals Of Missouri";
       document.getElementById("toggle-animals").style.display = "none";
       document.getElementById("toggle-plants").style.display = "block";
       //Edit Trip
-      document.getElementById("toggle-btn-edit").innerHTML = "Animals";
+      document.getElementById("toggle-btn-edit").innerHTML = "Animals of Missouri";
       document.getElementById("toggle-animals-edit").style.display = "none";
       document.getElementById("toggle-plants-edit").style.display = "block";
     } else {
-      document.getElementById("toggle-btn").innerHTML = "Plants";
+      document.getElementById("toggle-btn").innerHTML = "Plants of Missouri";
       document.getElementById("toggle-plants").style.display = "none";
       document.getElementById("toggle-animals").style.display = "block";
       //Edit Trip
@@ -464,7 +464,7 @@ function deleteCheckmarks(){
 {/* *** Submit Form Return */}
       <div id="submit-form">
         <form onSubmit={handleSubmit} method="POST" action={FORM_ENDPOINT}>
-          <div className="parent-container">
+          <div className="trip-parent-container">
             <div className="left-container"> {/* *** Submit Form *** */}
               <h2>Add Trip</h2>
               <label>
@@ -519,18 +519,14 @@ function deleteCheckmarks(){
               </button>
             </div>
 {/* *** Submit Form Plant/Animal Buttons And Image Display *** */}
-            <div>
+            <div className='tggl-display'>
 {/* *** Submit Form Toggle Button *** */}
-              <button type="button" id="toggle-btn" onClick={handleToggleClick}>
-                Animals
+              <button type="button" id="toggle-btn" onClick={handleToggleClick} className='toggle-btn'>
+                Animals Of Missouri
               </button>
 
 {/* *** PLANTS DISPLAY *** */}
-              <div
-                className="middle-container"
-                id="toggle-plants"
-                style={{ display: "block" }}
-              >
+              <div className="middle-container" id="toggle-plants" style={{ display: "block" }}>
                 <h2>Plants of Missouri</h2>
                 <div className="row main-container">
                   <div className="leftside-container">
@@ -543,12 +539,12 @@ function deleteCheckmarks(){
                         />
                         {displaySearchedItems}
                       </div>
-                      <div className="small">
+                      <div className="form-small">
                         <small>
                           *List is not a comprehensive of all plants in Missouri
                         </small>
                       </div>
-                      <div className="small">
+                      <div className="form-small">
                         <small>
                           *Data provided by{" "}
                           <a href="https://ecos.fws.gov/ecp0/reports/ad-hoc-species-report-input">
@@ -558,7 +554,7 @@ function deleteCheckmarks(){
                       </div>
                     </div>
                   </div>
-                  <div className="plant-container flex">
+                  <div className="form-plant-container flex">
                     {displayClickedItems}
                   </div>
                 </div>
@@ -582,13 +578,13 @@ function deleteCheckmarks(){
                         />
                         {displaySearchedAnimals}
                       </div>
-                      <div className="small">
+                      <div className="form-small">
                         <small>
                           *List is not a comprehensive of all wildlife in
                           Missouri.
                         </small>
                       </div>
-                      <div className="small">
+                      <div className="form-small">
                         <small>
                           *Data provided by{" "}
                           <a href="https://ecos.fws.gov/ecp0/reports/ad-hoc-species-report-input">
@@ -598,7 +594,7 @@ function deleteCheckmarks(){
                       </div>
                     </div>
                   </div>
-                  <div className="plant-container flex">
+                  <div className="form-plant-container flex">
                     {displayClickedAnimal}
                   </div>
                 </div>
@@ -611,7 +607,7 @@ function deleteCheckmarks(){
 {/* ********** Update Form Return ********** */}
       <div id="update-form">
         <form className="form-history" onSubmit={updateTrip}>
-          <div className="parent-container">
+          <div className="trip-parent-container">
             <div className="left-container"> {/* Update Form*/}
               <h2>Edit Trip</h2>
               <input
@@ -692,9 +688,9 @@ function deleteCheckmarks(){
               </button>
             </div>
 {/* *** Update Form Plant/Animal Buttons And Image Display *** */}
-            <div>
+            <div className='tggl-display'>
 {/* *** Update Form Toggle Button *** */}
-              <button type="button" id="toggle-btn-edit" onClick={handleToggleClick}>
+              <button type="button" id="toggle-btn-edit" onClick={handleToggleClick} className='tggl-btn'>
                 Animals
               </button>
 
@@ -716,12 +712,12 @@ function deleteCheckmarks(){
                         />
                         {displaySearchedItems}
                       </div>
-                      <div className="small">
+                      <div className="form-small">
                         <small>
                           *List is not a comprehensive of all plants in Missouri
                         </small>
                       </div>
-                      <div className="small">
+                      <div className="form-small">
                         <small>
                           *Data provided by{" "}
                           <a href="https://ecos.fws.gov/ecp0/reports/ad-hoc-species-report-input">
@@ -731,7 +727,7 @@ function deleteCheckmarks(){
                       </div>
                     </div>
                   </div>
-                  <div className="plant-container flex">
+                  <div className="form-plant-container flex">
                     {displayClickedItems}
                   </div>
                 </div>
@@ -755,13 +751,13 @@ function deleteCheckmarks(){
                         />
                         {displaySearchedAnimals}
                       </div>
-                      <div className="small">
+                      <div className="form-small">
                         <small>
                           *List is not a comprehensive of all wildlife in
                           Missouri.
                         </small>
                       </div>
-                      <div className="small">
+                      <div className="form-small">
                         <small>
                           *Data provided by{" "}
                           <a href="https://ecos.fws.gov/ecp0/reports/ad-hoc-species-report-input">
@@ -771,7 +767,7 @@ function deleteCheckmarks(){
                       </div>
                     </div>
                   </div>
-                  <div className="plant-container flex">
+                  <div className="form-plant-container flex">
                     {displayClickedAnimal}
                   </div>
                 </div>

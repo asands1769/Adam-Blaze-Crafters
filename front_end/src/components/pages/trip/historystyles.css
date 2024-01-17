@@ -1,6 +1,7 @@
 /* historystyles.css */
   
-  .parent-container {
+  .trip-parent-container {
+    margin-top: 30px;
     margin-bottom: 20px;
     display: flex;
     flex-direction: row;
@@ -13,15 +14,25 @@
     margin-right: 30px;
   }
 
+  .tggl-display{
+    width: 100%;
+  }
+
+  .toggle-btn {
+    margin-left: 40px;
+    margin-bottom: 5px;
+    padding: 5px;
+  }
+
   .middle-container {
-    width: 80%;
+    min-width: 750px;
   }
 
   .middle-container h2 {
-    margin-left: 50px;
+    margin-left: 40px;
   }
   .search-container {
-    width: 90%;
+    width: 100%;
   }
 
   .add-plant-form{
@@ -57,6 +68,14 @@
   margin-left: 3px;
 }
 
+.form-small, small > a {
+  color: #FEF3E8;
+}
+
+small > a:hover {
+  color: #546e2a;
+}
+
 .label-plants{
   width: 95%;
   display: inline-block;
@@ -79,8 +98,17 @@
   }
 
 
-  .plant-container{
-    width: 50%;
+  .form-plant-container{
+    min-width: 55%;
+   height: 100%;
+   border: 1px solid #85AB49;
+   border-radius: 5px;
+   padding-top: 10px;
+   background-color: #452E16;
+  }
+
+  .form-plant-container a {
+    color: #FEF3E8;
   }
 
 .display-block{

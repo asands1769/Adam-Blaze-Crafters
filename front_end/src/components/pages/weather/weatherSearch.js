@@ -106,7 +106,7 @@ const WeatherSearch = () => {
         <h1>Park Weather</h1>
         <div className="parent-container">
           <div className="park-list child">
-            <select className="select" onChange={setCoordinates}>
+            <select className="weather-select" onChange={setCoordinates}>
               <option value="placeholder">Select a Park</option>
               {parksArray.map((park) => (
                 <option key={park.id} value={park.id}>
