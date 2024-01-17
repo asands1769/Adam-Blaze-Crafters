@@ -19,11 +19,7 @@ public class Trips extends AbstractEntity {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date date;
     private String notes;
-
-
-//    THIS PROPERTY WILL BE SET ONCE WE FETCH THE USERNAME FROM REACT SIDE
-//    @ManyToOne
-////    private User username;
+    private String userName;
 
     @ManyToMany
     private List<Plants> plants = new ArrayList<>();
@@ -31,13 +27,14 @@ public class Trips extends AbstractEntity {
     @ManyToMany
     private List<Fauna> fauna = new ArrayList<>();
 
-    public Trips(String tripName, String location, Date date, String notes, List<Plants> plants, List<Fauna> fauna) {
+    public Trips(String tripName, String location, Date date, String notes, List<Plants> plants, List<Fauna> fauna, String userName) {
         this.tripName = tripName;
         this.location = location;
         this.date = date;
         this.notes = notes;
         this.plants = plants;
         this.fauna = fauna;
+        this.userName = userName;
     }
 
     public Trips() {}
@@ -86,6 +83,14 @@ public class Trips extends AbstractEntity {
 
     public void setFauna(List<Fauna> fauna) {
         this.fauna = fauna;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Override

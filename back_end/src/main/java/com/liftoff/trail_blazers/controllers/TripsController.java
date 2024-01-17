@@ -16,13 +16,12 @@ public class TripsController {
 
     @Autowired
     private TripsRepository tripsRepository;
-
     @Autowired
     private TripsFPRepository tripsFPRepository;
 
-    @GetMapping("/all")
-    public List<Trips> displayAllTrips() {
-        return tripsRepository.findAll();
+    @GetMapping("/all/{userName}")
+    public List<Trips> displayAllTrips(@PathVariable String userName) {
+        return tripsRepository.findByUserName(userName);
     }
 
     @PostMapping("/add")
@@ -33,24 +32,11 @@ public class TripsController {
         trips.setTripName(tripsFP.getTripName());
         trips.setPlants(tripsFP.getPlants());
         trips.setNotes(tripsFP.getNotes());
+        trips.setUserName((tripsFP.getUserName()));
         trips.setFauna(tripsFP.getFauna());
         tripsRepository.save(trips);
         return "redirect:/trip";
     }
-
-//    @PostMapping("/add-plant")
-//    public String processAddPlantForm(TripsFPDTO tripsFP, Errors errors){
-//        if(!errors.hasErrors()){
-//            Trips trips = tripsFP.getTrips();
-//            Plants plants = tripsFP.getPlants();
-//            if(!trips.getPlants().contains(plants)){
-//                trips.setPlants(List<Plants> plants);
-//                tripsRepository.save(trips);
-//            }
-//        }
-//        return "redirect:/all";
-//    }
-
 
     @PutMapping("/update/{id}")
     public Trips updateTrip(@PathVariable int id, @RequestBody Trips newTrips) {
@@ -66,6 +52,7 @@ public class TripsController {
             }
             trip.setPlants(newTrips.getPlants());
             trip.setFauna(newTrips.getFauna());
+
             return tripsRepository.save(trip);
         }).orElseThrow(()-> new Error("trip not found"));
     }
@@ -77,13 +64,6 @@ public class TripsController {
         }
         tripsRepository.deleteById(id);
         return "redirect:/all";
-    }
-
-
-    @PostMapping("/trips_plants")
-    public String addPlants(@RequestBody Trips newTrip){
-        tripsFPRepository.save(newTrip);
-        return "redirect:/trip";
     }
 
 }
