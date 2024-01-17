@@ -101,7 +101,7 @@ const WeatherSearch = () => {
   };
 
   return (
-    <>
+    <div className="page-container">
       <div className="weather-page">
         <h1>Park Weather</h1>
         <div className="parent-container">
@@ -147,7 +147,7 @@ const WeatherSearch = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

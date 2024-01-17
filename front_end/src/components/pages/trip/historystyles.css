@@ -1,8 +1,6 @@
 /* historystyles.css */
   
   .trip-parent-container {
-    margin-top: 30px;
-    margin-bottom: 20px;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -30,6 +28,7 @@
 
   .middle-container h2 {
     margin-left: 40px;
+    margin-bottom: 5px;
   }
   .search-container {
     width: 100%;
@@ -57,6 +56,10 @@
     background-color:#45a049;
   }
 
+  .margin-3 {
+    margin: 1px 3px 0;
+  }
+
   .add-plant-form{
     display: flex;
     justify-content: start;
@@ -66,6 +69,7 @@
 .checkbox-style{
   width: 20px;
   margin-left: 3px;
+  vertical-align: bottom;
 }
 
 .label-plants{
@@ -73,15 +77,16 @@
   display: inline-block;
   text-align: left;
   border-radius: 5px;
-  padding: 2px;
-  margin: 2px 2px 2px 0;
+  margin: 8px 2px 1px;
+  padding: 3px 4px;
   border: none;
   background-color: transparent;
   text-wrap: pretty;
 }
 
 .label-plants:hover {
-  background-color: #90ad73;
+  background-color: #45a049;
+  color: #FEF3E8;
   cursor: pointer;
 }
 
@@ -139,15 +144,6 @@
 
   #update-form {
     display: none;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  li {
-    margin-bottom: 10px;
   }
   
   .hike-list-container {

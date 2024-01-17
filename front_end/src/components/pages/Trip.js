@@ -42,7 +42,7 @@ const Trip = () => {
   };
 
   return (
-    <div>
+    <div className='page-container'>
       <HikeForm onSubmit={handleAddHike} selectedHike={selectedHike} onEdit={handleEditHike} />
       <HikeList hikes={hikes} onDelete={handleDeleteHike} onEdit={handleEditClick} />
     </div>

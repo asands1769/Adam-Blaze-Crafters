@@ -204,7 +204,7 @@ useEffect(() => {
 // *** Plant Display checkbox, Name, Add Btn, And Delete Btn With Methods To Add Or Delete Plants From Array. *** //
   const displaySearchedItems = searchItems.map((post) => {
     return (
-      <div key={post.id}>
+      <div key={post.id} className="margin-3" >
         <div className="add-plant-form">
           <div className="display-inline-block">
             <label id={post.id} onClick={clicked} className="label-plants">
@@ -335,7 +335,7 @@ useEffect(() => {
 // *** Animal List Of Animals With Add Btn, Delete Btn, Name Of Animal, And Check Mark *** //
   const displaySearchedAnimals = searchFauna.map((post) => {
     return (
-      <div key={post.id}>
+      <div key={post.id} className="margin-3">
         <div className="add-plant-form">
           <div className="display-inline-block">
             <label
@@ -454,9 +454,9 @@ function deleteCheckmarks(){
     return toggle;
   };
 
-// ********** Form Return ********** //
+// *************** Form Return *************** //
   return (
-    <>
+    <div>
 {/* *** Submit Form Return */}
       <div id="submit-form">
         <form onSubmit={handleSubmit} method="POST" action={FORM_ENDPOINT}>
@@ -686,7 +686,7 @@ function deleteCheckmarks(){
 {/* *** Update Form Plant/Animal Buttons And Image Display *** */}
             <div className='tggl-display'>
 {/* *** Update Form Toggle Button *** */}
-              <button type="button" id="toggle-btn-edit" onClick={handleToggleClick} className='tggl-btn'>
+              <button type="button" id="toggle-btn-edit" onClick={handleToggleClick} className='toggle-btn'>
                 Animals
               </button>
 
@@ -772,7 +772,7 @@ function deleteCheckmarks(){
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

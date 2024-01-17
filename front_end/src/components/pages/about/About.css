@@ -4,3 +4,19 @@ section {
     padding: 20px;
     color: #85AB49;
   }
+
+  section h4 {
+    color: #FEF3E8;
+  }
+
+  .margin-10 {
+    margin: 10px;
+  }
+
+  .c-orange {
+    color: #e9b035;
+  }
+
+  .t-center {
+    margin-top: 80px;
+  }
