@@ -21,7 +21,7 @@ function App() {
   
   return (
     <main>
-    <Router>
+    <Router className="header">
       <Header/>
       <Routes>
         <Route exact path='/' element={<Home />} />
