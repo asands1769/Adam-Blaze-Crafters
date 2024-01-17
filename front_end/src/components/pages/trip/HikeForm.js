@@ -133,11 +133,17 @@ useEffect(() => {
 // Delete checkmark onClick button Delete
 function deleteCheckmarks(){
   const submitCheckbox = submitForm.querySelectorAll("#add-btn-plant");
+  const animalCheckbox = submitForm.querySelectorAll("#add-btn-animal");
     for (const chmk of submitCheckbox){
       chmk.lastChild.style.visibility = "hidden";
       chmk.firstElementChild.disabled = false;
       chmk.lastElementChild.disabled = true;
       }
+    for (const anchmk of animalCheckbox){
+      anchmk.lastChild.style.visibility = "hidden";
+      anchmk.firstElementChild.disabled = false;
+      anchmk.lastElementChild.disabled = true;
+    }
 }
  
 // Submit function with POST request

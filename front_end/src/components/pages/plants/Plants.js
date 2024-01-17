@@ -12,15 +12,9 @@ const DisplayPlants = () => {
 
   // Fetching trail_blazer database
   const fetchInfo = async () => {
-    Promise.all([
-      await fetch(urlPlants)
-    ])
-      .then((resData) => 
-      Promise.all(resData.json())
-      )
-      .then((dData) => {
-        setData(dData);
-      })
+    await fetch(urlPlants)
+      .then((resData) => (resData.json()))
+      .then(dData => setData(dData));
     }
 
   useEffect(() => {
