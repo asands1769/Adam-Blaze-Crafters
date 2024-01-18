@@ -20,7 +20,6 @@ const FaunaList = () => {
 //map through data from database and capture selected animal
   const animalArray = data.map((animal) => animal);
 
-
   const handleAnimalChange = (e) => {
     const selectedValue = e.target.value;
     const selectedAnimalData = animalArray.find(

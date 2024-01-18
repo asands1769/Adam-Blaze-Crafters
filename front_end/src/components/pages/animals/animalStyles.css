@@ -8,12 +8,12 @@
 }
 
 .animal-data-container {
-    text-align: center;
-    width: 50%;
-    height: auto;
-    background-color: #f0f0f0;
-    margin-bottom: 10%;
-    background-color: #D4CDB0;
+    min-width: 55%;
+   min-height: 600px;
+   border: 1px solid #85AB49;
+   border-radius: 5px;
+   padding: 10px 20px;
+   background-color: #452E16;
 }
 
 .animal-data {
@@ -26,14 +26,14 @@
 }
 
 .animal-drop-down {
-    background-color: #f0f0f0;
+    
     height: auto;
-    width: auto;
+    min-width: 400px;
     margin: 15%;
     background-color: #b89c72;
 }
 
 .animal-image {
     height: auto;
-    width: 60%;
+    max-width: 500px;
 }
