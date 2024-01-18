@@ -9,17 +9,18 @@ export default function Header() {
             <nav>
                 <ul className="navbar">
                     <li><a href='/'>Home</a></li>
+                    <li><a href='/about'>About</a></li>
                     <li><a href='/weather'>Weather</a></li>
                     <li><a href='/animals'>Animals</a></li>
                     <li><a href='/plants'>Plants</a></li>
                     <li><a href='http://discourse-trailblazer-forum.social' target="_blank">Forum</a></li>
                     {isAuthenticated && (
                         <>
-                            <li><a href='/trip'>Your Trips</a></li>
-                            <li><a href='/profile'>Profile</a></li>
+                            <li><a  className="t-decoration" href='/trip'>Your Trips</a></li>
+                            <li><a className="t-decoration" href='/profile'>Profile</a></li>
                         </>
                     )}
-                    <li><a href='/about'>About</a></li>
+                    
                 </ul>
             </nav>
         </header>

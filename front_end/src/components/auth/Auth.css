@@ -1,37 +1,39 @@
 .login-button {
-    padding: 10px;
-    background-color: #4CAF50; 
-    color: white; 
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    position: absolute;
-    top: 20px;
-    right: 30px;
+  padding: 0;
+  background-color: transparent;
+  color: #452E16; 
+  cursor: pointer;
+  position: absolute;
+  top: 26px;
+  right: 35px;
   }
 
   .login-button:hover {
-    background-color: #bbf3be;
+    background-color: transparent;
+    text-decoration: underline;
+    padding: 0;
+    position: absolute;
+    top: 26px;
+    right: 35px;
   }
 
   .logout-button {
-    margin-left: auto; /* Push the button to the right side of its container */
-    padding: 10px;
-    margin-right: 20px;
-    background-color: #f44336; 
-    color: white; 
-    border: none;
-    border-radius: 5px;
+    padding: 0;
+    background-color: transparent;
+    color: #452E16; 
     cursor: pointer;
-    display: flex;
     position: absolute;
-    top: 20px;
-    right:0;
+    top: 26px;
+    right: 35px;
   }
 
   .logout-button:hover {
-    background-color: #fbb4b4;
+    background-color: transparent;
+    text-decoration: underline;
+    padding: 0;
+    position: absolute;
+    top: 26px;
+    right: 35px;
   }
 
   .profile {

@@ -9,10 +9,24 @@
   }
   
   .navbar a {
-    text-decoration: bold;
+    text-decoration: none;
+    vertical-align: middle;
     padding: 10px;
     margin: 0 10px;
     color: #2C2521;
   }
   
+  .t-decoration {
+    font-style: italic;
+    text-decoration:none;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    height: 30px;
+  }
   
+  li {
+    padding: 3px
+  }

@@ -202,7 +202,7 @@ const FilterMap = () => {
                   "OBJECTID": 984,
                   "LOC_NAME": "Nathan and Olive Boone Homestead State Historic Site",
                   "PARK_ID": 4313,
-                  "URL": "http://mostateparks.com/park/nathan-boone-homestead-state-historic-site",
+                  "URL": "https://mostateparks.com/park/nathan-and-olive-boone-homestead-state-historic-site",
                   "SHORT_NAME": "Boone Homestead SHS",
                   "REGION": "Ozark Region",
                   "PARK_TYPE": "State Historic Site",

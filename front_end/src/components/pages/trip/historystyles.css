@@ -1,7 +1,6 @@
 /* historystyles.css */
   
-  .parent-container {
-    margin-bottom: 20px;
+  .trip-parent-container {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -13,15 +12,26 @@
     margin-right: 30px;
   }
 
+  .tggl-display{
+    width: 100%;
+  }
+
+  .toggle-btn {
+    margin-left: 40px;
+    margin-bottom: 5px;
+    padding: 5px;
+  }
+
   .middle-container {
-    width: 80%;
+    min-width: 750px;
   }
 
   .middle-container h2 {
-    margin-left: 50px;
+    margin-left: 40px;
+    margin-bottom: 5px;
   }
   .search-container {
-    width: 90%;
+    width: 100%;
   }
 
   .add-plant-form{
@@ -46,6 +56,10 @@
     background-color:#45a049;
   }
 
+  .margin-3 {
+    margin: 1px 3px 0;
+  }
+
   .add-plant-form{
     display: flex;
     justify-content: start;
@@ -55,6 +69,7 @@
 .checkbox-style{
   width: 20px;
   margin-left: 3px;
+  vertical-align: bottom;
 }
 
 .label-plants{
@@ -62,15 +77,16 @@
   display: inline-block;
   text-align: left;
   border-radius: 5px;
-  padding: 2px;
-  margin: 2px 2px 2px 0;
+  margin: 8px 2px 1px;
+  padding: 3px 4px;
   border: none;
   background-color: transparent;
   text-wrap: pretty;
 }
 
 .label-plants:hover {
-  background-color: #90ad73;
+  background-color: #45a049;
+  color: #FEF3E8;
   cursor: pointer;
 }
 
@@ -79,8 +95,22 @@
   }
 
 
-  .plant-container{
-    width: 50%;
+  .form-plant-container{
+    min-width: 55%;
+    height: 100%;
+    border: 1px solid #85AB49;
+    border-radius: 5px;
+    padding-top: 10px;
+    background-color: #452E16;
+  }
+
+  .form-plant-container a {
+    color: #FEF3E8;
+  }
+
+  .pl-image-container{
+    text-align: center;
+    position: relative;
   }
 
 .display-block{
@@ -114,15 +144,6 @@
 
   #update-form {
     display: none;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  li {
-    margin-bottom: 10px;
   }
   
   .hike-list-container {
